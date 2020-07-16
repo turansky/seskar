@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+set -e
+set -o pipefail
+
+./gradlew preparePublish
+./gradlew publishPlugins
+./gradlew prepareDevelopment
