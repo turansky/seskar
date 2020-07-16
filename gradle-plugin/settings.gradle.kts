@@ -1,4 +1,4 @@
-rootProject.name = "seskar"
+rootProject.name = "gradle-plugin"
 
 pluginManagement {
     repositories {
@@ -6,5 +6,3 @@ pluginManagement {
         maven("https://dl.bintray.com/kotlin/kotlin-eap")
     }
 }
-
-includeBuild("gradle-plugin")
