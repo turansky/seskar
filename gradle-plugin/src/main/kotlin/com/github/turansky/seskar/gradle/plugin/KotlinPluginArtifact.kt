@@ -6,5 +6,5 @@ internal val KOTLIN_PLUGIN_ARTIFACT: SubpluginArtifact
     get() = SubpluginArtifact(
         groupId = "gradle.plugin.com.github.turansky.seskar",
         artifactId = "gradle-plugin",
-        version = "0.0.1-SNAPSHOT"
+        version = "0.0.2-SNAPSHOT"
     )
