@@ -2,7 +2,9 @@ rootProject.name = "seskar"
 
 pluginManagement {
     plugins {
-        kotlin("jvm") version "1.4-M3"
+        val kotlinVersion = "1.4-M3"
+        kotlin("jvm") version kotlinVersion
+        kotlin("js") version kotlinVersion
     }
 
     repositories {
