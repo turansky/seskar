@@ -2,14 +2,9 @@ rootProject.name = "seskar"
 
 pluginManagement {
     plugins {
-        val kotlinVersion = "1.4-M3"
+        val kotlinVersion = "1.4.0"
         kotlin("jvm") version kotlinVersion
         kotlin("js") version kotlinVersion
-    }
-
-    repositories {
-        gradlePluginPortal()
-        maven("https://dl.bintray.com/kotlin/kotlin-eap")
     }
 }
 
