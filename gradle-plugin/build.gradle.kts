@@ -48,12 +48,7 @@ pluginBundle {
     }
 }
 
-// TODO: remove after migration on 1.4
-tasks.compileKotlin {
-    kotlinOptions.allWarningsAsErrors = false
-}
-
 tasks.wrapper {
-    gradleVersion = "6.6.1"
+    gradleVersion = "7.0"
     distributionType = Wrapper.DistributionType.ALL
 }
