@@ -2,12 +2,16 @@ rootProject.name = "seskar"
 
 pluginManagement {
     plugins {
-        id("com.gradle.plugin-publish") version "0.14.0"
-        id("com.github.turansky.kfc.plugin-publish") version "3.6.1"
-
-        val kotlinVersion = "1.4.32"
+        val kotlinVersion = extra["kotlin.version"] as String
         kotlin("jvm") version kotlinVersion
         kotlin("js") version kotlinVersion
+
+        val kfcVersion = extra["kfc.version"] as String
+        id("com.github.turansky.kfc.library") version kfcVersion
+        id("com.github.turansky.kfc.maven-central-publish") version kfcVersion
+
+        id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
+        id("com.gradle.plugin-publish") version "0.14.0"
     }
 }
 
