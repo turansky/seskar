@@ -4,5 +4,6 @@ plugins {
 }
 
 dependencies {
+    implementation("com.github.turansky.seskar:core")
     testImplementation(kotlin("test-js"))
 }
