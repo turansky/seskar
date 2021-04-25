@@ -13,4 +13,4 @@ pluginManagement {
 includeBuild("seskar")
 
 include("example")
-include("gradle-plugin-test")
+include("test")
