@@ -1,14 +1,10 @@
 plugins {
     `java-gradle-plugin`
 
-    id("com.gradle.plugin-publish") version "0.14.0"
-    id("com.github.turansky.kfc.plugin-publish") version "3.6.1"
+    id("com.gradle.plugin-publish")
+    id("com.github.turansky.kfc.plugin-publish")
 
-    kotlin("jvm") version "1.4.32"
-}
-
-repositories {
-    mavenCentral()
+    kotlin("jvm")
 }
 
 dependencies {
@@ -46,9 +42,4 @@ pluginBundle {
         )
         version = project.version.toString()
     }
-}
-
-tasks.wrapper {
-    gradleVersion = "7.0"
-    distributionType = Wrapper.DistributionType.ALL
 }
