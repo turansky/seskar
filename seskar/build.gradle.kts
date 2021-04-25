@@ -1,3 +1,7 @@
+plugins {
+    kotlin("js") apply false
+}
+
 allprojects {
     repositories {
         mavenCentral()
