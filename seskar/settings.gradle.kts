@@ -11,4 +11,7 @@ pluginManagement {
     }
 }
 
+include(":core")
+
+include(":compiler-plugin")
 include(":gradle-plugin")
