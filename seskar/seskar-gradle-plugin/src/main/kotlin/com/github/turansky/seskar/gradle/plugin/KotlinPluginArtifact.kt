@@ -5,6 +5,6 @@ import org.jetbrains.kotlin.gradle.plugin.SubpluginArtifact
 internal val KOTLIN_PLUGIN_ARTIFACT: SubpluginArtifact
     get() = SubpluginArtifact(
         groupId = "com.github.turansky.seskar",
-        artifactId = "compiler-plugin",
+        artifactId = "seskar-compiler-plugin",
         version = "0.0.3-SNAPSHOT"
     )

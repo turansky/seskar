@@ -11,7 +11,7 @@ pluginManagement {
     }
 }
 
-include(":core")
+include(":seskar-core")
 
-include(":compiler-plugin")
-include(":gradle-plugin")
+include(":seskar-compiler-plugin")
+include(":seskar-gradle-plugin")
