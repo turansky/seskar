@@ -10,7 +10,7 @@ pluginManagement {
     }
 }
 
-includeBuild("gradle-plugin")
+includeBuild("seskar")
 
 include("example")
 include("gradle-plugin-test")
