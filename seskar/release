@@ -4,5 +4,6 @@ set -e
 set -o pipefail
 
 ./gradlew preparePublish
-./gradlew publishPlugins
+./gradlew publishAllPublicationsToSonatypeRepository closeAndReleaseSonatypeStagingRepository
+./gradlew seskar-gradle-plugin:publishPlugins
 ./gradlew prepareDevelopment
