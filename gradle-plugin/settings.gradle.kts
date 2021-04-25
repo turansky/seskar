@@ -1,1 +1,3 @@
-rootProject.name = "gradle-plugin"
+rootProject.name = "seskar"
+
+include(":gradle-plugin")
