@@ -4,7 +4,7 @@ import org.jetbrains.kotlin.gradle.plugin.SubpluginArtifact
 
 internal val KOTLIN_PLUGIN_ARTIFACT: SubpluginArtifact
     get() = SubpluginArtifact(
-        groupId = "gradle.plugin.com.github.turansky.seskar",
-        artifactId = "gradle-plugin",
+        groupId = "com.github.turansky.seskar",
+        artifactId = "compiler-plugin",
         version = "0.0.3-SNAPSHOT"
     )

@@ -9,11 +9,6 @@ plugins {
 
 dependencies {
     compileOnly(kotlin("gradle-plugin"))
-    compileOnly(kotlin("compiler-embeddable"))
-}
-
-pluginPublish {
-    gradlePluginPrefix = true
 }
 
 gradlePlugin {
