@@ -8,11 +8,9 @@
 # Seskar
 
 ## Compilers
-
 IR only
 
 ## Setup
-
 ```kotlin
 plugins {
     kotlin("js") version "1.4.32"
@@ -24,4 +22,25 @@ plugins {
 dependencies {
     implementation("com.github.turansky.seskar:seskar-core:0.0.5")
 }
+```
+
+## Unions
+
+#### AS-IS
+
+```kotlin
+import seskar.js.JsUnion
+
+@JsUnion
+external enum class Align {
+    TOP,
+    LEFT,
+    BOTTOM,
+    RIGHT,
+
+    ;
+}
+
+println(Align.TOP)  // "TOP"
+println(Align.LEFT) // "LEFT"
 ```
