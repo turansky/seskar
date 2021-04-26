@@ -38,6 +38,7 @@ type Align = 'TOP' | 'LEFT' | 'BOTTOM' | 'RIGHT'
 ```
 
 ```kotlin
+// Kotlin
 import seskar.js.JsUnion
 
 @JsUnion
@@ -64,6 +65,7 @@ type Align = 't' | 'l' | 'b' | 'r'
 ```
 
 ```kotlin
+// Kotlin
 import seskar.js.JsUnion
 import seskar.js.JsValue
 
