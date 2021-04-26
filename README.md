@@ -27,6 +27,10 @@ dependencies {
 ## Unions
 
 #### AS-IS
+```typescript
+// TypeScript
+type Align = 'TOP' | 'LEFT' | 'BOTTOM' | 'RIGHT'
+```
 
 ```kotlin
 import seskar.js.JsUnion
