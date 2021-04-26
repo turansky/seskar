@@ -85,3 +85,26 @@ external enum class CustomAlign {
 println(CustomAlign.TOP)  // 't'
 println(CustomAlign.LEFT) // 'l'
 ```
+
+## How it works?
+
+TBD
+
+## Plans
+
+#### Case configuration
+
+```kotlin
+import seskar.js.JsUnion
+import seskar.Case
+
+@JsUnion(Case.KEBAB)
+external enum class Align {
+    TOP_LEFT,     // 'top-left'
+    TOP_RIGHT,    // 'top-right' 
+    BOTTOM_LEFT,  // 'bottom-left'
+    BOTTOM_RIGHT, // 'bottom-right'
+
+    ;
+}
+``` 
