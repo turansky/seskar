@@ -9,6 +9,11 @@ dependencies {
     compileOnly(kotlin("gradle-plugin"))
 }
 
+// TODO: remove after Gradle update
+tasks.compileKotlin {
+    kotlinOptions.allWarningsAsErrors = false
+}
+
 gradlePlugin {
     plugins {
         create("seskar") {
