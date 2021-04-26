@@ -14,19 +14,22 @@ IR only
 ```kotlin
 plugins {
     kotlin("js") version "1.4.32"
-    id("com.github.turansky.seskar") version "0.0.5"
+    id("com.github.turansky.seskar") version "0.0.6"
 }
 
 // IR browser target
 
 dependencies {
-    implementation("com.github.turansky.seskar:seskar-core:0.0.5")
+    implementation("com.github.turansky.seskar:seskar-core:0.0.6")
 }
 ```
 
 ## Unions
 
 #### AS-IS
+
+Use enum constant as union value
+
 ```typescript
 // TypeScript
 type Align = 'TOP' | 'LEFT' | 'BOTTOM' | 'RIGHT'
@@ -45,6 +48,40 @@ external enum class Align {
     ;
 }
 
-println(Align.TOP)  // "TOP"
-println(Align.LEFT) // "LEFT"
+println(Align.TOP)  // 'TOP'
+println(Align.LEFT) // 'LEFT'
+```
+
+#### Custom
+
+Use custom value as union value
+
+```typescript
+// TypeScript
+type Align = 't' | 'l' | 'b' | 'r'
+```
+
+```kotlin
+import seskar.js.JsUnion
+import seskar.js.JsValue
+
+@JsUnion
+external enum class CustomAlign {
+    @JsValue("t")
+    TOP,
+
+    @JsValue("l")
+    LEFT,
+
+    @JsValue("b")
+    BOTTOM,
+
+    @JsValue("r")
+    RIGHT,
+
+    ;
+}
+
+println(CustomAlign.TOP)  // 't'
+println(CustomAlign.LEFT) // 'l'
 ```
