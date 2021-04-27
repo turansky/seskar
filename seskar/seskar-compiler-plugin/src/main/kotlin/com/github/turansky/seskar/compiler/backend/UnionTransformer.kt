@@ -3,9 +3,10 @@ package com.github.turansky.seskar.compiler.backend
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.descriptors.ClassKind
 import org.jetbrains.kotlin.ir.IrStatement
-import org.jetbrains.kotlin.ir.backend.js.utils.getSingleConstStringArgument
 import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.declarations.IrEnumEntry
+import org.jetbrains.kotlin.ir.expressions.IrConst
+import org.jetbrains.kotlin.ir.expressions.IrConstKind
 import org.jetbrains.kotlin.ir.util.getAnnotation
 import org.jetbrains.kotlin.ir.util.hasAnnotation
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
@@ -21,9 +22,22 @@ private val IrEnumEntry.id: String
     get() = name.identifier
 
 private val IrEnumEntry.value: String
-    get() = getAnnotation(JS_VALUE)
-        ?.getSingleConstStringArgument()
-        ?: id
+    get() {
+        val jsValue = getAnnotation(JS_VALUE)
+            ?: return jsValue(id)
+
+        val argument = jsValue.getValueArgument(0) as IrConst<*>
+        val value = argument.value
+        return when (argument.kind) {
+            IrConstKind.Int -> jsValue(value as Int)
+            IrConstKind.String -> jsValue(argument.value as String)
+            else -> "null"
+        }
+    }
+
+private fun jsValue(s: String): String = "'$s'"
+
+private fun jsValue(i: Int): String = "$i"
 
 internal class UnionTransformer(
     private val context: IrPluginContext
@@ -32,7 +46,7 @@ internal class UnionTransformer(
         if (declaration.isJsUnion) {
             val unionBody = declaration.declarations.asSequence()
                 .filterIsInstance<IrEnumEntry>()
-                .map { "${it.id}: '${it.value}'" }
+                .map { "${it.id}: ${it.value}" }
                 .joinToString(",", "{", "}")
 
             declaration.annotations += JsName(context, declaration, unionBody)
