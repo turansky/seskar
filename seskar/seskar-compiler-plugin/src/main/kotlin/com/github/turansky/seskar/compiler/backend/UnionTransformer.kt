@@ -6,7 +6,7 @@ import org.jetbrains.kotlin.ir.IrStatement
 import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.declarations.IrEnumEntry
 import org.jetbrains.kotlin.ir.expressions.IrConst
-import org.jetbrains.kotlin.ir.expressions.IrConstKind
+import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
 import org.jetbrains.kotlin.ir.util.getAnnotation
 import org.jetbrains.kotlin.ir.util.hasAnnotation
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
@@ -14,7 +14,12 @@ import org.jetbrains.kotlin.name.FqName
 
 private val JS_UNION = FqName("seskar.js.JsUnion")
 
+private val JS_INT = FqName("seskar.js.JsInt")
 private val JS_STRING = FqName("seskar.js.JsString")
+
+private fun jsValue(i: Int): String = "$i"
+
+private fun jsValue(s: String): String = "'$s'"
 
 private val IrClass.isJsUnion: Boolean
     get() = isExternal && kind == ClassKind.ENUM_CLASS && hasAnnotation(JS_UNION)
@@ -22,23 +27,25 @@ private val IrClass.isJsUnion: Boolean
 private val IrEnumEntry.id: String
     get() = name.identifier
 
+private inline fun <reified T> IrConstructorCall.value(): T {
+    val argument = getValueArgument(0) as IrConst<*>
+    return argument.value as T
+}
+
 private val IrEnumEntry.value: String
     get() {
-        val jsValue = getAnnotation(JS_STRING)
-            ?: return jsValue(id)
-
-        val argument = jsValue.getValueArgument(0) as IrConst<*>
-        val value = argument.value
-        return when (argument.kind) {
-            IrConstKind.Int -> jsValue(value as Int)
-            IrConstKind.String -> jsValue(argument.value as String)
-            else -> "null"
+        val jsInt = getAnnotation(JS_INT)
+        if (jsInt != null) {
+            return jsValue(jsInt.value<Int>())
         }
+
+        val jsString = getAnnotation(JS_STRING)
+        if (jsString != null) {
+            return jsValue(jsString.value<String>())
+        }
+
+        return jsValue(id)
     }
-
-private fun jsValue(s: String): String = "'$s'"
-
-private fun jsValue(i: Int): String = "$i"
 
 internal class UnionTransformer(
     private val context: IrPluginContext
