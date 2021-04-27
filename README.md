@@ -131,7 +131,7 @@ external enum class GraphItemType {
     ;
 }
 
-println(GraphItemType.EDGE)  // 2
+println(GraphItemType.EDGE) // 2
 println(GraphItemType.PORT) // 4
 ```
 
