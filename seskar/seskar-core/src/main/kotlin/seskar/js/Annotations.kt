@@ -15,4 +15,3 @@ annotation class JsInt(
 annotation class JsString(
     val value: String
 )
-
