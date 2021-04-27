@@ -10,9 +10,11 @@
 # Seskar
 
 ## Compilers
+
 IR only
 
 ## Setup
+
 ```kotlin
 plugins {
     kotlin("js") version "1.5.0"
@@ -57,7 +59,9 @@ println(Align.LEFT) // 'LEFT'
 
 #### Custom
 
-Use custom value as union value
+Use `String` or `Int` constant as union value
+
+##### `String`
 
 ```typescript
 // TypeScript
@@ -88,6 +92,47 @@ external enum class CustomAlign {
 
 println(CustomAlign.TOP)  // 't'
 println(CustomAlign.LEFT) // 'l'
+```
+
+##### `Int`
+
+```typescript
+// TypeScript
+type GRAPH_ITEM_TYPE_NODE = 1
+type GRAPH_ITEM_TYPE_EDGE = 2
+type GRAPH_ITEM_TYPE_PORT = 3
+type GRAPH_ITEM_TYPE_LABEL = 4
+
+type GraphItemType = GRAPH_ITEM_TYPE_NODE
+    | GRAPH_ITEM_TYPE_EDGE
+    | GRAPH_ITEM_TYPE_PORT
+    | GRAPH_ITEM_TYPE_LABEL
+```
+
+```kotlin
+// Kotlin
+import seskar.js.JsInt
+import seskar.js.JsValue
+
+@JsUnion
+external enum class GraphItemType {
+    @JsInt(1)
+    NODE,
+
+    @JsInt(2)
+    EDGE,
+
+    @JsInt(4)
+    PORT,
+
+    @JsInt(8)
+    LABEL,
+
+    ;
+}
+
+println(GraphItemType.EDGE)  // 2
+println(GraphItemType.PORT) // 4
 ```
 
 ## How it works?
