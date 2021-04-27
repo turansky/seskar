@@ -7,5 +7,12 @@ import kotlin.annotation.AnnotationTarget.PROPERTY
 annotation class JsUnion
 
 @Target(PROPERTY)
-annotation class JsString(val value: String)
+annotation class JsInt(
+    val value: Int
+)
+
+@Target(PROPERTY)
+annotation class JsString(
+    val value: String
+)
 
