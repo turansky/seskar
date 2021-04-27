@@ -13,7 +13,8 @@ import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 import org.jetbrains.kotlin.name.FqName
 
 private val JS_UNION = FqName("seskar.js.JsUnion")
-private val JS_VALUE = FqName("seskar.js.JsValue")
+
+private val JS_STRING = FqName("seskar.js.JsString")
 
 private val IrClass.isJsUnion: Boolean
     get() = isExternal && kind == ClassKind.ENUM_CLASS && hasAnnotation(JS_UNION)
@@ -23,7 +24,7 @@ private val IrEnumEntry.id: String
 
 private val IrEnumEntry.value: String
     get() {
-        val jsValue = getAnnotation(JS_VALUE)
+        val jsValue = getAnnotation(JS_STRING)
             ?: return jsValue(id)
 
         val argument = jsValue.getValueArgument(0) as IrConst<*>

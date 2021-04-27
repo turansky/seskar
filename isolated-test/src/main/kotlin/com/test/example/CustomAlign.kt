@@ -1,20 +1,20 @@
 package com.test.example
 
+import seskar.js.JsString
 import seskar.js.JsUnion
-import seskar.js.JsValue
 
 @JsUnion
 external enum class CustomAlign {
-    @JsValue("t")
+    @JsString("t")
     TOP,
 
-    @JsValue("l")
+    @JsString("l")
     LEFT,
 
-    @JsValue("b")
+    @JsString("b")
     BOTTOM,
 
-    @JsValue("r")
+    @JsString("r")
     RIGHT,
 
     ;
