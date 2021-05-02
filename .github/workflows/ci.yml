@@ -15,4 +15,7 @@ jobs:
           java-version: 11
       - name: Build
         run: |
+          cd seskar
+          ./gradlew build
+          cd ..
           ./gradlew build
