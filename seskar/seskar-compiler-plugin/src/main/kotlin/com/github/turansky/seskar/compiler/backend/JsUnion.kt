@@ -26,20 +26,19 @@ private inline fun <reified T> IrConstructorCall.value(): T {
     return argument.value as T
 }
 
-private val IrEnumEntry.value: String
-    get() {
-        val jsInt = getAnnotation(JS_INT)
-        if (jsInt != null) {
-            return jsValue(jsInt.value<Int>())
-        }
-
-        val jsString = getAnnotation(JS_STRING)
-        if (jsString != null) {
-            return jsValue(jsString.value<String>())
-        }
-
-        return jsValue(id)
+private fun IrEnumEntry.value(case: Case): String {
+    val jsInt = getAnnotation(JS_INT)
+    if (jsInt != null) {
+        return jsValue(jsInt.value<Int>())
     }
+
+    val jsString = getAnnotation(JS_STRING)
+    if (jsString != null) {
+        return jsValue(jsString.value<String>())
+    }
+
+    return jsValue(id.toCase(case))
+}
 
 internal fun IrClass.toJsUnionBody(): String? {
     if (!isExternal)
@@ -58,7 +57,7 @@ internal fun IrClass.toJsUnionBody(): String? {
 
     return declarations.asSequence()
         .filterIsInstance<IrEnumEntry>()
-        .map { "${it.id}: ${it.value}" }
+        .map { "${it.id}: ${it.value(case)}" }
         .joinToString(",", "{", "}")
 }
 
