@@ -16,13 +16,13 @@ IR only
 ```kotlin
 plugins {
     kotlin("js") version "1.5.0"
-    id("com.github.turansky.seskar") version "0.0.8"
+    id("com.github.turansky.seskar") version "0.0.9"
 }
 
 // IR browser target
 
 dependencies {
-    implementation("com.github.turansky.seskar:seskar-core:0.0.8")
+    implementation("com.github.turansky.seskar:seskar-core:0.0.9")
 }
 ```
 
@@ -53,6 +53,58 @@ external enum class Align {
 
 println(Align.TOP)  // 'TOP'
 println(Align.LEFT) // 'LEFT'
+```
+
+#### Kebab case
+
+```typescript
+// TypeScript
+type LayoutOrientation = 'top-to-bottom' 
+    | 'left-to-right'
+    | 'bottom-to-top'
+    | 'right-to-left'
+```
+
+```kotlin
+// Kotlin
+import seskar.js.JsUnion
+import seskar.js.Case
+
+@JsUnion(case = Case.KEBAB)
+external enum class LayoutOrientation {
+    TOP_TO_BOTTOM, // 'top-to-bottom'
+    LEFT_TO_RIGHT, // 'left-to-right'
+    bottomToTop,   // 'bottom-to-top'
+    rightToLeft,   // 'right-to-left'
+
+    ;
+}
+```
+
+#### Snake case
+
+```typescript
+// TypeScript
+type LayoutOrientation = 'top_to_bottom' 
+    | 'left_to_right'
+    | 'bottom_to_top'
+    | 'right_to_left'
+```
+
+```kotlin
+// Kotlin
+import seskar.js.JsUnion
+import seskar.js.Case
+
+@JsUnion(case = Case.SNAKE)
+external enum class LayoutOrientation {
+    TOP_TO_BOTTOM, // 'top_to_bottom'
+    LEFT_TO_RIGHT, // 'left_to_right'
+    bottomToTop,   // 'bottom_to_top'
+    rightToLeft,   // 'right_to_left'
+
+    ;
+}
 ```
 
 #### Custom
@@ -136,22 +188,3 @@ println(GraphItemType.PORT) // 4
 ## How it works?
 
 TBD
-
-## Plans
-
-#### Case configuration
-
-```kotlin
-import seskar.js.JsUnion
-import seskar.Case
-
-@JsUnion(Case.KEBAB)
-external enum class Align {
-    TOP_LEFT,     // 'top-left'
-    TOP_RIGHT,    // 'top-right' 
-    BOTTOM_LEFT,  // 'bottom-left'
-    BOTTOM_RIGHT, // 'bottom-right'
-
-    ;
-}
-``` 
