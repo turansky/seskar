@@ -6,7 +6,6 @@ import org.jetbrains.kotlin.ir.declarations.IrEnumEntry
 import org.jetbrains.kotlin.ir.expressions.IrConst
 import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
 import org.jetbrains.kotlin.ir.util.getAnnotation
-import org.jetbrains.kotlin.ir.util.hasAnnotation
 import org.jetbrains.kotlin.name.FqName
 
 private val JS_UNION = FqName("seskar.js.JsUnion")
@@ -17,9 +16,6 @@ private val JS_STRING = FqName("seskar.js.JsString")
 private fun jsValue(i: Int): String = "$i"
 
 private fun jsValue(s: String): String = "'$s'"
-
-private val IrClass.isJsUnion: Boolean
-    get() = isExternal && kind == ClassKind.ENUM_CLASS && hasAnnotation(JS_UNION)
 
 private val IrEnumEntry.id: String
     get() = name.identifier
