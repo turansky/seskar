@@ -7,3 +7,10 @@ internal enum class Case {
 
     ;
 }
+
+internal fun String.toCase(case: Case): String =
+    when (case) {
+        Case.ORIGINAL -> this
+        Case.KEBAB -> kebab()
+        Case.SNAKE -> snake()
+    }
