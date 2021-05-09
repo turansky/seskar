@@ -5,6 +5,7 @@ import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.declarations.IrEnumEntry
 import org.jetbrains.kotlin.ir.expressions.IrConst
 import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
+import org.jetbrains.kotlin.ir.expressions.IrGetEnumValue
 import org.jetbrains.kotlin.ir.util.getAnnotation
 import org.jetbrains.kotlin.name.FqName
 
@@ -41,10 +42,19 @@ private val IrEnumEntry.value: String
     }
 
 internal fun IrClass.toJsUnionBody(): String? {
-    if (!isExternal) return null
-    if (kind != ClassKind.ENUM_CLASS) return null
+    if (!isExternal)
+        return null
 
-    getAnnotation(JS_UNION) ?: return null
+    if (kind != ClassKind.ENUM_CLASS)
+        return null
+
+    val jsUnion = getAnnotation(JS_UNION)
+        ?: return null
+
+    val entry = jsUnion.getValueArgument(0) as IrGetEnumValue?
+    val case = if (entry != null) {
+        Case.valueOf(entry.symbol.owner.name.identifier)
+    } else Case.ORIGINAL
 
     return declarations.asSequence()
         .filterIsInstance<IrEnumEntry>()
