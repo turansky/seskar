@@ -57,7 +57,7 @@ internal fun IrClass.toJsUnionBody(): String? {
 
     return declarations.asSequence()
         .filterIsInstance<IrEnumEntry>()
-        .map { "${it.id}: ${it.value(case)}" }
-        .joinToString(",", "{", "}")
+        .map { "'${it.id}': ${it.value(case)}" }
+        .joinToString(",", "({", "})")
 }
 
