@@ -12,5 +12,4 @@ pluginManagement {
 
 includeBuild("seskar")
 
-include("example")
 include("test")
