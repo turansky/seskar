@@ -2,7 +2,7 @@ rootProject.name = "seskar"
 
 pluginManagement {
     plugins {
-        val kotlinVersion = "1.5.0"
+        val kotlinVersion = "1.5.10"
         kotlin("js") version kotlinVersion
 
         val kfcVersion = "4.7.1"
