@@ -2,7 +2,7 @@
 [![CI Status](https://github.com/turansky/seskar/workflows/gradle%20plugin/badge.svg)](https://github.com/turansky/seskar/actions)
 [![Gradle Plugin Portal](https://img.shields.io/maven-metadata/v/https/plugins.gradle.org/m2/com/github/turansky/seskar/com.github.turansky.seskar.gradle.plugin/maven-metadata.xml.svg?label=plugin&logo=gradle)](https://plugins.gradle.org/plugin/com.github.turansky.seskar)
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.turansky.seskar/seskar-core?logo=apache-maven)](https://mvnrepository.com/artifact/com.github.turansky.seskar/seskar-core)
-[![Kotlin](https://img.shields.io/badge/kotlin-1.5.10-blue.svg?logo=kotlin)](http://kotlinlang.org)
+[![Kotlin](https://img.shields.io/badge/kotlin-1.5.20-blue.svg?logo=kotlin)](http://kotlinlang.org)
 [![Kotlin/JS. IR supported](https://img.shields.io/badge/kotlin-IR%20only-yellow?logo=kotlin&logoColor=yellow)](https://kotl.in/jsirsupported)
 
 # Seskar
@@ -15,7 +15,7 @@ IR only
 
 ```kotlin
 plugins {
-    kotlin("js") version "1.5.10"
+    kotlin("js") version "1.5.20"
     id("com.github.turansky.seskar") version "0.0.12"
 }
 
