@@ -1,6 +1,6 @@
 plugins {
     kotlin("js") version "1.5.30"
-    id("com.github.turansky.seskar") version "0.0.13"
+    id("com.github.turansky.seskar") version "0.1.0"
 }
 
 repositories {
@@ -14,7 +14,7 @@ kotlin.js {
 }
 
 dependencies {
-    implementation("com.github.turansky.seskar:seskar-core:0.0.13")
+    implementation("com.github.turansky.seskar:seskar-core:0.1.0")
 
     testImplementation(kotlin("test-js"))
 }
