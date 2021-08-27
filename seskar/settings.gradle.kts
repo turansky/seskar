@@ -16,6 +16,12 @@ pluginManagement {
     }
 }
 
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+    }
+}
+
 include(":seskar-core")
 
 include(":seskar-compiler-plugin")

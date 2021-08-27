@@ -3,12 +3,6 @@ plugins {
     id("io.github.gradle-nexus.publish-plugin")
 }
 
-allprojects {
-    repositories {
-        mavenCentral()
-    }
-}
-
 nexusPublishing {
     repositories {
         sonatype {

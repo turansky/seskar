@@ -3,10 +3,6 @@ plugins {
     id("com.github.turansky.seskar") version "0.1.0"
 }
 
-repositories {
-    mavenCentral()
-}
-
 kotlin.js {
     browser()
 

@@ -10,6 +10,12 @@ pluginManagement {
     }
 }
 
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+    }
+}
+
 includeBuild("seskar")
 
 include("test")
