@@ -2,10 +2,10 @@ rootProject.name = "seskar"
 
 pluginManagement {
     plugins {
-        val kotlinVersion = "1.5.30"
+        val kotlinVersion = "1.6.0"
         kotlin("js") version kotlinVersion
 
-        val kfcVersion = "4.30.0"
+        val kfcVersion = "4.50.0"
         id("com.github.turansky.kfc.application") version kfcVersion
     }
 }
