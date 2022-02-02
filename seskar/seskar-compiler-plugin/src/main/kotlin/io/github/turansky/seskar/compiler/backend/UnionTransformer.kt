@@ -1,4 +1,4 @@
-package com.github.turansky.seskar.compiler.backend
+package io.github.turansky.seskar.compiler.backend
 
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.IrStatement

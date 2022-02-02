@@ -17,8 +17,8 @@ tasks.compileKotlin {
 gradlePlugin {
     plugins {
         create("seskar") {
-            id = "com.github.turansky.seskar"
-            implementationClass = "com.github.turansky.seskar.gradle.plugin.SeskarGradleSubplugin"
+            id = "io.github.turansky.seskar"
+            implementationClass = "io.github.turansky.seskar.gradle.plugin.SeskarGradleSubplugin"
         }
     }
 }

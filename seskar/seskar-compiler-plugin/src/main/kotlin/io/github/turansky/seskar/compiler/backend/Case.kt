@@ -1,4 +1,4 @@
-package com.github.turansky.seskar.compiler.backend
+package io.github.turansky.seskar.compiler.backend
 
 internal enum class Case {
     ORIGINAL,

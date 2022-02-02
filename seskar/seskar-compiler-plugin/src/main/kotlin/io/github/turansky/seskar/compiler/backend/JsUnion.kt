@@ -1,4 +1,4 @@
-package com.github.turansky.seskar.compiler.backend
+package io.github.turansky.seskar.compiler.backend
 
 import org.jetbrains.kotlin.descriptors.ClassKind
 import org.jetbrains.kotlin.ir.declarations.IrClass
