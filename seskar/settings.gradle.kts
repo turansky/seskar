@@ -12,7 +12,7 @@ pluginManagement {
         id("com.github.turansky.kfc.plugin-publish") version kfcVersion
 
         id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
-        id("com.gradle.plugin-publish") version "0.19.0"
+        id("com.gradle.plugin-publish") version "0.20.0"
     }
 }
 
