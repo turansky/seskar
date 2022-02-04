@@ -6,7 +6,7 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinCompilerPluginSupportPlugin
 import org.jetbrains.kotlin.gradle.plugin.SubpluginArtifact
 import org.jetbrains.kotlin.gradle.plugin.SubpluginOption
 
-private val SESKAR_COMPILER_PLUGIN_ID = "com.github.turansky.seskar"
+private val SESKAR_COMPILER_PLUGIN_ID = "io.github.turansky.seskar"
 
 class SeskarGradleSubplugin : KotlinCompilerPluginSupportPlugin {
     override fun isApplicable(
