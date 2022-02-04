@@ -1,6 +1,6 @@
 plugins {
     kotlin("jvm")
-    id("com.github.turansky.kfc.maven-central-publish")
+    id("io.github.turansky.kfc.maven-central-publish")
 }
 
 dependencies {

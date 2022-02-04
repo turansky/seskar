@@ -1,7 +1,7 @@
 plugins {
     `java-gradle-plugin`
     id("com.gradle.plugin-publish")
-    id("com.github.turansky.kfc.plugin-publish")
+    id("io.github.turansky.kfc.plugin-publish")
     kotlin("jvm")
 }
 
