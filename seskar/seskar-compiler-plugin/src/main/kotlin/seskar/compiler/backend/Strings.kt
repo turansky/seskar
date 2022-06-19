@@ -1,4 +1,4 @@
-package io.github.turansky.seskar.compiler.backend
+package seskar.compiler.backend
 
 private val LOWER_TO_UPPER = Regex("([a-z])([A-Z])")
 

@@ -1,4 +1,4 @@
-package io.github.turansky.seskar.gradle.plugin
+package seskar.gradle.plugin
 
 import org.jetbrains.kotlin.gradle.plugin.SubpluginArtifact
 

@@ -1,4 +1,4 @@
-package io.github.turansky.seskar.compiler.extensions
+package seskar.compiler.extensions
 
 import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
 import org.jetbrains.kotlin.com.intellij.mock.MockProject

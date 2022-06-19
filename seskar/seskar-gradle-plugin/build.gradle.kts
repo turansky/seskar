@@ -18,7 +18,7 @@ gradlePlugin {
     plugins {
         create("seskar") {
             id = "io.github.turansky.seskar"
-            implementationClass = "io.github.turansky.seskar.gradle.plugin.SeskarGradleSubplugin"
+            implementationClass = "seskar.gradle.plugin.SeskarGradleSubplugin"
         }
     }
 }
