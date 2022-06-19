@@ -18,4 +18,4 @@ dependencyResolutionManagement {
 
 includeBuild("seskar")
 
-include("test")
+include("tests:union")
