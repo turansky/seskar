@@ -20,3 +20,4 @@ includeBuild("seskar")
 
 include("tests:react")
 include("tests:union")
+include("tests:value")
