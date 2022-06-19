@@ -1,1 +1,1 @@
-seskar.compiler.extensions.SeskarRegistrar
+seskar.compiler.union.extensions.UnionRegistrar

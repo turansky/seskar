@@ -1,4 +1,4 @@
-package seskar.compiler.backend
+package seskar.compiler.union.backend
 
 import org.jetbrains.kotlin.descriptors.ClassKind
 import org.jetbrains.kotlin.ir.declarations.IrClass

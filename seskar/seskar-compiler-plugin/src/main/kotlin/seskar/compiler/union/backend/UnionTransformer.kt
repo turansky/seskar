@@ -1,4 +1,4 @@
-package seskar.compiler.backend
+package seskar.compiler.union.backend
 
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.IrStatement

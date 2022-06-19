@@ -1,4 +1,4 @@
-package seskar.compiler.backend
+package seskar.compiler.union.backend
 
 internal enum class Case {
     ORIGINAL,
