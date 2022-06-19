@@ -1,6 +1,5 @@
 package seskar.js
 
-import kotlin.annotation.AnnotationTarget.CLASS
-
-@Target(CLASS)
+@Target(AnnotationTarget.CLASS)
+@Retention(AnnotationRetention.BINARY)
 annotation class JsValue
