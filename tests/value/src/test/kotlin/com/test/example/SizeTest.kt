@@ -7,8 +7,8 @@ class SizeTest {
     @Test
     fun age() {
         assertEquals(1, getSize("first"))
-        assertEquals(1, getSize("first", Age(42)))
-        assertEquals(1, getSize(Age(42), "second"))
+        assertEquals(2, getSize("first", Age(42)))
+        assertEquals(2, getSize(Age(42), "second"))
     }
 
     @Test

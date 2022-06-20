@@ -9,12 +9,11 @@ internal class ValueTransformer(
     private val context: IrPluginContext,
 ) : IrElementTransformerVoid() {
     override fun visitVararg(expression: IrVararg): IrExpression {
-        val affectedElements = expression.elements
+        expression.elements
+            .asSequence()
             .filterIsInstance<IrExpression>()
             .filter { downCastRequired(it.type) }
-
-        expression.elements
-            .removeAll(affectedElements)
+            .forEach { it.type = context.irBuiltIns.anyNType }
 
         return super.visitVararg(expression)
     }
