@@ -9,5 +9,5 @@ internal fun downCastRequired(
     val klass = type.getClass()
         ?: return false
 
-    return klass.isValue
+    return klass.isJsValue()
 }
