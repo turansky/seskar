@@ -5,10 +5,17 @@ import kotlin.test.assertEquals
 
 class SizeTest {
     @Test
-    fun test() {
+    fun age() {
         assertEquals(1, getSize("first"))
         assertEquals(1, getSize("first", Age(42)))
         assertEquals(1, getSize(Age(42), "second"))
+    }
+
+    @Test
+    fun count() {
+        assertEquals(1, getSize("first"))
+        assertEquals(2, getSize("first", Count(42)))
+        assertEquals(2, getSize(Count(42), "second"))
     }
 }
 
