@@ -26,6 +26,14 @@ dependencies {
 }
 ```
 
+## React
+
+Check that interfaces which inherits `Props` are external
+
+#### Supported platforms
+
+Both
+
 ## Unions
 
 #### AS-IS
