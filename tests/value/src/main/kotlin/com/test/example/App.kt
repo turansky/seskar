@@ -21,9 +21,3 @@ fun main() {
     println(city1)
     println(city2)
 }
-
-private fun useMemo(
-    vararg dependencies: Any?,
-) {
-    println(dependencies)
-}
