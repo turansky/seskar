@@ -28,7 +28,7 @@ dependencies {
 
 ## React
 
-Check that interfaces which inherits `Props` are external
+Checks that interfaces which inherits `Props` are external
 
 #### Supported platforms
 
