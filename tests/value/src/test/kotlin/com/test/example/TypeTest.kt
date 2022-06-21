@@ -1,8 +1,10 @@
 package com.test.example
 
+import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertIs
 
+@Ignore
 class TypeTest {
     @Test
     fun age_second() {
