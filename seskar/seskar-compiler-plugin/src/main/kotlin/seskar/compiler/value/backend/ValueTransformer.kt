@@ -31,7 +31,14 @@ internal class ValueTransformer(
             return
 
         for (element in valueElements) {
-            element.type = context.irBuiltIns.anyNType
+            val index = elements.indexOf(element)
+            elements[index] = transformVarargElement(element)
         }
+    }
+
+    private fun transformVarargElement(
+        element: IrExpression,
+    ): IrExpression {
+        return element
     }
 }
