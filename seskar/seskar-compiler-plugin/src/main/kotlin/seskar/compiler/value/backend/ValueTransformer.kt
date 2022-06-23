@@ -4,6 +4,9 @@ import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.IrVararg
 import org.jetbrains.kotlin.ir.expressions.IrVarargElement
+import org.jetbrains.kotlin.ir.expressions.impl.IrCallImpl
+import org.jetbrains.kotlin.ir.types.getClass
+import org.jetbrains.kotlin.ir.util.properties
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 
 internal class ValueTransformer(
@@ -39,6 +42,17 @@ internal class ValueTransformer(
     private fun transformVarargElement(
         element: IrExpression,
     ): IrExpression {
-        return element
+        val klass = element.type.getClass()!!
+        val value = klass.properties.first()
+
+        val call = IrCallImpl.fromSymbolOwner(
+            startOffset = element.startOffset,
+            endOffset = element.endOffset,
+            symbol = value.getter!!.symbol,
+        )
+
+        call.dispatchReceiver = element
+
+        return call
     }
 }
