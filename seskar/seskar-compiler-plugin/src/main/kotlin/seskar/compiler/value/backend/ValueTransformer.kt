@@ -1,25 +1,38 @@
 package seskar.compiler.value.backend
 
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
+import org.jetbrains.kotlin.ir.expressions.IrCall
 import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.IrVararg
 import org.jetbrains.kotlin.ir.expressions.IrVarargElement
 import org.jetbrains.kotlin.ir.expressions.impl.IrCallImpl
 import org.jetbrains.kotlin.ir.types.getClass
+import org.jetbrains.kotlin.ir.util.getArgumentsWithIr
 import org.jetbrains.kotlin.ir.util.properties
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 
 internal class ValueTransformer(
     private val context: IrPluginContext,
 ) : IrElementTransformerVoid() {
-    override fun visitVararg(
-        expression: IrVararg,
+    override fun visitCall(
+        expression: IrCall,
     ): IrExpression {
-        if (expression.varargElementType == context.irBuiltIns.anyNType) {
-            visitVarargElements(expression.elements)
-        }
+        if (isHookCall(expression))
+            visitHookCall(expression)
 
-        return super.visitVararg(expression)
+        return super.visitCall(expression)
+    }
+
+    private fun visitHookCall(
+        expression: IrCall,
+    ) {
+        val dependencies = expression.getArgumentsWithIr()
+            .firstOrNull { (parameter) -> parameter.name == DEPENDENCIES && parameter.varargElementType == context.irBuiltIns.anyNType }
+            ?.second
+            ?: return
+
+        if (dependencies is IrVararg)
+            visitVarargElements(dependencies.elements)
     }
 
     private fun visitVarargElements(
