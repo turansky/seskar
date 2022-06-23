@@ -5,7 +5,7 @@ import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.util.getAnnotation
 import org.jetbrains.kotlin.name.FqName
 
-private val JS_VALUE = FqName("seskar.js.JsValue")
+internal val JS_VALUE = FqName("seskar.js.JsValue")
 
 internal fun IrClass.isJsValue(): Boolean {
     if (kind != ClassKind.CLASS)
