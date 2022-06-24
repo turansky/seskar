@@ -1,12 +1,10 @@
 package com.test.example
 
-import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
-@Ignore
 class DurationTransformTest {
     @Test
     fun seconds_13() {
