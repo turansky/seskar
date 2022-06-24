@@ -16,13 +16,13 @@ IR only
 ```kotlin
 plugins {
     kotlin("js") version "1.7.0"
-    id("io.github.turansky.seskar") version "0.12.1"
+    id("io.github.turansky.seskar") version "0.12.2"
 }
 
 // IR browser target
 
 dependencies {
-    implementation("io.github.turansky.seskar:seskar-core:0.12.1")
+    implementation("io.github.turansky.seskar:seskar-core:0.12.2")
 }
 ```
 
