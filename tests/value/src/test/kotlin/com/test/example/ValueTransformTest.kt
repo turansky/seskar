@@ -18,8 +18,3 @@ class ValueTransformTest {
         assertEquals("second", array[1])
     }
 }
-
-private fun useArray(
-    vararg dependencies: Any?,
-): Array<out Any?> =
-    dependencies
