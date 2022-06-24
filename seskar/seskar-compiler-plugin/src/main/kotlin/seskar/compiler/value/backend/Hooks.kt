@@ -2,6 +2,7 @@ package seskar.compiler.value.backend
 
 import org.jetbrains.kotlin.ir.declarations.IrFile
 import org.jetbrains.kotlin.ir.expressions.IrCall
+import org.jetbrains.kotlin.name.Name
 
 internal fun isHookCall(
     expression: IrCall,
@@ -13,12 +14,16 @@ internal fun isHookCall(
     if (function.parent !is IrFile)
         return false
 
-    return isHookName(function.name.identifier)
+    return isHookName(function.name)
 }
 
 internal fun isHookName(
-    name: String,
-): Boolean =
-    name.startsWith("use") &&
-            name.length > 3 &&
-            name[3].isUpperCase()
+    name: Name,
+): Boolean {
+    val id = name.identifierOrNullIfSpecial
+        ?: return false
+
+    return id.startsWith("use") &&
+            id.length > 3 &&
+            id[3].isUpperCase()
+}
