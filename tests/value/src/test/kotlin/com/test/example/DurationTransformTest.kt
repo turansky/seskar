@@ -8,13 +8,17 @@ import kotlin.time.Duration.Companion.seconds
 class DurationTransformTest {
     @Test
     fun seconds_13() {
-        val array = useArray(13.seconds)
+        val duration = 13.seconds
+
+        val array = useArray(duration)
         assertEquals("13s", array[0])
     }
 
     @Test
     fun minutes_42() {
-        val array = useArray(42.minutes)
+        val duration = 42.minutes
+
+        val array = useArray(duration)
         assertEquals("42m", array[0])
     }
 }
