@@ -21,4 +21,22 @@ class ValueTransformTest {
         assertEquals(13, array[0])
         assertEquals("second", array[1])
     }
+
+    @Test
+    fun age_second_null() {
+        val age: Age? = null
+
+        val array = useArray("first", age)
+        assertEquals("first", array[0])
+        assertEquals(null, array[1])
+    }
+
+    @Test
+    fun age_first_null() {
+        val age: Age? = null
+
+        val array = useArray(age, "second")
+        assertEquals(null, array[0])
+        assertEquals("second", array[1])
+    }
 }
