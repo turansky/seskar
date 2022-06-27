@@ -1,5 +1,4 @@
 plugins {
-    `java-gradle-plugin`
     id("com.gradle.plugin-publish")
     id("io.github.turansky.kfc.plugin-publish")
     kotlin("jvm")
@@ -18,6 +17,8 @@ gradlePlugin {
     plugins {
         create("seskar") {
             id = "io.github.turansky.seskar"
+            displayName = "Seskar"
+            description = "Additions to Kotlin data classes"
             implementationClass = "seskar.gradle.plugin.SeskarGradleSubplugin"
         }
     }
@@ -29,20 +30,12 @@ pluginBundle {
     website = REPO_URL
     vcsUrl = REPO_URL
 
-    plugins.getByName("seskar") {
-        displayName = "Seskar"
-        description = "Additions to Kotlin data classes"
-        tags = listOf(
+    pluginTags = mapOf(
+        "seskar" to listOf(
             "kotlin",
             "dataclass",
             "equals",
-            "hashcode"
+            "hashcode",
         )
-    }
-
-    mavenCoordinates {
-        groupId = project.group.toString()
-        artifactId = project.name
-        version = project.version.toString()
-    }
+    )
 }
