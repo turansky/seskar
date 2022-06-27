@@ -7,11 +7,10 @@ import org.jetbrains.kotlin.ir.expressions.IrVararg
 import org.jetbrains.kotlin.ir.expressions.IrVarargElement
 import org.jetbrains.kotlin.ir.expressions.impl.IrCallImpl
 import org.jetbrains.kotlin.ir.types.getClass
-import org.jetbrains.kotlin.ir.util.functions
+import org.jetbrains.kotlin.ir.types.isNullable
 import org.jetbrains.kotlin.ir.util.getArgumentsWithIr
 import org.jetbrains.kotlin.ir.util.properties
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
-import org.jetbrains.kotlin.util.OperatorNameConventions.TO_STRING
 
 internal class ValueTransformer(
     private val context: IrPluginContext,
@@ -85,20 +84,24 @@ internal class ValueTransformer(
 
     private fun toString(
         element: IrExpression,
-    ): IrExpression {
-        val klass = element.type.getClass()!!
-        val toString = klass.functions
-            .filter { it.name == TO_STRING }
-            .first { it.valueParameters.isEmpty() }
+    ): IrExpression =
+        if (element.type.isNullable()) {
+            val call = IrCallImpl.fromSymbolOwner(
+                startOffset = element.startOffset,
+                endOffset = element.endOffset,
+                symbol = context.symbols.extensionToString,
+            )
 
-        val call = IrCallImpl.fromSymbolOwner(
-            startOffset = element.startOffset,
-            endOffset = element.endOffset,
-            symbol = toString.symbol,
-        )
+            call.extensionReceiver = element
+            call
+        } else {
+            val call = IrCallImpl.fromSymbolOwner(
+                startOffset = element.startOffset,
+                endOffset = element.endOffset,
+                symbol = context.symbols.memberToString,
+            )
 
-        call.dispatchReceiver = element
-
-        return call
-    }
+            call.dispatchReceiver = element
+            call
+        }
 }

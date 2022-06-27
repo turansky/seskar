@@ -1,6 +1,5 @@
 package com.test.example
 
-import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.time.Duration
@@ -40,7 +39,6 @@ class DurationTransformTest {
         assertEquals("42m", array[0])
     }
 
-    @Ignore
     @Test
     fun null_value() {
         val duration: Duration? = getDuration(5.seconds, true)
