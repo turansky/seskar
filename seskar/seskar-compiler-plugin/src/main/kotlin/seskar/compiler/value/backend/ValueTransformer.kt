@@ -49,19 +49,7 @@ internal class ValueTransformer(
 
         for (element in valueElements) {
             val index = elements.indexOf(element)
-            elements[index] = transformVarargElement(element)
-        }
-    }
-
-    private fun transformVarargElement(
-        element: IrExpression,
-    ): IrExpression {
-        val klass = element.type.getClass()!!
-
-        return if (klass.isJsValue()) {
-            getValue(element)
-        } else {
-            toString(element)
+            elements[index] = getValue(element)
         }
     }
 
@@ -70,22 +58,29 @@ internal class ValueTransformer(
     ): IrExpression {
         val klass = element.type.getClass()!!
         val value = klass.properties.first()
+        val getter = value.getter!!
 
         val call = IrCallImpl.fromSymbolOwner(
             startOffset = element.startOffset,
             endOffset = element.endOffset,
-            symbol = value.getter!!.symbol,
+            symbol = getter.symbol,
         )
 
         call.dispatchReceiver = element
 
-        return call
+        return when (getter.returnType) {
+            context.irBuiltIns.longType,
+            -> toString(call, element.type.isNullable())
+
+            else -> call
+        }
     }
 
     private fun toString(
         element: IrExpression,
+        nullable: Boolean,
     ): IrExpression =
-        if (element.type.isNullable()) {
+        if (nullable) {
             val call = IrCallImpl.fromSymbolOwner(
                 startOffset = element.startOffset,
                 endOffset = element.endOffset,

@@ -6,13 +6,16 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
+private const val DUR_42_M = "5040000000000"
+private const val DUR_13_S = "26000000000"
+
 class DurationTransformTest {
     @Test
     fun seconds_13() {
         val duration = 13.seconds
 
         val array = useArray(duration)
-        assertEquals("13s", array[0])
+        assertEquals(DUR_13_S, array[0])
     }
 
     @Test
@@ -20,7 +23,7 @@ class DurationTransformTest {
         val duration = 42.minutes
 
         val array = useArray(duration)
-        assertEquals("42m", array[0])
+        assertEquals(DUR_42_M, array[0])
     }
 
     @Test
@@ -28,7 +31,7 @@ class DurationTransformTest {
         val duration = getDuration(13.seconds)
 
         val array = useArray(duration)
-        assertEquals("13s", array[0])
+        assertEquals(DUR_13_S, array[0])
     }
 
     @Test
@@ -36,7 +39,7 @@ class DurationTransformTest {
         val duration = getDuration(42.minutes)
 
         val array = useArray(duration)
-        assertEquals("42m", array[0])
+        assertEquals(DUR_42_M, array[0])
     }
 
     @Test
