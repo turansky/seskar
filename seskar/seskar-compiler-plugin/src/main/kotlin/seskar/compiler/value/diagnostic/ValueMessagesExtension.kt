@@ -11,7 +11,7 @@ private val DIAGNOSTIC_FACTORY_TO_RENDERER by lazy {
         )
         put(
             ValueErrors.INVALID_JS_VALUE_TYPE,
-            "Invalid JS value type. Currently supported types: String, Int, Double, Long"
+            "Invalid JS value type. Currently supported value types: String, Int, Double, Long"
         )
     }
 }

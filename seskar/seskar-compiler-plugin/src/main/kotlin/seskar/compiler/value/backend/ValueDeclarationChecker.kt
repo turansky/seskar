@@ -8,6 +8,8 @@ import org.jetbrains.kotlin.psi.KtClassOrObject
 import org.jetbrains.kotlin.psi.KtDeclaration
 import org.jetbrains.kotlin.resolve.checkers.DeclarationChecker
 import org.jetbrains.kotlin.resolve.checkers.DeclarationCheckerContext
+import org.jetbrains.kotlin.types.KotlinType
+import org.jetbrains.kotlin.types.typeUtil.builtIns
 import seskar.compiler.value.diagnostic.ValueErrors
 
 internal object ValueDeclarationChecker : DeclarationChecker {
@@ -36,8 +38,31 @@ internal object ValueDeclarationChecker : DeclarationChecker {
         val value = constructor.valueParameters.singleOrNull()
             ?: return // TODO: throw error
 
-        if (value.type.isMarkedNullable) {
+        val type = value.type
+
+        if (type.isMarkedNullable) {
             reportError(ValueErrors.NULLABLE_JS_VALUE)
+        }
+
+        if (!validValueType(type)) {
+            reportError(ValueErrors.INVALID_JS_VALUE_TYPE)
+        }
+    }
+
+    private fun validValueType(
+        type: KotlinType,
+    ): Boolean {
+        val builtIns = type.builtIns
+
+        return when (type) {
+            builtIns.stringType,
+
+            builtIns.intType,
+            builtIns.doubleType,
+            builtIns.longType,
+            -> true
+
+            else -> false
         }
     }
 }
