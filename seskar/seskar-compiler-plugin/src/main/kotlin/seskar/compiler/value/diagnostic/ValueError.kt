@@ -19,6 +19,10 @@ internal object ValueErrors {
     val NULLABLE_JS_VALUE: DiagnosticFactory0<KtClassOrObject> =
         errorDiagnosticFactory()
 
+    @JvmField
+    val INVALID_JS_VALUE_TYPE: DiagnosticFactory0<KtClassOrObject> =
+        errorDiagnosticFactory()
+
     init {
         initialize(ValueErrors::class)
     }

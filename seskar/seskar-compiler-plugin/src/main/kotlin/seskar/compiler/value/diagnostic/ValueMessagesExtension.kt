@@ -9,6 +9,10 @@ private val DIAGNOSTIC_FACTORY_TO_RENDERER by lazy {
             ValueErrors.NULLABLE_JS_VALUE,
             "Nullable JS value is unsupported"
         )
+        put(
+            ValueErrors.INVALID_JS_VALUE_TYPE,
+            "Invalid JS value type. Currently supported types: String, Int, Double, Long"
+        )
     }
 }
 
