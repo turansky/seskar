@@ -3,13 +3,9 @@
 [![Gradle Plugin Portal](https://img.shields.io/maven-metadata/v/https/plugins.gradle.org/m2/io/github/turansky/seskar/io.github.turansky.seskar.gradle.plugin/maven-metadata.xml.svg?label=plugin&logo=gradle)](https://plugins.gradle.org/plugin/io.github.turansky.seskar)
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.turansky.seskar/seskar-core?logo=apache-maven)](https://mvnrepository.com/artifact/io.github.turansky.seskar/seskar-core)
 [![Kotlin](https://img.shields.io/badge/kotlin-1.7.10-blue.svg?logo=kotlin)](http://kotlinlang.org)
-[![Kotlin/JS. IR supported](https://img.shields.io/badge/kotlin-IR%20only-yellow?logo=kotlin&logoColor=yellow)](https://kotl.in/jsirsupported)
+[![Kotlin/JS. IR supported](https://img.shields.io/badge/kotlin-IR%20supported-yellow?logo=kotlin&logoColor=yellow)](https://kotl.in/jsirsupported)
 
 # Seskar
-
-## Compilers
-
-IR only
 
 ## Setup
 
@@ -19,7 +15,7 @@ plugins {
     id("io.github.turansky.seskar") version "0.16.0"
 }
 
-// IR browser target
+// browser target
 
 dependencies {
     implementation("io.github.turansky.seskar:seskar-core:0.16.0")
@@ -35,6 +31,10 @@ Checks that interfaces which inherits `Props` are external
 Both
 
 ## Unions
+
+#### Compilers
+
+IR only
 
 #### AS-IS
 
