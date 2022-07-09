@@ -28,11 +28,63 @@ dependencies {
 
 Checks that interfaces which inherits `Props` are external
 
-## Unions
+#### Dependencies [IR]
 
-#### Compilers
+By default `value class` dependencies produce infinite rendering. Root cause of such behaviour - autoboxing.
+Seskar plugin disable autoboxing for `dependencies` vararg parameters of hooks. `Long` values are converted to `String`.
 
-IR only
+##### Kotlin source
+
+```kotlin
+import seskar.js.JsValue
+
+@JsValue
+value class Count(
+    private val value: Int,
+)
+
+val Counter = VFC {
+    val count: Count = useCount()
+    
+    useEffect(count) {
+        println("Count changed: $count")
+    }
+}
+```
+
+##### Without plugin
+
+```javascript
+function Counter() { 
+    var count = useCount()
+    
+    useEffect(
+        () => {
+            println(`Count changed: $count`)
+        },
+        // AUTOBOXING
+        [ new Count(count) ],
+    )
+}
+```
+
+##### With plugin
+
+```javascript
+function Counter() { 
+    var count = useCount()
+    
+    useEffect(
+        () => {
+            println(`Count changed: $count`)
+        },
+        // NO AUTOBOXING
+        [ count ],
+    )
+}
+```
+
+## Unions [IR]
 
 #### AS-IS
 
