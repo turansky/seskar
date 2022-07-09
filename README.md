@@ -32,6 +32,7 @@ Checks that interfaces which inherits `Props` are external
 
 By default `value class` dependencies produce infinite rendering. Root cause of such behaviour - autoboxing.
 Seskar plugin disable autoboxing for `dependencies` vararg parameters of hooks. `Long` values are converted to `String`.
+`Duration` supported by default (without `@JsValue` marker)!
 
 ##### Kotlin source
 
