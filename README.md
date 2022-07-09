@@ -24,11 +24,9 @@ dependencies {
 
 ## React
 
+#### Props
+
 Checks that interfaces which inherits `Props` are external
-
-#### Supported platforms
-
-Both
 
 ## Unions
 
