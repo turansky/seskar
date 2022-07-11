@@ -7,7 +7,11 @@
 
 # Seskar
 
+Seskar is a gradle plugin that provides useful additions for Kotlin/JS projects. 
+
 ## Setup
+
+To add Seskar to your project, you need to the following configuration to your project's `build.gradle.kts`:
 
 ```kotlin
 plugins {
@@ -16,7 +20,6 @@ plugins {
 }
 
 // browser target
-
 dependencies {
     implementation("io.github.turansky.seskar:seskar-core:0.16.0")
 }
@@ -26,16 +29,20 @@ dependencies {
 
 #### Props
 
-Checks that interfaces which inherits `Props` are external
+Seskar ensures that interfaces that inherit the `Props` interface are external.
 
-#### Dependencies [IR]
+#### Dependencies [IR] 
 
-By default `value class` dependencies produce infinite rendering. Root cause of such behaviour - autoboxing.
-Seskar plugin disable autoboxing for `dependencies` vararg parameters of hooks. `Long` values are converted to `String`.
+When a project uses the Kotlin/JS IR compiler, `value classes` are autoboxed. If a `value class` is used as a dependency 
+of a react hook (e.g., in `useMemo`, `useState` or `useEffect`), a new class will be created on every rendering pass, 
+which causes infinite re-rendering. 
 
-`Duration` supported by default (without `@JsValue` marker)!
+To prevent this, Seskar provides a `@JsValue` marker, which disables autoboxing for `value class` dependencies in hooks. 
+Also, it converts `Long` values to `String`.
 
-##### Kotlin source
+Seskar supports `Duration` by default, so no `@JsValue` marker is needed.
+
+##### @JsValue - example  
 
 ```kotlin
 import seskar.js.JsValue
