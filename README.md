@@ -29,7 +29,7 @@ dependencies {
 
 #### Props
 
-Seskar ensures that interfaces that inherit the `Props` interface are external.
+Seskar checks if interfaces that inherit from the `Props` interface are external.
 
 #### Dependencies [IR] 
 
