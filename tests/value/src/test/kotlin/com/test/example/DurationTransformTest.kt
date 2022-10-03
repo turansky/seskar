@@ -6,8 +6,8 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
-private const val DUR_42_M = "5040000000000"
-private const val DUR_13_S = "26000000000"
+private const val DUR_42_M = "42m"
+private const val DUR_13_S = "13s"
 
 class DurationTransformTest {
     @Test
