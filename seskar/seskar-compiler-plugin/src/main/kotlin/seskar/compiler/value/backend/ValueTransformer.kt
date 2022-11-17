@@ -6,6 +6,7 @@ import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.IrVararg
 import org.jetbrains.kotlin.ir.expressions.IrVarargElement
 import org.jetbrains.kotlin.ir.expressions.impl.IrCallImpl
+import org.jetbrains.kotlin.ir.types.classFqName
 import org.jetbrains.kotlin.ir.types.getClass
 import org.jetbrains.kotlin.ir.types.isNullable
 import org.jetbrains.kotlin.ir.util.getArgumentsWithIr
@@ -18,8 +19,7 @@ internal class ValueTransformer(
     override fun visitCall(
         expression: IrCall,
     ): IrExpression {
-        if (isHookCall(expression))
-            visitHookCall(expression)
+        if (isHookCall(expression)) visitHookCall(expression)
 
         return super.visitCall(expression)
     }
@@ -28,24 +28,19 @@ internal class ValueTransformer(
         expression: IrCall,
     ) {
         val dependencies = expression.getArgumentsWithIr()
-            .firstOrNull { (parameter) -> parameter.name == DEPENDENCIES && parameter.varargElementType == context.irBuiltIns.anyNType }
-            ?.second
+            .firstOrNull { (parameter) -> parameter.name == DEPENDENCIES && parameter.varargElementType == context.irBuiltIns.anyNType }?.second
             ?: return
 
-        if (dependencies is IrVararg)
-            visitVarargElements(dependencies.elements)
+        if (dependencies is IrVararg) visitVarargElements(dependencies.elements)
     }
 
     private fun visitVarargElements(
         elements: MutableList<IrVarargElement>,
     ) {
-        val valueElements = elements.asSequence()
-            .filterIsInstance<IrExpression>()
-            .filter { downCastRequired(it.type) }
-            .toList()
+        val valueElements =
+            elements.asSequence().filterIsInstance<IrExpression>().filter { downCastRequired(it.type) }.toList()
 
-        if (valueElements.isEmpty())
-            return
+        if (valueElements.isEmpty()) return
 
         for (element in valueElements) {
             val index = elements.indexOf(element)
@@ -60,15 +55,23 @@ internal class ValueTransformer(
         val value = klass.properties.first()
         val getter = value.getter!!
 
+        // special case for duration
+        val isDuration = getter.returnType.classFqName == DURATION
+        if (isDuration) {
+            return toString(element, element.type.isNullable())
+        }
+
+        // TODO support multi property value classes
+        // TODO support property accessor for private values
+        val valueParameter = klass.valueClassRepresentation!!.underlyingPropertyNamesToTypes.first()
         val call = IrCallImpl.fromSymbolOwner(
             startOffset = element.startOffset,
             endOffset = element.endOffset,
             symbol = getter.symbol,
         )
-
         call.dispatchReceiver = element
 
-        return when (getter.returnType) {
+        return when (valueParameter.second) {
             context.irBuiltIns.longType,
             -> toString(call, element.type.isNullable())
 
@@ -79,24 +82,23 @@ internal class ValueTransformer(
     private fun toString(
         element: IrExpression,
         nullable: Boolean,
-    ): IrExpression =
-        if (nullable) {
-            val call = IrCallImpl.fromSymbolOwner(
-                startOffset = element.startOffset,
-                endOffset = element.endOffset,
-                symbol = context.symbols.extensionToString,
-            )
+    ): IrExpression = if (nullable) {
+        val call = IrCallImpl.fromSymbolOwner(
+            startOffset = element.startOffset,
+            endOffset = element.endOffset,
+            symbol = context.symbols.extensionToString,
+        )
 
-            call.extensionReceiver = element
-            call
-        } else {
-            val call = IrCallImpl.fromSymbolOwner(
-                startOffset = element.startOffset,
-                endOffset = element.endOffset,
-                symbol = context.symbols.memberToString,
-            )
+        call.extensionReceiver = element
+        call
+    } else {
+        val call = IrCallImpl.fromSymbolOwner(
+            startOffset = element.startOffset,
+            endOffset = element.endOffset,
+            symbol = context.symbols.memberToString,
+        )
 
-            call.dispatchReceiver = element
-            call
-        }
+        call.dispatchReceiver = element
+        call
+    }
 }

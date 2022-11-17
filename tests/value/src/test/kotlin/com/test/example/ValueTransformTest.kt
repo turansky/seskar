@@ -39,4 +39,20 @@ class ValueTransformTest {
         assertEquals(null, array[0])
         assertEquals("second", array[1])
     }
+
+    @Test
+    fun long_value() {
+        val fileSize = FileSize(12L)
+
+        val array = useArray(fileSize)
+        assertEquals("12", array[0])
+    }
+
+    @Test
+    fun long_value_nullable() {
+        val fileSize: FileSize? = null
+
+        val array = useArray(fileSize)
+        assertEquals("null", array[0])
+    }
 }
