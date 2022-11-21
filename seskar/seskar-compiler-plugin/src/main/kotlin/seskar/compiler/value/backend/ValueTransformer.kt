@@ -9,6 +9,7 @@ import org.jetbrains.kotlin.ir.expressions.impl.IrCallImpl
 import org.jetbrains.kotlin.ir.types.getClass
 import org.jetbrains.kotlin.ir.types.isNullable
 import org.jetbrains.kotlin.ir.util.getArgumentsWithIr
+import org.jetbrains.kotlin.ir.util.kotlinFqName
 import org.jetbrains.kotlin.ir.util.properties
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 
@@ -57,6 +58,11 @@ internal class ValueTransformer(
         element: IrExpression,
     ): IrExpression {
         val klass = element.type.getClass()!!
+
+        // WA Check how to access `rawValue`
+        if (klass.kotlinFqName == DURATION)
+            return toString(element, element.type.isNullable())
+
         val value = klass.properties.first()
         val getter = value.getter!!
 
