@@ -1,7 +1,7 @@
 package seskar.compiler.value.backend
 
-import org.jetbrains.kotlin.ir.declarations.IrFile
 import org.jetbrains.kotlin.ir.expressions.IrCall
+import org.jetbrains.kotlin.ir.util.isTopLevel
 import org.jetbrains.kotlin.name.Name
 
 internal fun isHookCall(
@@ -11,7 +11,9 @@ internal fun isHookCall(
         return false
 
     val function = expression.symbol.owner
-    if (function.parent !is IrFile)
+
+    // are hooks toplevel only? ( potentially namespace / object )
+    if (!function.isTopLevel)
         return false
 
     return isHookName(function.name)
