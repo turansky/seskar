@@ -6,6 +6,5 @@ plugins {
 
 dependencies {
     implementation("io.github.turansky.seskar:seskar-core")
-    implementation(enforcedPlatform(wrappersBom()))
     implementation(wrappers("react"))
 }

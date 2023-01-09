@@ -5,6 +5,5 @@ plugins {
 }
 
 dependencies {
-    implementation(enforcedPlatform(wrappersBom()))
     implementation(wrappers("react"))
 }
