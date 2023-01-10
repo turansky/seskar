@@ -15,6 +15,7 @@ dependencies {
 
     testImplementation(kotlin("test-js"))
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion")
+    testImplementation(wrappers("react-dom-test-utils"))
 }
 
 tasks.withType<KotlinCompile<*>>().configureEach {
