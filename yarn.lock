@@ -1545,9 +1545,9 @@ postcss@^8.4.7:
     source-map-js "^1.0.2"
 
 punycode@^2.1.0:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
-  integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.2.0.tgz#2092cc57cd2582c38e4e7e8bb869dc8d3148bc74"
+  integrity sha512-LN6QV1IJ9ZhxWTNdktaPClrNfp8xdSAYS0Zk2ddX7XsXZAxckMHPCBcHRo0cTcEIgYPRiGEkmji3Idkh2yFtYw==
 
 qjobs@^1.2.0:
   version "1.2.0"
@@ -1582,6 +1582,14 @@ raw-body@2.5.1:
     http-errors "2.0.0"
     iconv-lite "0.4.24"
     unpipe "1.0.0"
+
+react-dom@^18.2.0:
+  version "18.2.0"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-18.2.0.tgz#22aaf38708db2674ed9ada224ca4aa708d821e3d"
+  integrity sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==
+  dependencies:
+    loose-envify "^1.1.0"
+    scheduler "^0.23.0"
 
 react@^18.2.0:
   version "18.2.0"
@@ -1656,6 +1664,13 @@ safe-buffer@^5.1.0:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
+
+scheduler@^0.23.0:
+  version "0.23.0"
+  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.23.0.tgz#ba8041afc3d30eb206a487b6b384002e4e61fdfe"
+  integrity sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==
+  dependencies:
+    loose-envify "^1.1.0"
 
 schema-utils@^3.0.0, schema-utils@^3.1.0, schema-utils@^3.1.1:
   version "3.1.1"
