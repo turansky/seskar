@@ -21,8 +21,6 @@ dependencies {
 
 tasks.withType<KotlinCompile<*>>().configureEach {
     kotlinOptions.freeCompilerArgs += listOf(
-        // TEMP
-        "-opt-in=kotlin.contracts.ExperimentalContracts",
         "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
     )
 }
