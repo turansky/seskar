@@ -5,7 +5,7 @@ import web.html.HTML
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class DependenciesTest {
+class SimpleCounterTest {
     @Test
     fun initial(): TestResult = runReactTest { container ->
         val buttons = container.getElementsByTagName(HTML.button.toString() /* TEMP */)
