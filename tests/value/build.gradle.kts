@@ -14,6 +14,7 @@ dependencies {
     implementation(wrappers("react-dom"))
 
     testImplementation(kotlin("test-js"))
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:$coroutinesVersion")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion")
     testImplementation(wrappers("react-dom-test-utils"))
 }
