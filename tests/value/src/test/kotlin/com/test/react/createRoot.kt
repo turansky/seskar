@@ -1,4 +1,4 @@
-package com.test.example
+package com.test.react
 
 import react.VFC
 import react.create

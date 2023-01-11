@@ -1,8 +1,8 @@
 package com.test.counter
 
-import com.test.example.createRoot
-import com.test.example.runReactTest
-import com.test.example.unmount
+import com.test.react.createRoot
+import com.test.react.runReactTest
+import com.test.react.unmount
 import kotlinx.coroutines.test.TestResult
 import web.html.HTML
 import kotlin.test.Test

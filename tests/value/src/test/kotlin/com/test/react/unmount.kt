@@ -1,4 +1,4 @@
-package com.test.example
+package com.test.react
 
 import react.dom.client.Root
 

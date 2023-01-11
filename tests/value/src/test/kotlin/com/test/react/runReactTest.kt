@@ -1,4 +1,4 @@
-package com.test.example
+package com.test.react
 
 import kotlinx.coroutines.test.TestResult
 import kotlinx.coroutines.test.TestScope

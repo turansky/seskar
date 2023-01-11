@@ -1,4 +1,4 @@
-package com.test.example
+package com.test.react
 
 import kotlinx.coroutines.await
 import react.dom.test.utils.actAsync
