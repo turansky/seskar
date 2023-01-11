@@ -11,11 +11,10 @@ val coroutinesVersion = project.property("kotlinx-coroutines.version") as String
 dependencies {
     implementation(project(":tests:data"))
     implementation("io.github.turansky.seskar:seskar-core")
-    implementation(wrappers("react"))
+    implementation(wrappers("react-dom"))
 
     testImplementation(kotlin("test-js"))
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion")
-    testImplementation(wrappers("react-dom"))
     testImplementation(wrappers("react-dom-test-utils"))
 }
 
