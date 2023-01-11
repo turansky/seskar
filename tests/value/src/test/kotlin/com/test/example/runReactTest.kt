@@ -5,7 +5,6 @@ import react.VFC
 import react.create
 import react.dom.client.Root
 import react.dom.client.createRoot
-import react.dom.test.utils.act
 import web.dom.document
 import web.html.HTML.div
 import web.html.HTMLElement
@@ -28,8 +27,7 @@ fun runReactTest(
         testBody(container)
 
         act {
-            // TODO: fix
-            // root.unmount()
+            root.unmount()
         }
     }
 }
