@@ -3,7 +3,6 @@ package com.test.example
 import kotlinx.coroutines.test.runTest
 import react.VFC
 import react.create
-import react.dom.client.Root
 import react.dom.client.createRoot
 import web.dom.document
 import web.html.HTML.div
@@ -25,11 +24,9 @@ fun runReactTest(
     testBody: suspend (container: HTMLElement) -> Unit,
 ) {
     runReactTest { container ->
-        var root: Root
-
-        act {
-            root = createRoot(container)
-            root.render(component.create())
+        val root = act {
+            createRoot(container)
+                .also { it.render(component.create()) }
         }
 
         testBody(container)
