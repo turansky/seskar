@@ -1,4 +1,4 @@
-package com.test.example
+package com.test.counter
 
 import react.VFC
 import react.dom.html.ReactHTML.button
