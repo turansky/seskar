@@ -26,8 +26,6 @@ fun runReactTest(
 
         testBody(container)
 
-        act {
-            root.unmount()
-        }
+        unmount(root)
     }
 }
