@@ -1,12 +1,16 @@
 package com.test.example
 
-import kotlinx.coroutines.test.runTest
+import web.html.HTML
 import kotlin.test.Test
-import kotlin.test.assertEquals
+import kotlin.test.expect
 
 class DependenciesTest {
     @Test
-    fun initial() = runTest {
-        assertEquals(1, 1)
+    fun initial() = runReactTest(Counter) { container ->
+        val buttons = container.getElementsByTagName(HTML.button.toString() /* TEMP */)
+
+        expect(2, "Buttons count") {
+            buttons.length
+        }
     }
 }
