@@ -3,6 +3,7 @@ build/
 
 # IDEA ignore list
 .idea/*
+!.idea/codeInsightSettings.xml
 !.idea/icon.png
 *.iml
 
