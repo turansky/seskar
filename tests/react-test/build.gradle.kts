@@ -9,15 +9,11 @@ plugins {
 val coroutinesVersion = project.property("kotlinx-coroutines.version") as String
 
 dependencies {
-    implementation(project(":tests:data"))
-    implementation("io.github.turansky.seskar:seskar-core")
+    implementation(wrappers("react"))
     implementation(wrappers("react-dom"))
-
-    testImplementation(kotlin("test-js"))
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:$coroutinesVersion")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion")
-    testImplementation(project(":tests:react-test"))
-    testImplementation(wrappers("react-dom-test-utils"))
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:$coroutinesVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion")
+    implementation(wrappers("react-dom-test-utils"))
 }
 
 tasks.withType<KotlinCompile<*>>().configureEach {
