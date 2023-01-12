@@ -9,13 +9,13 @@ fun main() {
     println(age1)
     println(age2)
 
-    useMemo(age0, age1)
+    useCustomMemo(age0, age1)
 
     val city0 = City("Amsterdam")
     val city1: Any = city0
     val city2: dynamic = city0
 
-    useMemo(city0, city1)
+    useCustomMemo(city0, city1)
 
     println(city0)
     println(city1)

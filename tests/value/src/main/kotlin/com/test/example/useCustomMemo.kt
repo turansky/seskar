@@ -1,6 +1,6 @@
 package com.test.example
 
-fun useMemo(
+fun useCustomMemo(
     vararg dependencies: Any?,
 ) {
     println(dependencies)
