@@ -15,7 +15,7 @@ class SimpleCounterTest {
 
         assertEquals(0, buttons.length, "Buttons count before create")
 
-        val root = createRoot(container, Counter)
+        val root = createRoot(container, ActiveCounter)
 
         assertEquals(2, buttons.length, "Buttons count")
 
