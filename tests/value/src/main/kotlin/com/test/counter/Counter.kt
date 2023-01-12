@@ -21,7 +21,8 @@ val Counter = FC<CounterProps> { props ->
         active = props.active,
     )
 
-    val (updateCount, setUpdateCount) = useState(0)
+    // TODO: zero when useUpdateEffect will be available
+    val (updateCount, setUpdateCount) = useState(-1)
 
     useEffect(count) {
         setUpdateCount { it + 1 }

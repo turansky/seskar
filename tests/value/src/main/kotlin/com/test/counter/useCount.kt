@@ -1,6 +1,5 @@
 package com.test.counter
 
-import com.test.example.Count
 import react.useMemo
 import react.useRefValue
 
