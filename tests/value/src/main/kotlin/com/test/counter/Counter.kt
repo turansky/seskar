@@ -1,13 +1,10 @@
 package com.test.counter
 
 import com.test.example.Count
-import react.FC
-import react.Props
+import react.*
 import react.dom.html.ReactHTML.button
 import react.dom.html.ReactHTML.div
 import react.dom.onChange
-import react.useEffect
-import react.useState
 
 const val COUNTER_CONTAINER_ID = "container"
 
@@ -16,23 +13,26 @@ external interface CounterProps : Props {
 }
 
 val Counter = FC<CounterProps> { props ->
-    val (trigger, setTrigger) = useState(Count(1000))
+    val (trigger, setTrigger) = useState(1000)
 
-    val (count, setCount) = useState(0)
+    var countValue by useRefValue(0)
+    val count = useMemo(trigger) {
+        countValue += if (props.active) 1 else 0
+        Count(countValue)
+    }
 
-    useEffect(trigger) {
-        setCount { it + 1 }
+    val (updateCount, setUpdateCount) = useState(0)
+
+    useEffect(count) {
+        setUpdateCount { it + 1 }
     }
 
     div {
         id = COUNTER_CONTAINER_ID
-        dataCount = count
+        dataCount = updateCount
 
         onChange = {
-            val diff = if (props.active) 1 else 0
-            setTrigger {
-                Count(it.value + diff)
-            }
+            setTrigger { it + 1 }
         }
 
         button {
