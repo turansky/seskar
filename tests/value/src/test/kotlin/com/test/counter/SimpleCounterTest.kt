@@ -4,14 +4,14 @@ import com.test.react.createRoot
 import com.test.react.runReactTest
 import com.test.react.unmount
 import kotlinx.coroutines.test.TestResult
-import web.html.HTML
+import web.html.HTML.button
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class SimpleCounterTest {
     @Test
     fun initial(): TestResult = runReactTest { container ->
-        val buttons = container.getElementsByTagName(HTML.button.toString() /* TEMP */)
+        val buttons = container.getElementsByTagName(button)
 
         assertEquals(0, buttons.length, "Buttons count before create")
 
