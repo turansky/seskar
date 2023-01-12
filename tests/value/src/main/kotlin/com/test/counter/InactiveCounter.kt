@@ -4,6 +4,6 @@ import react.VFC
 
 val InactiveCounter = VFC {
     Counter {
-        active = true
+        active = false
     }
 }
