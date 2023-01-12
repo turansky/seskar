@@ -15,11 +15,7 @@ external interface CounterProps : Props {
 }
 
 val Counter = FC<CounterProps> { props ->
-    val (trigger, setTrigger) = useState(1000)
-    val count = useCount(
-        trigger = trigger,
-        active = props.active,
-    )
+    val (count, update) = useCountState(props.active)
 
     // TODO: zero when useUpdateEffect will be available
     val (updateCount, setUpdateCount) = useState(-1)
@@ -33,7 +29,7 @@ val Counter = FC<CounterProps> { props ->
         dataCount = updateCount
 
         onChange = {
-            setTrigger { it + 1 }
+            update()
         }
 
         button {
