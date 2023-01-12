@@ -1,10 +1,9 @@
-package com.test.react
+package react.dom.test
 
 import react.VFC
 import react.create
 import react.dom.client.Root
 import react.dom.client.createRoot
-import react.dom.test.act
 import web.html.HTMLElement
 
 suspend fun createRoot(

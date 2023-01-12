@@ -1,7 +1,6 @@
-package com.test.react
+package react.dom.test
 
 import react.dom.client.Root
-import react.dom.test.act
 
 suspend fun unmount(
     root: Root,

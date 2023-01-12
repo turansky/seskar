@@ -1,9 +1,9 @@
 package com.test.counter
 
-import com.test.react.createRoot
-import com.test.react.runReactTest
-import com.test.react.unmount
 import kotlinx.coroutines.test.TestResult
+import react.dom.test.createRoot
+import react.dom.test.runReactTest
+import react.dom.test.unmount
 import web.html.HTML.button
 import kotlin.test.Test
 import kotlin.test.assertEquals

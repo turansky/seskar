@@ -1,10 +1,10 @@
 package com.test.counter
 
-import com.test.react.runReactTest
 import js.core.get
 import kotlinx.coroutines.test.TestResult
 import react.dom.test.Simulate
 import react.dom.test.act
+import react.dom.test.runReactTest
 import web.html.HTML.div
 import kotlin.test.Test
 import kotlin.test.assertEquals
