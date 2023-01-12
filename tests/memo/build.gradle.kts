@@ -10,6 +10,7 @@ val coroutinesVersion = project.property("kotlinx-coroutines.version") as String
 
 dependencies {
     implementation("io.github.turansky.seskar:seskar-core")
+    implementation(wrappers("react"))
     implementation(wrappers("react-dom"))
 
     testImplementation(kotlin("test-js"))
