@@ -20,6 +20,7 @@ dependencyResolutionManagement {
 includeBuild("seskar")
 
 include("tests:data")
+include("tests:memo")
 include("tests:react")
 include("tests:react-test")
 include("tests:union")
