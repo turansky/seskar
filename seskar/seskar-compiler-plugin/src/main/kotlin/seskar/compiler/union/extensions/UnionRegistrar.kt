@@ -1,15 +1,15 @@
 package seskar.compiler.union.extensions
 
 import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
-import org.jetbrains.kotlin.com.intellij.mock.MockProject
-import org.jetbrains.kotlin.compiler.plugin.ComponentRegistrar
+import org.jetbrains.kotlin.compiler.plugin.CompilerPluginRegistrar
 import org.jetbrains.kotlin.config.CompilerConfiguration
 
-class UnionRegistrar : ComponentRegistrar {
-    override fun registerProjectComponents(
-        project: MockProject,
+class UnionRegistrar : CompilerPluginRegistrar() {
+    override val supportsK2: Boolean = false
+
+    override fun ExtensionStorage.registerExtensions(
         configuration: CompilerConfiguration,
     ) {
-        IrGenerationExtension.registerExtension(project, UnionTransformExtension())
+        IrGenerationExtension.registerExtension(UnionTransformExtension())
     }
 }

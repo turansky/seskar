@@ -1,17 +1,16 @@
 package seskar.compiler.react.extensions
 
-import org.jetbrains.kotlin.com.intellij.mock.MockProject
-import org.jetbrains.kotlin.compiler.plugin.ComponentRegistrar
+import org.jetbrains.kotlin.compiler.plugin.CompilerPluginRegistrar
 import org.jetbrains.kotlin.config.CompilerConfiguration
 import org.jetbrains.kotlin.extensions.StorageComponentContainerContributor
 
-class ReactRegistrar : ComponentRegistrar {
-    override fun registerProjectComponents(
-        project: MockProject,
+class ReactRegistrar : CompilerPluginRegistrar() {
+    override val supportsK2: Boolean = false
+
+    override fun ExtensionStorage.registerExtensions(
         configuration: CompilerConfiguration,
     ) {
         StorageComponentContainerContributor.registerExtension(
-            project = project,
             extension = ReactStorageComponentContainerContributor(),
         )
     }
