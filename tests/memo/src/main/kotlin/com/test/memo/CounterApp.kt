@@ -2,12 +2,12 @@ package com.test.memo
 
 import react.VFC
 import react.dom.html.ReactHTML.div
-import react.use.useRendersCount
+import react.use.useRenderCount
 
 const val COUNTER_CONTAINER_ID = "counter-container"
 
 val CounterContainer = VFC {
-    val renderCount = useRendersCount()
+    val renderCount = useRenderCount()
 
     div {
         id = COUNTER_CONTAINER_ID
