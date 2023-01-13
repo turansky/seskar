@@ -3,7 +3,6 @@ package com.test.memo
 import react.FC
 import react.Props
 import react.dom.html.ReactHTML.button
-import react.dom.onChange
 import react.use.useRenderCount
 import react.use.useUpdate
 
@@ -22,7 +21,7 @@ val Counter = FC<CounterProps> { props ->
         title = props.title
         dataCount = renderCount
 
-        onChange = {
+        onClick = {
             update()
         }
     }

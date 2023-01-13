@@ -2,7 +2,6 @@ package com.test.memo
 
 import react.VFC
 import react.dom.html.ReactHTML.button
-import react.dom.onChange
 import react.use.useRenderCount
 import react.use.useUpdate
 
@@ -13,7 +12,7 @@ val VoidCounter = VFC {
     button {
         dataCount = renderCount
 
-        onChange = {
+        onClick = {
             update()
         }
     }

@@ -4,6 +4,7 @@ import js.core.get
 import kotlinx.coroutines.test.TestResult
 import react.dom.test.runReactTest
 import react.dom.test.simulateChange
+import react.dom.test.simulateClick
 import web.html.HTML.button
 import web.html.HTML.div
 import kotlin.test.Test
@@ -26,12 +27,12 @@ class VoidComponentMemoTest {
         assertEquals(3, target.dataCount, "Count #3.1")
         assertEquals(1, button.dataCount, "Count #3.2")
 
-        button.simulateChange()
-        assertEquals(4, target.dataCount, "Count #4.1")
+        button.simulateClick()
+        assertEquals(3, target.dataCount, "Count #4.1")
         assertEquals(2, button.dataCount, "Count #4.2")
 
-        button.simulateChange()
-        assertEquals(5, target.dataCount, "Count #5.1")
+        button.simulateClick()
+        assertEquals(3, target.dataCount, "Count #5.1")
         assertEquals(3, button.dataCount, "Count #5.2")
     }
 }
