@@ -1,8 +1,9 @@
-package com.test.memo
+package react.use
 
 import react.useRefValue
 
-fun useRenderCount(): Int {
+// TODO: remove after wrappers update
+fun useRendersCount(): Int {
     var count by useRefValue(0)
     count++
     return count
