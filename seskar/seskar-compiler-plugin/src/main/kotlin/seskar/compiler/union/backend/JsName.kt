@@ -6,9 +6,14 @@ import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
 import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
 import org.jetbrains.kotlin.ir.expressions.impl.IrConstructorCallImpl
 import org.jetbrains.kotlin.ir.types.defaultType
+import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.FqName
+import org.jetbrains.kotlin.name.Name
 
-private val JS_NAME = FqName("kotlin.js.JsName")
+private val JS_NAME = ClassId(
+    FqName("kotlin.js"),
+    Name.identifier("JsName"),
+)
 
 internal fun JsName(
     context: IrPluginContext,
@@ -39,4 +44,3 @@ internal fun JsName(
 
     return annotation
 }
-
