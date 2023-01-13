@@ -12,6 +12,7 @@ dependencies {
     implementation("io.github.turansky.seskar:seskar-core")
     implementation(wrappers("react"))
     implementation(wrappers("react-dom"))
+    implementation(wrappers("react-use"))
 
     testImplementation(kotlin("test-js"))
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:$coroutinesVersion")
