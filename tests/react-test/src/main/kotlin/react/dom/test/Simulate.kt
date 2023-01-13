@@ -7,3 +7,9 @@ suspend fun HTMLElement.simulateChange() {
         Simulate.change(this)
     }
 }
+
+suspend fun HTMLElement.simulateClick() {
+    act {
+        Simulate.click(this)
+    }
+}
