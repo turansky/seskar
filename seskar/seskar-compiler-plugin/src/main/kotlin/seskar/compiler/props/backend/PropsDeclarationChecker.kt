@@ -1,4 +1,4 @@
-package seskar.compiler.react.backend
+package seskar.compiler.props.backend
 
 import org.jetbrains.kotlin.descriptors.ClassDescriptor
 import org.jetbrains.kotlin.descriptors.ClassKind
@@ -8,7 +8,7 @@ import org.jetbrains.kotlin.psi.KtDeclaration
 import org.jetbrains.kotlin.resolve.checkers.DeclarationChecker
 import org.jetbrains.kotlin.resolve.checkers.DeclarationCheckerContext
 import org.jetbrains.kotlin.resolve.descriptorUtil.isEffectivelyExternal
-import seskar.compiler.react.diagnostic.ReactErrors
+import seskar.compiler.props.diagnostic.PropsErrors
 
 internal object PropsDeclarationChecker : DeclarationChecker {
     override fun check(
@@ -22,6 +22,6 @@ internal object PropsDeclarationChecker : DeclarationChecker {
         if (descriptor.isEffectivelyExternal()) return
         if (!descriptor.implementsProps) return
 
-        context.trace.report(ReactErrors.NON_EXTERNAL_PROPS.on(declaration))
+        context.trace.report(PropsErrors.NON_EXTERNAL_PROPS.on(declaration))
     }
 }

@@ -1,4 +1,4 @@
-package seskar.compiler.react.backend
+package seskar.compiler.props.backend
 
 import org.jetbrains.kotlin.descriptors.ClassDescriptor
 import org.jetbrains.kotlin.name.FqName

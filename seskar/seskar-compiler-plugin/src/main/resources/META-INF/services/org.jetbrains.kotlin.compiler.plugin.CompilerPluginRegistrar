@@ -1,3 +1,3 @@
-seskar.compiler.react.extensions.ReactRegistrar
+seskar.compiler.props.extensions.PropsRegistrar
 seskar.compiler.union.extensions.UnionRegistrar
 seskar.compiler.value.extensions.ValueRegistrar

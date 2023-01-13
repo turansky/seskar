@@ -1,13 +1,13 @@
-package seskar.compiler.react.extensions
+package seskar.compiler.props.extensions
 
 import org.jetbrains.kotlin.container.StorageComponentContainer
 import org.jetbrains.kotlin.container.useInstance
 import org.jetbrains.kotlin.descriptors.ModuleDescriptor
 import org.jetbrains.kotlin.extensions.StorageComponentContainerContributor
 import org.jetbrains.kotlin.platform.TargetPlatform
-import seskar.compiler.react.backend.PropsDeclarationChecker
+import seskar.compiler.props.backend.PropsDeclarationChecker
 
-class ReactStorageComponentContainerContributor : StorageComponentContainerContributor {
+class PropsStorageComponentContainerContributor : StorageComponentContainerContributor {
     override fun registerModuleComponents(
         container: StorageComponentContainer,
         platform: TargetPlatform,
