@@ -5,7 +5,7 @@ import react.Props
 import react.dom.html.ReactHTML.button
 import react.dom.html.ReactHTML.div
 import react.dom.onChange
-import react.useEffect
+import react.use.useUpdateEffect
 import react.useState
 
 const val COUNTER_CONTAINER_ID = "container"
@@ -16,11 +16,9 @@ external interface CounterProps : Props {
 
 val Counter = FC<CounterProps> { props ->
     val (count, update) = useCountState(props.active)
+    val (updateCount, setUpdateCount) = useState(0)
 
-    // TODO: zero when useUpdateEffect will be available
-    val (updateCount, setUpdateCount) = useState(-1)
-
-    useEffect(count) {
+    useUpdateEffect(count) {
         setUpdateCount { it + 1 }
     }
 
