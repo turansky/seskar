@@ -10,7 +10,7 @@ import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class MemoTest {
+class ComponentMemoTest {
     @Test
     @Ignore
     fun initial(): TestResult = runReactTest(CounterApp) { container ->
