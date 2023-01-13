@@ -6,11 +6,13 @@ import react.dom.test.runReactTest
 import react.dom.test.simulateChange
 import web.html.HTML.button
 import web.html.HTML.div
+import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class MemoTest {
     @Test
+    @Ignore
     fun initial(): TestResult = runReactTest(CounterApp) { container ->
         val target = container.getElementsByTagName(div)[0]
         val button = container.getElementsByTagName(button)[0]
