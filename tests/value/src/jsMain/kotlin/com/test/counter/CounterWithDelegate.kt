@@ -5,6 +5,7 @@ import react.Props
 import react.dom.html.ReactHTML.button
 import react.dom.html.ReactHTML.div
 import react.dom.onChange
+import react.use.useUpdate
 import react.use.useUpdateEffect
 import react.useRefValue
 import react.useState
@@ -16,7 +17,7 @@ external interface CounterWithDelegateProps : Props {
 }
 
 val CounterWithDelegate = FC<CounterWithDelegateProps> { props ->
-    val (_, update) = useState(1000)
+    val update = useUpdate()
 
     var countValue by useRefValue(0)
     var count by useState(Count(countValue))
@@ -32,7 +33,7 @@ val CounterWithDelegate = FC<CounterWithDelegateProps> { props ->
         dataCount = updateCount
 
         onChange = {
-            update { it + 1 }
+            update()
 
             if (props.active) {
                 countValue += 1
