@@ -6,6 +6,7 @@ import react.dom.html.ReactHTML.button
 import react.dom.html.ReactHTML.div
 import react.dom.onChange
 import react.use.useUpdateEffect
+import react.useRefValue
 import react.useState
 
 const val COUNTER_WITH_DELEGATE_CONTAINER_ID = "container"
@@ -15,7 +16,11 @@ external interface CounterWithDelegateProps : Props {
 }
 
 val CounterWithDelegate = FC<CounterWithDelegateProps> { props ->
-    val (count, update) = useCountState(props.active)
+    val (_, update) = useState(1000)
+
+    var countValue by useRefValue(0)
+    var count by useState(Count(countValue))
+
     val (updateCount, setUpdateCount) = useState(0)
 
     useUpdateEffect(count) {
@@ -27,7 +32,13 @@ val CounterWithDelegate = FC<CounterWithDelegateProps> { props ->
         dataCount = updateCount
 
         onChange = {
-            update()
+            update { it + 1 }
+
+            if (props.active) {
+                countValue += 1
+            }
+
+            count = Count(countValue)
         }
 
         button {
