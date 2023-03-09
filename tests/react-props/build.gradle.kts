@@ -5,5 +5,5 @@ plugins {
 }
 
 dependencies {
-    implementation(wrappers("react"))
+    jsMainImplementation(wrappers("react"))
 }

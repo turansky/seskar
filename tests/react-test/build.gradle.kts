@@ -9,11 +9,11 @@ plugins {
 val coroutinesVersion = project.property("kotlinx-coroutines.version") as String
 
 dependencies {
-    implementation(wrappers("react"))
-    implementation(wrappers("react-dom"))
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:$coroutinesVersion")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion")
-    implementation(wrappers("react-dom-test-utils"))
+    jsMainImplementation(wrappers("react"))
+    jsMainImplementation(wrappers("react-dom"))
+    jsMainImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:$coroutinesVersion")
+    jsMainImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion")
+    jsMainImplementation(wrappers("react-dom-test-utils"))
 }
 
 tasks.withType<KotlinCompile<*>>().configureEach {

@@ -1,5 +1,5 @@
 plugins {
-    kotlin("js") apply false
+    kotlin("multiplatform") apply false
     id("io.github.gradle-nexus.publish-plugin")
 }
 

@@ -5,6 +5,6 @@ plugins {
 }
 
 dependencies {
-    implementation("io.github.turansky.seskar:seskar-core")
-    implementation(wrappers("react"))
+    jsMainImplementation("io.github.turansky.seskar:seskar-core")
+    jsMainImplementation(wrappers("react"))
 }

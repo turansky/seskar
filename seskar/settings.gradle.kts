@@ -5,10 +5,9 @@ pluginManagement {
         val kotlinVersion = extra["kotlin.version"] as String
         kotlin("multiplatform") version kotlinVersion
         kotlin("jvm") version kotlinVersion
-        kotlin("js") version kotlinVersion
 
         val kfcVersion = extra["kfc.version"] as String
-        id("io.github.turansky.kfc.multiplatform") version kfcVersion
+        id("io.github.turansky.kfc.library") version kfcVersion
         id("io.github.turansky.kfc.maven-central-publish") version kfcVersion
         id("io.github.turansky.kfc.plugin-publish") version kfcVersion
 

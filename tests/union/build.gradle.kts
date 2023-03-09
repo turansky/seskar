@@ -4,6 +4,6 @@ plugins {
 }
 
 dependencies {
-    implementation("io.github.turansky.seskar:seskar-core")
-    testImplementation(kotlin("test-js"))
+    jsMainImplementation("io.github.turansky.seskar:seskar-core")
+    jsTestImplementation(kotlin("test-js"))
 }
