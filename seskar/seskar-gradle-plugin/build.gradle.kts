@@ -43,6 +43,8 @@ pluginBundle {
     vcsUrl = REPO_URL
 
     plugins.getByName("seskar") {
+        displayName = "Seskar"
+        description = "Additions to Kotlin data classes"
         tags = TAGS
     }
 }
