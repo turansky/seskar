@@ -36,3 +36,13 @@ gradlePlugin {
         }
     }
 }
+
+// TODO: remove after migration
+pluginBundle {
+    website = REPO_URL
+    vcsUrl = REPO_URL
+
+    plugins.getByName("seskar") {
+        tags = TAGS
+    }
+}
