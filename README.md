@@ -16,12 +16,12 @@ To add Seskar to your project, you need to the following configuration to your p
 ```kotlin
 plugins {
     kotlin("js") version "1.8.10"
-    id("io.github.turansky.seskar") version "1.1.11"
+    id("io.github.turansky.seskar") version "1.1.12"
 }
 
 // browser target
 dependencies {
-    implementation("io.github.turansky.seskar:seskar-core:1.1.11")
+    implementation("io.github.turansky.seskar:seskar-core:1.1.12")
 }
 ```
 
