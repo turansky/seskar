@@ -15,6 +15,12 @@ tasks.compileKotlin {
 }
 
 val REPO_URL = "https://github.com/turansky/seskar"
+val TAGS = listOf(
+    "kotlin",
+    "dataclass",
+    "equals",
+    "hashcode"
+)
 
 gradlePlugin {
     website.set(REPO_URL)
@@ -26,14 +32,7 @@ gradlePlugin {
             displayName = "Seskar"
             description = "Additions to Kotlin data classes"
             implementationClass = "seskar.gradle.plugin.SeskarGradleSubplugin"
-            tags.set(
-                listOf(
-                    "kotlin",
-                    "dataclass",
-                    "equals",
-                    "hashcode"
-                )
-            )
+            tags.set(TAGS)
         }
     }
 }
