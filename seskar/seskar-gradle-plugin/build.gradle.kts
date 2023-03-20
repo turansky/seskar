@@ -1,5 +1,4 @@
 plugins {
-    `java-gradle-plugin`
     id("com.gradle.plugin-publish")
     id("io.github.turansky.kfc.plugin-publish")
     kotlin("jvm")
@@ -34,21 +33,5 @@ gradlePlugin {
             implementationClass = "seskar.gradle.plugin.SeskarGradleSubplugin"
             tags.set(TAGS)
         }
-    }
-}
-
-// TODO: remove after migration
-pluginBundle {
-    website = REPO_URL
-    vcsUrl = REPO_URL
-
-    plugins.getByName("seskar") {
-        tags = TAGS
-    }
-
-    mavenCoordinates {
-        groupId = project.group.toString()
-        artifactId = project.name
-        version = project.version.toString()
     }
 }
