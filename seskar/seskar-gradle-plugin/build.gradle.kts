@@ -8,11 +8,6 @@ dependencies {
     compileOnly(kotlin("gradle-plugin"))
 }
 
-// TODO: remove after Gradle update
-tasks.compileKotlin {
-    kotlinOptions.allWarningsAsErrors = false
-}
-
 val REPO_URL = "https://github.com/turansky/seskar"
 val TAGS = listOf(
     "kotlin",
