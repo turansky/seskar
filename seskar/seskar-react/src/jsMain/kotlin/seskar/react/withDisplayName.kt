@@ -9,7 +9,7 @@ internal inline fun <T : Any> withDisplayName(
     displayName: String,
 ): T {
     if (process.env.NODE_ENV !== "production") {
-        if (target.asDynamic().displayName) {
+        if (!target.asDynamic().displayName) {
             target.asDynamic().displayName = displayName
         }
     }
