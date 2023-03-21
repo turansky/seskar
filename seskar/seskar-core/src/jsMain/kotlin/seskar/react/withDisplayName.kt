@@ -8,7 +8,7 @@ internal inline fun <T : Any> withDisplayName(
     target: T,
     displayName: String,
 ): T {
-    if (isDevelopmentMode) {
+    if (process.env.NODE_ENV !== "production") {
         target.asDynamic().displayName = displayName
     }
 
