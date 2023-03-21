@@ -14,6 +14,7 @@ import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
+import seskar.compiler.displayname.backend.withDisplayName
 
 private val FC = FqName("react.FC")
 
@@ -70,7 +71,11 @@ internal class MemoTransformer(
         if (functionName !in FC_FACTORIES)
             return null
 
-        initializer.expression = memo(call)
+        initializer.expression = withDisplayName(
+            context = context,
+            componentFactory = memo(call),
+            displayName = declaration.name.identifier,
+        )
 
         return declaration
     }
