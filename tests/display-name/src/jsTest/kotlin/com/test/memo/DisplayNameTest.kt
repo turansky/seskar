@@ -14,4 +14,15 @@ class DisplayNameTest {
     fun vfc() {
         assertEquals(VoidCounter.displayName, "VoidCounter")
     }
+
+    @Test
+    fun context() {
+        assertEquals(CountContext.displayName, "CountContext")
+    }
+
+    @Test
+    fun requiredContext() {
+        // TODO: remove `asDynamic`
+        assertEquals(CountRequiredContext.asDynamic().displayName, "CountRequiredContext")
+    }
 }
