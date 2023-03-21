@@ -1,7 +1,8 @@
 plugins {
+    `kotlin-dsl`
+
     id("com.gradle.plugin-publish")
     id("io.github.turansky.kfc.plugin-publish")
-    kotlin("jvm")
 }
 
 dependencies {
