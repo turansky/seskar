@@ -1,7 +1,6 @@
 package seskar.compiler.displayname.backend
 
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
-import org.jetbrains.kotlin.ir.expressions.IrCall
 import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.impl.IrCallImpl
 import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
@@ -18,7 +17,7 @@ private val WITH_DISPLAY_NAME = CallableId(
 
 internal fun withDisplayName(
     context: IrPluginContext,
-    componentFactory: IrCall,
+    componentFactory: IrExpression, /* IrCall? */
     displayName: String,
 ): IrExpression {
     val withDisplayName = context.referenceFunctions(WITH_DISPLAY_NAME).single()
