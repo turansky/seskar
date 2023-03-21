@@ -17,10 +17,19 @@ import org.jetbrains.kotlin.name.Name
 import seskar.compiler.displayname.backend.withDisplayName
 
 private val FC = FqName("react.FC")
+private val CONTEXT_TYPES = setOf(
+    FqName("react.Context"),
+    FqName("react.RequiredContext"),
+)
 
 private val FC_FACTORIES = setOf(
     FqName("react.FC"),
     FqName("react.VFC"),
+)
+
+private val CONTEXT_FACTORIES = setOf(
+    FqName("react.createContext"),
+    FqName("react.createRequiredContext"),
 )
 
 private val MEMO = CallableId(
@@ -53,7 +62,7 @@ internal class MemoTransformer(
         val typeName = backingField.type.classFqName
             ?: return null
 
-        if (typeName != FC)
+        if (typeName != FC && typeName !in CONTEXT_TYPES)
             return null
 
         val initializer = backingField.initializer
@@ -66,15 +75,18 @@ internal class MemoTransformer(
             memo(call)
         } else call
 
-        if (factory == call)
+        val expression = if (displayNameRequired(call)) {
+            withDisplayName(
+                context = context,
+                componentFactory = factory,
+                displayName = declaration.name.identifier,
+            )
+        } else factory
+
+        if (expression == call)
             return null
 
-        initializer.expression = withDisplayName(
-            context = context,
-            componentFactory = factory,
-            displayName = declaration.name.identifier,
-        )
-
+        initializer.expression = expression
         return declaration
     }
 
@@ -85,6 +97,15 @@ internal class MemoTransformer(
             ?: return false
 
         return functionName in FC_FACTORIES
+    }
+
+    private fun displayNameRequired(
+        call: IrCall,
+    ): Boolean {
+        val functionName = call.symbol.owner.fqNameWhenAvailable
+            ?: return false
+
+        return functionName in FC_FACTORIES || functionName in CONTEXT_FACTORIES
     }
 
     private fun memo(
