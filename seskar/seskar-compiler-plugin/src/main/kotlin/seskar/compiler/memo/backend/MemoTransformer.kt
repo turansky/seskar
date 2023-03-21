@@ -62,14 +62,16 @@ internal class MemoTransformer(
         val call = initializer.expression as? IrCall
             ?: return null
 
-        val memoizationRequired = memoizationRequired(call)
+        val factory = if (memoizationRequired(call)) {
+            memo(call)
+        } else call
 
-        if (!memoizationRequired)
+        if (factory == call)
             return null
 
         initializer.expression = withDisplayName(
             context = context,
-            componentFactory = memo(call),
+            componentFactory = factory,
             displayName = declaration.name.identifier,
         )
 
