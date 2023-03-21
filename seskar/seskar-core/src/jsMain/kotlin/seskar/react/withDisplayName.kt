@@ -8,6 +8,9 @@ internal inline fun <T : Any> withDisplayName(
     target: T,
     displayName: String,
 ): T {
-    target.asDynamic().displayName = displayName
+    if (isDevelopmentMode) {
+        target.asDynamic().displayName = displayName
+    }
+
     return target
 }
