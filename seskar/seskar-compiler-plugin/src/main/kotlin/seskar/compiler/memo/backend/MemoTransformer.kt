@@ -62,13 +62,9 @@ internal class MemoTransformer(
         val call = initializer.expression as? IrCall
             ?: return null
 
-        if (call.valueArgumentsCount != 1)
-            return null
+        val memoizationRequired = memoizationRequired(call)
 
-        val functionName = call.symbol.owner.fqNameWhenAvailable
-            ?: return null
-
-        if (functionName !in FC_FACTORIES)
+        if (!memoizationRequired)
             return null
 
         initializer.expression = withDisplayName(
@@ -78,6 +74,15 @@ internal class MemoTransformer(
         )
 
         return declaration
+    }
+
+    private fun memoizationRequired(
+        call: IrCall,
+    ): Boolean {
+        val functionName = call.symbol.owner.fqNameWhenAvailable
+            ?: return false
+
+        return functionName in FC_FACTORIES
     }
 
     private fun memo(
