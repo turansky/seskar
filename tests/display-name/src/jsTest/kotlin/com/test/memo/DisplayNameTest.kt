@@ -22,7 +22,6 @@ class DisplayNameTest {
 
     @Test
     fun requiredContext() {
-        // TODO: remove `asDynamic`
-        assertEquals(CountRequiredContext.asDynamic().displayName, "CountRequiredContext")
+        assertEquals(CountRequiredContext.displayName, "CountRequiredContext")
     }
 }
