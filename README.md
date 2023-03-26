@@ -3,7 +3,7 @@
 [![Gradle Plugin Portal](https://img.shields.io/gradle-plugin-portal/v/io.github.turansky.seskar?logo=gradle)](https://plugins.gradle.org/plugin/io.github.turansky.seskar)
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.turansky.seskar/seskar-core?logo=apache-maven)](https://mvnrepository.com/artifact/io.github.turansky.seskar/seskar-core)
 [![Kotlin](https://img.shields.io/badge/kotlin-1.8.10-blue.svg?logo=kotlin)](http://kotlinlang.org)
-[![Kotlin/JS. IR supported](https://img.shields.io/badge/kotlin-IR%20supported-yellow?logo=kotlin&logoColor=yellow)](https://kotl.in/jsirsupported)
+[![Kotlin/JS. IR only](https://img.shields.io/badge/kotlin-IR%20only-yellow?logo=kotlin&logoColor=yellow)](https://kotl.in/jsirsupported)
 
 # Seskar
 
@@ -31,7 +31,7 @@ dependencies {
 
 Seskar checks if interfaces that inherit from the `Props` interface are external.
 
-#### Dependencies [IR] 
+#### Dependencies
 
 When a project uses the Kotlin/JS IR compiler, `value classes` are autoboxed. If a `value class` is used as a dependency 
 of a react hook (e.g., in `useMemo`, `useState` or `useEffect`), a new class will be created on every rendering pass, 
@@ -93,7 +93,7 @@ function Counter() {
 }
 ```
 
-## Unions [IR]
+## Unions
 
 #### AS-IS
 
