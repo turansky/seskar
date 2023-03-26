@@ -1,6 +1,5 @@
 package com.test.memo
 
-import react.displayName
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
