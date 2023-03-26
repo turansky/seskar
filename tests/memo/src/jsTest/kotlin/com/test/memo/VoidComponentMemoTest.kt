@@ -1,6 +1,5 @@
 package com.test.memo
 
-import js.core.get
 import kotlinx.coroutines.test.TestResult
 import react.dom.test.runReactTest
 import react.dom.test.simulateChange
