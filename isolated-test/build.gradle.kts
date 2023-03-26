@@ -1,6 +1,6 @@
 plugins {
-    kotlin("multiplatform") version "1.8.10"
-    id("io.github.turansky.kfc.application") version "6.15.0"
+    kotlin("multiplatform") apply false
+    id("io.github.turansky.kfc.application")
     id("io.github.turansky.seskar") version "1.3.0"
 }
 
