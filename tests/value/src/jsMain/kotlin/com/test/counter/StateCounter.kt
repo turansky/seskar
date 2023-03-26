@@ -13,7 +13,6 @@ val StateCounter = VFC {
     val renderCount = useRenderCount()
 
     div {
-        id = COUNTER_CONTAINER_ID
         dataCount = renderCount
 
         onChange = {
