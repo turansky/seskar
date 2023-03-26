@@ -4,20 +4,17 @@ import react.VFC
 import react.dom.html.ReactHTML.button
 import react.dom.html.ReactHTML.div
 import react.dom.onChange
-import react.use.useUpdateEffect
+import react.use.useRenderCount
 import react.useState
 
 val StateCounter = VFC {
-    val (count, setCount) = useState(Count(42))
-    val (updateCount, setUpdateCount) = useState(0)
+    val (_, setCount) = useState(Count(42))
 
-    useUpdateEffect(count) {
-        setUpdateCount { it + 1 }
-    }
+    val renderCount = useRenderCount()
 
     div {
         id = COUNTER_CONTAINER_ID
-        dataCount = updateCount
+        dataCount = renderCount
 
         onChange = {
             setCount(Count(42))
