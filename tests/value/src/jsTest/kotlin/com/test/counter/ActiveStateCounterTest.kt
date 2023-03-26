@@ -8,23 +8,23 @@ import web.html.HTML.div
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class StateCounterTest {
+class ActiveStateCounterTest {
     @Test
-    fun initial(): TestResult = runReactTest(StateCounter) { container ->
+    fun initial(): TestResult = runReactTest(ActiveStateCounter) { container ->
         val target = container.getElementsByTagName(div)[0]
 
         assertEquals(1, target.dataCount, "Count #0")
 
         target.simulateChange()
-        assertEquals(1, target.dataCount, "Count #1")
+        assertEquals(2, target.dataCount, "Count #1")
 
         target.simulateChange()
-        assertEquals(1, target.dataCount, "Count #2")
+        assertEquals(3, target.dataCount, "Count #2")
 
         target.simulateChange()
-        assertEquals(1, target.dataCount, "Count #3")
+        assertEquals(4, target.dataCount, "Count #3")
 
         target.simulateChange()
-        assertEquals(1, target.dataCount, "Count #4")
+        assertEquals(5, target.dataCount, "Count #4")
     }
 }
