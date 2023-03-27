@@ -17,6 +17,8 @@ import org.jetbrains.kotlin.name.Name
 import seskar.compiler.displayname.backend.withDisplayName
 
 private val FC = FqName("react.FC")
+private val FORWARD_REF_EXOTIC_COMPONENT = FqName("react.ForwardRefExoticComponent")
+
 private val CONTEXT_TYPES = setOf(
     FqName("react.Context"),
     FqName("react.RequiredContext"),
@@ -25,6 +27,10 @@ private val CONTEXT_TYPES = setOf(
 private val FC_FACTORIES = setOf(
     FqName("react.FC"),
     FqName("react.VFC"),
+)
+
+private val FORWARD_REF_FACTORIES = setOf(
+    FqName("react.ForwardRef"),
 )
 
 private val CONTEXT_FACTORIES = setOf(
@@ -62,7 +68,7 @@ internal class MemoTransformer(
         val typeName = backingField.type.classFqName
             ?: return null
 
-        if (typeName != FC && typeName !in CONTEXT_TYPES)
+        if (typeName != FC && typeName != FORWARD_REF_EXOTIC_COMPONENT && typeName !in CONTEXT_TYPES)
             return null
 
         val initializer = backingField.initializer
@@ -97,6 +103,7 @@ internal class MemoTransformer(
             ?: return false
 
         return functionName in FC_FACTORIES
+                || functionName in FORWARD_REF_FACTORIES
     }
 
     private fun displayNameRequired(
@@ -105,7 +112,9 @@ internal class MemoTransformer(
         val functionName = call.symbol.owner.fqNameWhenAvailable
             ?: return false
 
-        return functionName in FC_FACTORIES || functionName in CONTEXT_FACTORIES
+        return functionName in FC_FACTORIES
+                || functionName in FORWARD_REF_FACTORIES
+                || functionName in CONTEXT_FACTORIES
     }
 
     private fun memo(
