@@ -1,6 +1,13 @@
 rootProject.name = "seskar"
 
 pluginManagement {
+    // TODO: remove after issue fix
+    //  https://youtrack.jetbrains.com/issue/KT-57687
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+
     plugins {
         val kotlinVersion = extra["kotlin.version"] as String
         kotlin("multiplatform") version kotlinVersion
