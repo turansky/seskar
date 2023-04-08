@@ -16,7 +16,4 @@ jobs:
           java-version: '17'
       - name: Build
         run: |
-          cd seskar
-          ./gradlew build
-          cd ..
           ./gradlew build
