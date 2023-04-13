@@ -2,10 +2,12 @@ package seskar.compiler.union.backend
 
 import org.jetbrains.kotlin.descriptors.ClassKind
 import org.jetbrains.kotlin.ir.declarations.IrClass
-import org.jetbrains.kotlin.ir.declarations.IrEnumEntry
+import org.jetbrains.kotlin.ir.declarations.IrDeclarationWithName
+import org.jetbrains.kotlin.ir.declarations.IrVariable
 import org.jetbrains.kotlin.ir.expressions.IrConst
 import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
 import org.jetbrains.kotlin.ir.expressions.IrGetEnumValue
+import org.jetbrains.kotlin.ir.util.companionObject
 import org.jetbrains.kotlin.ir.util.getAnnotation
 import org.jetbrains.kotlin.name.FqName
 
@@ -18,7 +20,7 @@ private fun jsValue(i: Int): String = "$i"
 
 private fun jsValue(s: String): String = "'$s'"
 
-private val IrEnumEntry.id: String
+private val IrDeclarationWithName.id: String
     get() = name.identifier
 
 private inline fun <reified T> IrConstructorCall.value(): T {
@@ -26,7 +28,7 @@ private inline fun <reified T> IrConstructorCall.value(): T {
     return argument.value as T
 }
 
-private fun IrEnumEntry.value(case: Case): String {
+private fun IrDeclarationWithName.value(case: Case): String {
     val jsInt = getAnnotation(JS_INT)
     if (jsInt != null) {
         return jsValue(jsInt.value<Int>())
@@ -44,7 +46,7 @@ internal fun IrClass.toJsUnionBody(): String? {
     if (!isExternal)
         return null
 
-    if (kind != ClassKind.ENUM_CLASS)
+    if (kind != ClassKind.INTERFACE)
         return null
 
     val jsUnion = getAnnotation(JS_UNION)
@@ -55,9 +57,12 @@ internal fun IrClass.toJsUnionBody(): String? {
         Case.valueOf(entry.symbol.owner.name.identifier)
     } else Case.ORIGINAL
 
-    return declarations.asSequence()
-        .filterIsInstance<IrEnumEntry>()
+    val companion = companionObject()
+        ?: return null
+
+    return companion.declarations.asSequence()
+        .filterIsInstance<IrDeclarationWithName>()
+        .filter { it is IrVariable || it is IrClass }
         .map { "'${it.id}': ${it.value(case)}" }
         .joinToString(",", "({", "})")
 }
-
