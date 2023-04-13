@@ -1,21 +1,25 @@
+@file:Suppress(
+    "NESTED_CLASS_IN_EXTERNAL_INTERFACE",
+)
+
 package com.test.example
 
 import seskar.js.JsString
 import seskar.js.JsUnion
 
 @JsUnion
-external enum class CustomAlign {
-    @JsString("t")
-    TOP,
+sealed external interface CustomAlign {
+    companion object {
+        @JsString("t")
+        val TOP: CustomAlign
 
-    @JsString("l")
-    LEFT,
+        @JsString("l")
+        val LEFT: CustomAlign
 
-    @JsString("b")
-    BOTTOM,
+        @JsString("b")
+        val BOTTOM: CustomAlign
 
-    @JsString("r")
-    RIGHT,
-
-    ;
+        @JsString("r")
+        val RIGHT: CustomAlign
+    }
 }

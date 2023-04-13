@@ -1,15 +1,15 @@
 package com.test.example
 
-fun <T : Enum<T>> assertEquals(
+fun assertEquals(
     expected: String,
-    actual: T,
+    actual: Any,
 ) {
     kotlin.test.assertEquals<Any>(expected = expected, actual = actual)
 }
 
-fun <T : Enum<T>> assertEquals(
+fun assertEquals(
     expected: Int,
-    actual: T,
+    actual: Any,
 ) {
     kotlin.test.assertEquals<Any>(expected = expected, actual = actual)
 }
