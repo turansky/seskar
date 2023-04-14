@@ -109,13 +109,13 @@ type Align = 'TOP' | 'LEFT' | 'BOTTOM' | 'RIGHT'
 import seskar.js.JsUnion
 
 @JsUnion
-external enum class Align {
-    TOP,
-    LEFT,
-    BOTTOM,
-    RIGHT,
-
-    ;
+sealed external interface Align {
+    companion object {
+        val TOP: Align
+        val LEFT: Align
+        val BOTTOM: Align
+        val RIGHT: Align
+    }
 }
 
 println(Align.TOP)  // 'TOP'
@@ -138,13 +138,13 @@ import seskar.js.JsUnion
 import seskar.js.Case
 
 @JsUnion(case = Case.KEBAB)
-external enum class LayoutOrientation {
-    TOP_TO_BOTTOM, // 'top-to-bottom'
-    LEFT_TO_RIGHT, // 'left-to-right'
-    bottomToTop,   // 'bottom-to-top'
-    rightToLeft,   // 'right-to-left'
-
-    ;
+sealed external interface LayoutOrientation {
+    companion object {
+        val TOP_TO_BOTTOM: LayoutOrientation // 'top-to-bottom'
+        val LEFT_TO_RIGHT: LayoutOrientation // 'left-to-right'
+        val bottomToTop: LayoutOrientation   // 'bottom-to-top'
+        val rightToLeft: LayoutOrientation   // 'right-to-left'
+    }
 }
 ```
 
@@ -164,13 +164,13 @@ import seskar.js.JsUnion
 import seskar.js.Case
 
 @JsUnion(case = Case.SNAKE)
-external enum class LayoutOrientation {
-    TOP_TO_BOTTOM, // 'top_to_bottom'
-    LEFT_TO_RIGHT, // 'left_to_right'
-    bottomToTop,   // 'bottom_to_top'
-    rightToLeft,   // 'right_to_left'
-
-    ;
+sealed external interface LayoutOrientation {
+    companion object {
+        val TOP_TO_BOTTOM: LayoutOrientation // 'top_to_bottom'
+        val LEFT_TO_RIGHT: LayoutOrientation // 'left_to_right'
+        val bottomToTop: LayoutOrientation   // 'bottom_to_top'
+        val rightToLeft: LayoutOrientation   // 'right_to_left'
+    }
 }
 ```
 
@@ -191,20 +191,20 @@ import seskar.js.JsUnion
 import seskar.js.JsValue
 
 @JsUnion
-external enum class CustomAlign {
-    @JsString("t")
-    TOP,
+sealed external interface CustomAlign {
+    companion object {
+        @JsString("t")
+        val TOP: CustomAlign
 
-    @JsString("l")
-    LEFT,
+        @JsString("l")
+        val LEFT: CustomAlign
 
-    @JsString("b")
-    BOTTOM,
+        @JsString("b")
+        val BOTTOM: CustomAlign
 
-    @JsString("r")
-    RIGHT,
-
-    ;
+        @JsString("r")
+        val RIGHT: CustomAlign
+    }
 }
 
 println(CustomAlign.TOP)  // 't'
@@ -232,20 +232,20 @@ import seskar.js.JsInt
 import seskar.js.JsValue
 
 @JsUnion
-external enum class GraphItemType {
-    @JsInt(1)
-    NODE,
+sealed external interface GraphItemType {
+    companion object {
+        @JsInt(1)
+        val NODE: GraphItemType
 
-    @JsInt(2)
-    EDGE,
+        @JsInt(2)
+        val EDGE: GraphItemType
 
-    @JsInt(4)
-    PORT,
+        @JsInt(4)
+        val PORT: GraphItemType
 
-    @JsInt(8)
-    LABEL,
-
-    ;
+        @JsInt(8)
+        val LABEL: GraphItemType
+    }
 }
 
 println(GraphItemType.EDGE) // 2
