@@ -13,5 +13,5 @@ nexusPublishing {
 }
 
 tasks.wrapper {
-    gradleVersion = "8.0.2"
+    gradleVersion = "8.1"
 }
