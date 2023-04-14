@@ -8,7 +8,7 @@ import seskar.js.JsInt
 import seskar.js.JsUnion
 
 @JsUnion
-external sealed interface GraphItemType {
+sealed external interface GraphItemType {
     companion object {
         @JsInt(1)
         val NODE: GraphItemType

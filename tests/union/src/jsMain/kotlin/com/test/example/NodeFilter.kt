@@ -4,7 +4,7 @@
 
 package com.test.example
 
-external sealed interface NodeFilter {
+sealed external interface NodeFilter {
     companion object {
         val FILTER_ACCEPT: NodeFilter
     }

@@ -8,7 +8,7 @@ import seskar.js.Case
 import seskar.js.JsUnion
 
 @JsUnion(case = Case.KEBAB)
-external sealed interface LayoutOrientationK {
+sealed external interface LayoutOrientationK {
     companion object {
         val TOP_TO_BOTTOM: LayoutOrientationK
         val LEFT_TO_RIGHT: LayoutOrientationK
@@ -18,7 +18,7 @@ external sealed interface LayoutOrientationK {
 }
 
 @JsUnion(case = Case.SNAKE)
-external sealed interface LayoutOrientationS {
+sealed external interface LayoutOrientationS {
     companion object {
         val TOP_TO_BOTTOM: LayoutOrientationS
         val LEFT_TO_RIGHT: LayoutOrientationS

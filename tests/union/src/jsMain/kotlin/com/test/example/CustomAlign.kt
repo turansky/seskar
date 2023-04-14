@@ -8,7 +8,7 @@ import seskar.js.JsString
 import seskar.js.JsUnion
 
 @JsUnion
-external sealed interface CustomAlign {
+sealed external interface CustomAlign {
     companion object {
         @JsString("t")
         val TOP: CustomAlign

@@ -7,7 +7,7 @@ package com.test.example
 import seskar.js.JsUnion
 
 @JsUnion
-external sealed interface Align {
+sealed external interface Align {
     companion object {
         val TOP: Align
         val LEFT: Align
