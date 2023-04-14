@@ -3,7 +3,7 @@ package seskar.compiler.union.backend
 import org.jetbrains.kotlin.descriptors.ClassKind
 import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.declarations.IrDeclarationWithName
-import org.jetbrains.kotlin.ir.declarations.IrVariable
+import org.jetbrains.kotlin.ir.declarations.IrProperty
 import org.jetbrains.kotlin.ir.expressions.IrConst
 import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
 import org.jetbrains.kotlin.ir.expressions.IrGetEnumValue
@@ -62,7 +62,7 @@ internal fun IrClass.toJsUnionBody(): String? {
 
     return companion.declarations.asSequence()
         .filterIsInstance<IrDeclarationWithName>()
-        .filter { it is IrVariable || it is IrClass }
+        .filter { it is IrProperty || it is IrClass }
         .map { "'${it.id}': ${it.value(case)}" }
         .joinToString(",", "({", "})")
 }
