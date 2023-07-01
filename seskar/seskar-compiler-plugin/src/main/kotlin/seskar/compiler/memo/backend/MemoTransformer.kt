@@ -26,7 +26,6 @@ private val CONTEXT_TYPES = setOf(
 
 private val FC_FACTORIES = setOf(
     FqName("react.FC"),
-    FqName("react.VFC"),
 )
 
 private val FORWARD_REF_FACTORIES = setOf(
