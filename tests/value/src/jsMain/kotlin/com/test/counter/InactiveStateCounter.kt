@@ -1,8 +1,8 @@
 package com.test.counter
 
-import react.VFC
+import react.FC
 
-val InactiveStateCounter = VFC {
+val InactiveStateCounter = FC {
     StateCounter {
         active = false
     }

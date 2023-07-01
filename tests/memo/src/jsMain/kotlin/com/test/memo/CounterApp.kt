@@ -1,8 +1,8 @@
 package com.test.memo
 
-import react.VFC
+import react.FC
 
-val CounterApp = VFC {
+val CounterApp = FC {
     CounterContainer {
         title = "Counter container"
     }

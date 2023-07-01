@@ -1,8 +1,8 @@
 package com.test.counter
 
-import react.VFC
+import react.FC
 
-val ActiveCounterWithDelegate = VFC {
+val ActiveCounterWithDelegate = FC {
     Counter {
         active = true
     }

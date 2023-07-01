@@ -1,7 +1,7 @@
 package com.test.memo
 
-import react.VFC
+import react.FC
 
-val VoidCounter = VFC {
+val VoidCounter = FC {
     +"Void counter!"
 }
