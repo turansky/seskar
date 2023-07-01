@@ -52,7 +52,7 @@ value class Count(
     private val value: Int,
 )
 
-val Counter = VFC {
+val Counter = FC {
     val count: Count = useCount()
     
     useEffect(count) {
