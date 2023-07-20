@@ -185,7 +185,7 @@ type Align = 't' | 'l' | 'b' | 'r'
 ```kotlin
 // Kotlin
 import seskar.js.JsUnion
-import seskar.js.JsValue
+import seskar.js.JsString
 
 @JsUnion
 sealed external interface CustomAlign {
@@ -226,7 +226,7 @@ type GraphItemType = GRAPH_ITEM_TYPE_NODE
 ```kotlin
 // Kotlin
 import seskar.js.JsInt
-import seskar.js.JsValue
+import seskar.js.JsUnion
 
 @JsUnion
 sealed external interface GraphItemType {
