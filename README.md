@@ -33,21 +33,18 @@ Seskar checks if interfaces that inherit from the `Props` interface are external
 
 #### Dependencies
 
-When a project uses the Kotlin/JS IR compiler, `value classes` are autoboxed. If a `value class` is used as a dependency 
-of a react hook (e.g., in `useMemo`, `useState` or `useEffect`), a new class will be created on every rendering pass, 
-which causes infinite re-rendering. 
+When a project uses the Kotlin/JS IR compiler, `value classes` are autoboxed. If a `value class` is used as a dependency
+of a react hook (e.g., in `useMemo`, `useState` or `useEffect`), a new class will be created on every rendering pass,
+which causes infinite re-rendering.
 
-To prevent this, Seskar provides a `@JsValue` marker, which disables autoboxing for `value class` dependencies in hooks. 
+To prevent this, Seskar disables autoboxing for `value class` dependencies in hooks.
 Also, it converts `Long` values to `String`.
 
-Seskar supports `Duration` by default, so no `@JsValue` marker is needed.
+Seskar supports `Duration` by default.
 
-##### @JsValue - example  
+##### Example
 
 ```kotlin
-import seskar.js.JsValue
-
-@JsValue
 value class Count(
     private val value: Int,
 )
