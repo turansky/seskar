@@ -22,7 +22,7 @@ internal object ValueDeclarationChecker : DeclarationChecker {
         if (descriptor !is ClassDescriptor) return
         if (descriptor.kind != ClassKind.CLASS) return
         if (!descriptor.isValue) return
-        if (!descriptor.annotations.hasAnnotation(JS_VALUE)) return
+        // if (!descriptor.annotations.hasAnnotation(JS_VALUE)) return
 
         descriptor.check {
             context.trace.report(it.on(declaration))
