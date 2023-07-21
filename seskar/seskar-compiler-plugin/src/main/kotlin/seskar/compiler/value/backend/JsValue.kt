@@ -7,5 +7,10 @@ internal fun IrClass.isJsValue(): Boolean {
     if (kind != ClassKind.CLASS)
         return false
 
-    return isValue
+    if (!isValue)
+        return false
+
+    checkValue(this)
+
+    return true
 }
