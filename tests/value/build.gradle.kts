@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.dsl.KotlinCompile
-
 plugins {
     id("io.github.turansky.kfc.application")
     id("io.github.turansky.kfc.wrappers")
@@ -19,10 +17,4 @@ dependencies {
     jsTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion")
     jsTestImplementation(project(":tests:react-test"))
     jsTestImplementation(wrappers("react-dom-test-utils"))
-}
-
-tasks.withType<KotlinCompile<*>>().configureEach {
-    kotlinOptions.freeCompilerArgs += listOf(
-        "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-    )
 }
