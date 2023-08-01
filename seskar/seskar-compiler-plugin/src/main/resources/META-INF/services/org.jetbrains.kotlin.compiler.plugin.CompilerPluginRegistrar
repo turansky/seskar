@@ -1,5 +1,4 @@
 seskar.compiler.env.extensions.EnvRegistrar
 seskar.compiler.memo.extensions.MemoRegistrar
-seskar.compiler.props.extensions.PropsRegistrar
 seskar.compiler.union.extensions.UnionRegistrar
 seskar.compiler.value.extensions.ValueRegistrar

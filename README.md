@@ -27,10 +27,6 @@ dependencies {
 
 ## React
 
-#### Props
-
-Seskar checks if interfaces that inherit from the `Props` interface are external.
-
 #### Dependencies
 
 When a project uses the Kotlin/JS IR compiler, `value classes` are autoboxed. If a `value class` is used as a dependency
