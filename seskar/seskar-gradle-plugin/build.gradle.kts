@@ -23,9 +23,9 @@ gradlePlugin {
             implementationClass = "seskar.gradle.plugin.SeskarGradleSubplugin"
             tags = listOf(
                 "kotlin",
-                "dataclass",
-                "equals",
-                "hashcode"
+                "react",
+                "memo",
+                "unions",
             )
         }
     }
