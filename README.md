@@ -14,7 +14,7 @@ To add Seskar to your project, you need to the following configuration to your p
 
 ```kotlin
 plugins {
-    kotlin("js") version "1.9.10"
+    kotlin("multiplatform") version "1.9.10"
     id("io.github.turansky.seskar") version "1.18.1"
 }
 
