@@ -12,8 +12,8 @@ dependencies {
 val REPO_URL = "https://github.com/turansky/seskar"
 
 gradlePlugin {
-    website.set(REPO_URL)
-    vcsUrl.set(REPO_URL)
+    website = REPO_URL
+    vcsUrl = REPO_URL
 
     plugins {
         create("seskar") {
@@ -21,13 +21,11 @@ gradlePlugin {
             displayName = "Seskar"
             description = "Additions to Kotlin data classes"
             implementationClass = "seskar.gradle.plugin.SeskarGradleSubplugin"
-            tags.set(
-                listOf(
-                    "kotlin",
-                    "dataclass",
-                    "equals",
-                    "hashcode"
-                )
+            tags = listOf(
+                "kotlin",
+                "dataclass",
+                "equals",
+                "hashcode"
             )
         }
     }
