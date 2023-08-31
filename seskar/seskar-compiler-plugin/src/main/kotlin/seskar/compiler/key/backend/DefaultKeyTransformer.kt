@@ -1,6 +1,7 @@
 package seskar.compiler.key.backend
 
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
+import org.jetbrains.kotlin.ir.declarations.IrFile
 import org.jetbrains.kotlin.ir.expressions.IrCall
 import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.impl.IrCallImpl
@@ -25,6 +26,15 @@ private val SET_DEFAULT_KEY = CallableId(
 internal class DefaultKeyTransformer(
     private val context: IrPluginContext,
 ) : IrElementTransformerVoid() {
+    // use WeakMap instead?
+    private var keyIndex = 0
+
+    override fun visitFile(declaration: IrFile): IrFile {
+        keyIndex = 0
+
+        return super.visitFile(declaration)
+    }
+
     override fun visitCall(expression: IrCall): IrExpression {
         val keyCall = keyCall(expression)
         val originalCall = super.visitCall(expression)
@@ -66,7 +76,7 @@ internal class DefaultKeyTransformer(
             startOffset = expression.startOffset,
             endOffset = expression.endOffset,
             type = context.symbols.string.defaultType,
-            value = "rdk_" + expression.hashCode(),
+            value = "rdk_${++keyIndex}",
         )
 
         call.putValueArgument(0, dispatchReceiver)
