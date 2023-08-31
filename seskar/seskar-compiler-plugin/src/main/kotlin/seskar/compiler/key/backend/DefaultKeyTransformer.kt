@@ -66,7 +66,7 @@ internal class DefaultKeyTransformer(
             startOffset = expression.startOffset,
             endOffset = expression.endOffset,
             type = context.symbols.string.defaultType,
-            value = "42", // TODO: generate
+            value = "rdk_" + expression.hashCode(),
         )
 
         call.putValueArgument(0, dispatchReceiver)
