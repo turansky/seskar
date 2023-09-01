@@ -7,15 +7,14 @@ import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.impl.IrCallImpl
 import org.jetbrains.kotlin.ir.expressions.impl.IrCompositeImpl
 import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
-import org.jetbrains.kotlin.ir.types.classFqName
 import org.jetbrains.kotlin.ir.types.defaultType
+import org.jetbrains.kotlin.ir.util.hasAnnotation
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
 
-private val CHILDREN_BUILDER = FqName("react.ChildrenBuilder")
-private val INVOKE = Name.identifier("invoke")
+private val ELEMENT_BUILDER = FqName("react.ElementBuilder")
 
 private val SET_DEFAULT_KEY = CallableId(
     packageName = FqName("react"),
@@ -58,10 +57,7 @@ internal class DefaultKeyTransformer(
         val dispatchReceiver = expression.dispatchReceiver
             ?: return null
 
-        if (dispatchReceiver.type.classFqName != CHILDREN_BUILDER)
-            return null
-
-        if (expression.symbol.owner.name != INVOKE)
+        if (!expression.symbol.owner.hasAnnotation(ELEMENT_BUILDER))
             return null
 
         val setDefaultKey = context.referenceFunctions(SET_DEFAULT_KEY).single()
