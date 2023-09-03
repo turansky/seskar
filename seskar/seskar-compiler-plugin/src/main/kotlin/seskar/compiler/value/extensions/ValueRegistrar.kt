@@ -6,7 +6,7 @@ import org.jetbrains.kotlin.config.CompilerConfiguration
 import org.jetbrains.kotlin.extensions.StorageComponentContainerContributor
 
 class ValueRegistrar : CompilerPluginRegistrar() {
-    override val supportsK2: Boolean = false
+    override val supportsK2: Boolean = true
 
     override fun ExtensionStorage.registerExtensions(
         configuration: CompilerConfiguration,
