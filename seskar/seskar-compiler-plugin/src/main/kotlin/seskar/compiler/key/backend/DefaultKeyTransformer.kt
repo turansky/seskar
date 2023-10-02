@@ -66,7 +66,6 @@ private class DefaultKeyFileTransformer(
         val setDefaultKey = context.referenceFunctions(SET_DEFAULT_KEY).single()
 
         val key = getCallKey(expression)
-            ?: expression.hashCode()
 
         val call = IrCallImpl.fromSymbolOwner(
             startOffset = expression.startOffset,
@@ -87,10 +86,11 @@ private class DefaultKeyFileTransformer(
         return call
     }
 
-    private fun getCallKey(expression: IrCall): String? {
+    private fun getCallKey(expression: IrCall): String {
         val location = expression.getSourceLocation(fileEntry)
-        if (location !is SourceLocation.Location)
-            return null
+        require(location is SourceLocation.Location) {
+            "Invalid call location"
+        }
 
         return "${location.line}_${location.column}"
     }
