@@ -12,7 +12,7 @@ import org.jetbrains.kotlin.name.FqName
 
 private val JS_UNION = FqName("seskar.js.JsUnion")
 
-private val JS_INT = FqName("seskar.js.JsInt")
+private val JS_INT = FqName("seskar.js.JsIntValue")
 private val JS_STRING = FqName("seskar.js.JsString")
 
 private fun jsValue(i: Int): String = "$i"

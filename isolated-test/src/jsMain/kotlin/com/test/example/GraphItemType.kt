@@ -4,22 +4,22 @@
 
 package com.test.example
 
-import seskar.js.JsInt
+import seskar.js.JsIntValue
 import seskar.js.JsUnion
 
 @JsUnion
 sealed external interface GraphItemType {
     companion object {
-        @JsInt(1)
+        @JsIntValue(1)
         val NODE: GraphItemType
 
-        @JsInt(2)
+        @JsIntValue(2)
         val EDGE: GraphItemType
 
-        @JsInt(4)
+        @JsIntValue(4)
         val PORT: GraphItemType
 
-        @JsInt(8)
+        @JsIntValue(8)
         val LABEL: GraphItemType
     }
 }

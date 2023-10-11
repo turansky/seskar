@@ -6,8 +6,8 @@ annotation class JsUnion
 
 @Target(AnnotationTarget.PROPERTY)
 @Retention(AnnotationRetention.BINARY)
-annotation class JsInt(
-    val value: Int
+annotation class JsIntValue(
+    val value: Int,
 )
 
 @Target(AnnotationTarget.PROPERTY)
