@@ -12,8 +12,8 @@ import org.jetbrains.kotlin.name.FqName
 
 private val JS_UNION = FqName("seskar.js.JsUnion")
 
-private val JS_INT = FqName("seskar.js.JsIntValue")
-private val JS_STRING = FqName("seskar.js.JsString")
+private val JS_INT_VALUE = FqName("seskar.js.JsIntValue")
+private val JS_VALUE = FqName("seskar.js.JsValue")
 
 private fun jsValue(i: Int): String = "$i"
 
@@ -28,12 +28,12 @@ private inline fun <reified T> IrConstructorCall.value(): T {
 }
 
 private fun IrDeclarationWithName.value(): String {
-    val jsInt = getAnnotation(JS_INT)
+    val jsInt = getAnnotation(JS_INT_VALUE)
     if (jsInt != null) {
         return jsValue(jsInt.value<Int>())
     }
 
-    val jsString = getAnnotation(JS_STRING)
+    val jsString = getAnnotation(JS_VALUE)
     if (jsString != null) {
         return jsValue(jsString.value<String>())
     }

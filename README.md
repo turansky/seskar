@@ -128,21 +128,21 @@ type Align = 't' | 'l' | 'b' | 'r'
 ```kotlin
 // Kotlin
 import seskar.js.JsUnion
-import seskar.js.JsString
+import seskar.js.JsValue
 
 @JsUnion
 sealed external interface CustomAlign {
     companion object {
-        @JsString("t")
+        @JsValue("t")
         val TOP: CustomAlign
 
-        @JsString("l")
+        @JsValue("l")
         val LEFT: CustomAlign
 
-        @JsString("b")
+        @JsValue("b")
         val BOTTOM: CustomAlign
 
-        @JsString("r")
+        @JsValue("r")
         val RIGHT: CustomAlign
     }
 }

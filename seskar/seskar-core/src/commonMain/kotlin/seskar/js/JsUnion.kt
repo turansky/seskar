@@ -12,6 +12,6 @@ annotation class JsIntValue(
 
 @Target(AnnotationTarget.PROPERTY)
 @Retention(AnnotationRetention.BINARY)
-annotation class JsString(
-    val value: String
+annotation class JsValue(
+    val value: String,
 )
