@@ -2,17 +2,7 @@ package seskar.js
 
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.BINARY)
-annotation class JsUnion(
-    val case: Case = Case.ORIGINAL,
-)
-
-enum class Case {
-    ORIGINAL,
-    KEBAB,
-    SNAKE,
-
-    ;
-}
+annotation class JsUnion
 
 @Target(AnnotationTarget.PROPERTY)
 @Retention(AnnotationRetention.BINARY)

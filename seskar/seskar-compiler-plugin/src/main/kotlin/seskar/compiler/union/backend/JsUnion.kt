@@ -6,7 +6,6 @@ import org.jetbrains.kotlin.ir.declarations.IrDeclarationWithName
 import org.jetbrains.kotlin.ir.declarations.IrProperty
 import org.jetbrains.kotlin.ir.expressions.IrConst
 import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
-import org.jetbrains.kotlin.ir.expressions.IrGetEnumValue
 import org.jetbrains.kotlin.ir.util.companionObject
 import org.jetbrains.kotlin.ir.util.getAnnotation
 import org.jetbrains.kotlin.name.FqName
@@ -28,7 +27,7 @@ private inline fun <reified T> IrConstructorCall.value(): T {
     return argument.value as T
 }
 
-private fun IrDeclarationWithName.value(case: Case): String {
+private fun IrDeclarationWithName.value(): String {
     val jsInt = getAnnotation(JS_INT)
     if (jsInt != null) {
         return jsValue(jsInt.value<Int>())
@@ -39,7 +38,7 @@ private fun IrDeclarationWithName.value(case: Case): String {
         return jsValue(jsString.value<String>())
     }
 
-    return jsValue(id.toCase(case))
+    return jsValue(id)
 }
 
 internal fun IrClass.toJsUnionBody(): String? {
@@ -49,13 +48,8 @@ internal fun IrClass.toJsUnionBody(): String? {
     if (kind != ClassKind.INTERFACE)
         return null
 
-    val jsUnion = getAnnotation(JS_UNION)
+    getAnnotation(JS_UNION)
         ?: return null
-
-    val entry = jsUnion.getValueArgument(0) as IrGetEnumValue?
-    val case = if (entry != null) {
-        Case.valueOf(entry.symbol.owner.name.identifier)
-    } else Case.ORIGINAL
 
     val companion = companionObject()
         ?: return null
@@ -63,6 +57,6 @@ internal fun IrClass.toJsUnionBody(): String? {
     return companion.declarations.asSequence()
         .filterIsInstance<IrDeclarationWithName>()
         .filter { it is IrProperty || it is IrClass }
-        .map { "'${it.id}': ${it.value(case)}" }
+        .map { "'${it.id}': ${it.value()}" }
         .joinToString(",", "({", "})")
 }
