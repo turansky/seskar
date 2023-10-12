@@ -1,8 +1,6 @@
 package seskar.compiler.key.backend
 
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
-import org.jetbrains.kotlin.backend.wasm.ir2wasm.getSourceLocation
-import org.jetbrains.kotlin.ir.IrFileEntry
 import org.jetbrains.kotlin.ir.declarations.IrFile
 import org.jetbrains.kotlin.ir.expressions.IrCall
 import org.jetbrains.kotlin.ir.expressions.IrExpression
@@ -15,7 +13,6 @@ import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
-import org.jetbrains.kotlin.wasm.ir.source.location.SourceLocation
 
 private val ELEMENT_BUILDER = FqName("react.ElementBuilder")
 
@@ -29,13 +26,13 @@ internal class DefaultKeyTransformer(
     private val context: IrPluginContext,
 ) : IrElementTransformerVoid() {
     override fun visitFile(declaration: IrFile): IrFile =
-        DefaultKeyFileTransformer(context, declaration.fileEntry)
+        DefaultKeyFileTransformer(context, KeyProvider(declaration.fileEntry))
             .visitFile(declaration)
 }
 
 private class DefaultKeyFileTransformer(
     private val context: IrPluginContext,
-    private val fileEntry: IrFileEntry,
+    private val keyProvider: KeyProvider,
 ) : IrElementTransformerVoid() {
     override fun visitCall(expression: IrCall): IrExpression {
         val keyCall = keyCall(expression)
@@ -65,7 +62,7 @@ private class DefaultKeyFileTransformer(
 
         val setDefaultKey = context.referenceFunctions(SET_DEFAULT_KEY).single()
 
-        val key = getCallKey(expression)
+        val key = keyProvider.get(expression)
 
         val call = IrCallImpl.fromSymbolOwner(
             startOffset = expression.startOffset,
@@ -84,14 +81,5 @@ private class DefaultKeyFileTransformer(
         call.putValueArgument(1, defaultKey)
 
         return call
-    }
-
-    private fun getCallKey(expression: IrCall): String {
-        val location = expression.getSourceLocation(fileEntry)
-        require(location is SourceLocation.Location) {
-            "Invalid call location"
-        }
-
-        return "${location.line}_${location.column}"
     }
 }
