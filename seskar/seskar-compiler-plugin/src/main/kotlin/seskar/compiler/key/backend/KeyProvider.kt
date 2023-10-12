@@ -5,7 +5,8 @@ import org.jetbrains.kotlin.ir.IrFileEntry
 import org.jetbrains.kotlin.ir.expressions.IrCall
 import org.jetbrains.kotlin.wasm.ir.source.location.SourceLocation
 
-internal class KeyProvider(
+@JvmInline
+internal value class KeyProvider(
     private val fileEntry: IrFileEntry,
 ) {
     fun get(expression: IrCall): String {
