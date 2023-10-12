@@ -28,7 +28,7 @@ dependencies {
 
 #### Dependencies
 
-When a project uses the Kotlin/JS IR compiler, `value classes` are autoboxed. If a `value class` is used as a dependency
+When a project uses the Kotlin/JS compiler, `value classes` are autoboxed. If a `value class` is used as a dependency
 of a react hook (e.g., in `useMemo`, `useState` or `useEffect`), a new class will be created on every rendering pass,
 which causes infinite re-rendering.
 
