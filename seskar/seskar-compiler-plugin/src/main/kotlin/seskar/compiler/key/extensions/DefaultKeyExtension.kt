@@ -3,7 +3,6 @@ package seskar.compiler.key.extensions
 import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.declarations.IrModuleFragment
-import org.jetbrains.kotlin.ir.visitors.transformChildrenVoid
 import org.jetbrains.kotlin.platform.isJs
 import seskar.compiler.key.backend.DefaultKeyTransformer
 
@@ -16,6 +15,6 @@ internal class DefaultKeyExtension : IrGenerationExtension {
             ?.takeIf { it.isJs() }
             ?: return
 
-        moduleFragment.transformChildrenVoid(DefaultKeyTransformer(pluginContext))
+        moduleFragment.transformChildren(DefaultKeyTransformer(pluginContext), null)
     }
 }

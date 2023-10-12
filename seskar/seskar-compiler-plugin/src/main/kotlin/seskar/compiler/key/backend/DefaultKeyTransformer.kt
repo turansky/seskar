@@ -1,15 +1,16 @@
 package seskar.compiler.key.backend
 
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
+import org.jetbrains.kotlin.ir.IrElement
+import org.jetbrains.kotlin.ir.IrStatement
 import org.jetbrains.kotlin.ir.declarations.IrFile
 import org.jetbrains.kotlin.ir.expressions.IrCall
-import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.impl.IrCallImpl
 import org.jetbrains.kotlin.ir.expressions.impl.IrCompositeImpl
 import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
 import org.jetbrains.kotlin.ir.types.defaultType
 import org.jetbrains.kotlin.ir.util.hasAnnotation
-import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
+import org.jetbrains.kotlin.ir.visitors.IrElementTransformer
 import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
@@ -24,22 +25,28 @@ private val SET_DEFAULT_KEY = CallableId(
 
 internal class DefaultKeyTransformer(
     private val context: IrPluginContext,
-) : IrElementTransformerVoid() {
-    override fun visitFile(declaration: IrFile): IrFile =
-        DefaultKeyFileTransformer(context, KeyProvider(declaration.fileEntry))
-            .visitFile(declaration)
-}
+) : IrElementTransformer<KeyProvider?> {
+    override fun visitFile(
+        declaration: IrFile,
+        data: KeyProvider?,
+    ): IrFile =
+        super.visitFile(
+            declaration = declaration,
+            data = KeyProvider(declaration.fileEntry),
+        )
 
-private class DefaultKeyFileTransformer(
-    private val context: IrPluginContext,
-    private val keyProvider: KeyProvider,
-) : IrElementTransformerVoid() {
-    override fun visitCall(expression: IrCall): IrExpression {
-        val keyCall = keyCall(expression)
-        val originalCall = super.visitCall(expression)
+    override fun visitCall(
+        expression: IrCall,
+        data: KeyProvider?,
+    ): IrElement {
+        val originalCall = super.visitCall(expression, data)
+        data ?: return originalCall
 
-        if (keyCall == null)
-            return originalCall
+        val keyCall = keyCall(expression, data)
+            ?: return originalCall
+
+        // TODO: check how to avoid
+        originalCall as IrStatement
 
         return IrCompositeImpl(
             startOffset = expression.startOffset,
@@ -53,7 +60,10 @@ private class DefaultKeyFileTransformer(
         )
     }
 
-    private fun keyCall(expression: IrCall): IrCall? {
+    private fun keyCall(
+        expression: IrCall,
+        keyProvider: KeyProvider,
+    ): IrCall? {
         val dispatchReceiver = expression.dispatchReceiver
             ?: return null
 
