@@ -26,6 +26,23 @@ dependencies {
 
 ## React
 
+#### Conditional rendering
+
+Seskar generates keys for child elements to prevent problems with conditional rendering.
+As result in following example `Content` child state won't reset after `showHeader` property change.
+
+```kotlin
+val App = FC {
+    val showHeader = useShowHeader()
+    
+    if (showHeader) 
+        Header() // genarated: key = "@rdk/5"
+        
+    Content()    // genarated: key = "@rdk/7"
+    Footer()     // genarated: key = "@rdk/8"
+}
+```
+
 #### Dependencies
 
 When a project uses the Kotlin/JS compiler, `value classes` are autoboxed. If a `value class` is used as a dependency
