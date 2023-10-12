@@ -41,15 +41,12 @@ private fun IrDeclarationWithName.value(): String {
     return jsValue(id)
 }
 
+internal fun IrClass.isJsUnion(): Boolean =
+    isExternal && kind == ClassKind.INTERFACE && getAnnotation(JS_UNION) != null
+
 internal fun IrClass.toJsUnionBody(): String? {
-    if (!isExternal)
+    if (!isJsUnion())
         return null
-
-    if (kind != ClassKind.INTERFACE)
-        return null
-
-    getAnnotation(JS_UNION)
-        ?: return null
 
     val companion = companionObject()
         ?: return null

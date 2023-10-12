@@ -17,6 +17,16 @@ internal class UnionTransformer(
             declaration.annotations += JsName(context, declaration, unionBody)
         }
 
-        return super.visitClass(declaration, data)
+        val mode = when {
+            declaration.isJsUnion()
+            -> ValueMode.ROOT
+
+            data == ValueMode.ROOT && declaration.isCompanion
+            -> ValueMode.COMPANION
+
+            else -> null
+        }
+
+        return super.visitClass(declaration, mode)
     }
 }
