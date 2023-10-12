@@ -191,7 +191,3 @@ sealed external interface GraphItemType {
 println(GraphItemType.EDGE) // 2
 println(GraphItemType.PORT) // 4
 ```
-
-## How it works?
-
-TBD
