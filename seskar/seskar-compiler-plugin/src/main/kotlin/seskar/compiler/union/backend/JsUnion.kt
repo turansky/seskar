@@ -56,7 +56,7 @@ internal fun IrClass.toJsUnionBody(): String? {
 
     return companion.declarations.asSequence()
         .filterIsInstance<IrDeclarationWithName>()
-        .filter { it is IrProperty || it is IrClass }
+        .filter { it is IrProperty }
         .map { "'${it.id}': ${it.value()}" }
         .joinToString(",", "({", "})")
 }
