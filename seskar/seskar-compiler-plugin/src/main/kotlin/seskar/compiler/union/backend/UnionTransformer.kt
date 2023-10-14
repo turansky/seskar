@@ -1,8 +1,15 @@
 package seskar.compiler.union.backend
 
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
+import org.jetbrains.kotlin.backend.common.ir.addDispatchReceiver
 import org.jetbrains.kotlin.ir.IrStatement
+import org.jetbrains.kotlin.ir.builders.declarations.addGetter
 import org.jetbrains.kotlin.ir.declarations.IrClass
+import org.jetbrains.kotlin.ir.declarations.IrDeclarationWithName
+import org.jetbrains.kotlin.ir.declarations.IrProperty
+import org.jetbrains.kotlin.ir.expressions.IrExpression
+import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
+import org.jetbrains.kotlin.ir.expressions.impl.IrReturnImpl
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformer
 
 internal class UnionTransformer(
@@ -12,11 +19,6 @@ internal class UnionTransformer(
         declaration: IrClass,
         data: ValueMode?,
     ): IrStatement {
-        val unionBody = declaration.toJsUnionBody()
-        if (unionBody != null) {
-            declaration.annotations += JsName(context, declaration, unionBody)
-        }
-
         val mode = when {
             declaration.isJsUnion()
             -> ValueMode.ROOT
@@ -27,6 +29,66 @@ internal class UnionTransformer(
             else -> null
         }
 
+        if (mode == ValueMode.ROOT)
+            declaration.annotations += JsName(context, declaration, "null")
+
         return super.visitClass(declaration, mode)
+    }
+
+    override fun visitProperty(
+        declaration: IrProperty,
+        data: ValueMode?,
+    ): IrStatement {
+        if (data != ValueMode.COMPANION)
+            return declaration
+
+        val getter = declaration.addGetter {
+            isInline = true
+            returnType = context.irBuiltIns.stringType
+        }
+
+        getter.addDispatchReceiver {
+            type = context.irBuiltIns.nothingNType
+        }
+
+        getter.body = context.irFactory.createBlockBody(
+            startOffset = declaration.startOffset,
+            endOffset = declaration.endOffset,
+            statements = listOf(
+                IrReturnImpl(
+                    startOffset = declaration.startOffset,
+                    endOffset = declaration.endOffset,
+                    type = context.irBuiltIns.nothingNType,
+                    returnTargetSymbol = getter.symbol,
+                    value = valueConstant(declaration),
+                )
+            )
+        )
+
+        return super.visitProperty(declaration, data)
+    }
+
+    private fun valueConstant(
+        declaration: IrDeclarationWithName,
+    ): IrExpression {
+        val value = declaration.value()
+
+        return when (value) {
+            is IntValue ->
+                IrConstImpl.int(
+                    startOffset = declaration.startOffset,
+                    endOffset = declaration.endOffset,
+                    type = context.irBuiltIns.intType,
+                    value = value.value,
+                )
+
+            is StringValue ->
+                IrConstImpl.string(
+                    startOffset = declaration.startOffset,
+                    endOffset = declaration.endOffset,
+                    type = context.irBuiltIns.stringType,
+                    value = value.value,
+                )
+        }
     }
 }
