@@ -30,7 +30,7 @@ internal class UnionTransformer(
         }
 
         if (mode == ValueMode.ROOT)
-            declaration.annotations += JsName(context, declaration, "null")
+            declaration.annotations += JsName(context, declaration, "0")
 
         return super.visitClass(declaration, mode)
     }
