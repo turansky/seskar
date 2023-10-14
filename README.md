@@ -131,6 +131,72 @@ println(Align.TOP)  // 'TOP'
 println(Align.LEFT) // 'LEFT'
 ```
 
+#### Kebab case
+
+```typescript
+// TypeScript
+type LayoutOrientation = 'top-to-bottom' 
+    | 'left-to-right'
+    | 'bottom-to-top'
+    | 'right-to-left'
+```
+
+```kotlin
+// Kotlin
+import seskar.js.JsUnion
+import seskar.js.JsValue
+
+@JsUnion
+sealed external interface LayoutOrientation {
+    companion object {
+        @JsValue("top-to-bottom")
+        val TOP_TO_BOTTOM: LayoutOrientation
+
+        @JsValue("left-to-right")
+        val LEFT_TO_RIGHT: LayoutOrientation
+
+        @JsValue("bottom-to-top")
+        val bottomToTop: LayoutOrientation
+
+        @JsValue("right-to-left")
+        val rightToLeft: LayoutOrientation
+    }
+}
+```
+
+#### Snake case
+
+```typescript
+// TypeScript
+type LayoutOrientation = 'top_to_bottom' 
+    | 'left_to_right'
+    | 'bottom_to_top'
+    | 'right_to_left'
+```
+
+```kotlin
+// Kotlin
+import seskar.js.JsUnion
+import seskar.js.Case
+
+@JsUnion(case = Case.SNAKE)
+sealed external interface LayoutOrientation {
+    companion object {
+        @JsValue("top_to_bottom")
+        val TOP_TO_BOTTOM: LayoutOrientation
+
+        @JsValue("left_to_right")
+        val LEFT_TO_RIGHT: LayoutOrientation
+
+        @JsValue("bottom_to_top")
+        val bottomToTop: LayoutOrientation
+
+        @JsValue("right_to_left")
+        val rightToLeft: LayoutOrientation
+    }
+}
+```
+
 #### Custom
 
 Use `String` or `Int` constant as union value
