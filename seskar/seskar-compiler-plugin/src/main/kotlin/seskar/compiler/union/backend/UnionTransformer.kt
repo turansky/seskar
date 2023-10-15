@@ -39,7 +39,9 @@ internal class UnionTransformer(
         declaration: IrProperty,
         data: ValueMode?,
     ): IrStatement {
-        if (data != ValueMode.COMPANION)
+        val hasJsValue = data == ValueMode.COMPANION || declaration.hasValue()
+
+        if (!hasJsValue)
             return declaration
 
         val getter = declaration.addGetter {

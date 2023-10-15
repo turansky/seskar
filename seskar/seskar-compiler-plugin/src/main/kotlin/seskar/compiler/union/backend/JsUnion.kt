@@ -6,6 +6,7 @@ import org.jetbrains.kotlin.ir.declarations.IrDeclarationWithName
 import org.jetbrains.kotlin.ir.expressions.IrConst
 import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
 import org.jetbrains.kotlin.ir.util.getAnnotation
+import org.jetbrains.kotlin.ir.util.hasAnnotation
 import org.jetbrains.kotlin.name.FqName
 
 private val JS_UNION = FqName("seskar.js.JsUnion")
@@ -17,6 +18,9 @@ private inline fun <reified T> IrConstructorCall.value(): T {
     val argument = getValueArgument(0) as IrConst<*>
     return argument.value as T
 }
+
+internal fun IrDeclarationWithName.hasValue(): Boolean =
+    hasAnnotation(JS_INT_VALUE) || hasAnnotation(JS_VALUE)
 
 internal fun IrDeclarationWithName.value(): Value {
     val jsInt = getAnnotation(JS_INT_VALUE)
