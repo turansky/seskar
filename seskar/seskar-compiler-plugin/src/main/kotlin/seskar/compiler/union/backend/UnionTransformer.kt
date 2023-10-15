@@ -19,6 +19,12 @@ internal class UnionTransformer(
         declaration: IrClass,
         data: ValueMode?,
     ): IrStatement {
+        val value = declaration.value()
+        if (value != null) {
+            declaration.annotations += JsName(context, declaration, value.toJsName())
+            return declaration
+        }
+
         val mode = when {
             declaration.isJsUnion()
             -> ValueMode.ROOT

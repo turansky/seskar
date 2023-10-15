@@ -19,7 +19,7 @@ private inline fun <reified T> IrConstructorCall.value(): T {
 }
 
 internal fun IrDeclarationWithName.value(
-    useDefaultValue: Boolean,
+    useDefaultValue: Boolean = false,
 ): Value? {
     val jsInt = getAnnotation(JS_INT_VALUE)
     if (jsInt != null) {

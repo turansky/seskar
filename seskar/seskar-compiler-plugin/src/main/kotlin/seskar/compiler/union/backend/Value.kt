@@ -11,3 +11,9 @@ internal value class IntValue(
 internal value class StringValue(
     val value: String,
 ) : Value
+
+internal fun Value.toJsName(): String =
+    when (this) {
+        is IntValue -> "$value"
+        is StringValue -> "'$value'"
+    }
