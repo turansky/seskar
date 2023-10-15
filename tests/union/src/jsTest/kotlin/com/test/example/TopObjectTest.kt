@@ -1,9 +1,7 @@
 package com.test.example
 
-import kotlin.test.Ignore
 import kotlin.test.Test
 
-@Ignore
 class TopObjectTest {
     @Test
     fun test() {
