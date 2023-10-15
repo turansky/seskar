@@ -39,10 +39,8 @@ internal class UnionTransformer(
         declaration: IrProperty,
         data: ValueMode?,
     ): IrStatement {
-        val hasJsValue = data == ValueMode.COMPANION || declaration.hasValue()
-
-        if (!hasJsValue)
-            return declaration
+        val value = declaration.value(useDefaultValue = (data == ValueMode.COMPANION))
+            ?: return declaration
 
         val getter = declaration.addGetter {
             isInline = true
@@ -62,7 +60,7 @@ internal class UnionTransformer(
                     endOffset = declaration.endOffset,
                     type = context.irBuiltIns.nothingNType,
                     returnTargetSymbol = getter.symbol,
-                    value = valueConstant(declaration),
+                    value = valueConstant(declaration, value),
                 )
             )
         )
@@ -72,9 +70,8 @@ internal class UnionTransformer(
 
     private fun valueConstant(
         declaration: IrDeclarationWithName,
+        value: Value,
     ): IrExpression {
-        val value = declaration.value()
-
         return when (value) {
             is IntValue ->
                 IrConstImpl.int(
