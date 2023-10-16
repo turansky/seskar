@@ -6,11 +6,11 @@
 
 # Seskar
 
-Seskar is a gradle plugin that provides useful additions for Kotlin/JS projects. 
+Seskar is a Gradle plugin that provides useful additions for Kotlin/JS projects. 
 
 ## Setup
 
-To add Seskar to your project, you need to the following configuration to your project's `build.gradle.kts`:
+To add Seskar to your project, you need to add the following configuration to your project's `build.gradle.kts`:
 
 ```kotlin
 plugins {
@@ -29,28 +29,28 @@ dependencies {
 #### Conditional rendering
 
 Seskar generates keys for child elements to prevent problems with conditional rendering.
-As result in following example `Content` child state won't reset after `showHeader` property change.
+As a result, in the following example `Content` child state won't be reset after `showHeader` property change.
 
 ```kotlin
 val App = FC {
     val showHeader = useShowHeader()
     
     if (showHeader) 
-        Header() // genarated: key = "@rdk/5"
+        Header() // generated: key = "@rdk/5"
         
-    Content()    // genarated: key = "@rdk/7"
-    Footer()     // genarated: key = "@rdk/8"
+    Content()    // generated: key = "@rdk/7"
+    Footer()     // generated: key = "@rdk/8"
 }
 ```
 
 #### Dependencies
 
 When a project uses the Kotlin/JS compiler, `value classes` are autoboxed. If a `value class` is used as a dependency
-of a react hook (e.g., in `useMemo`, `useState` or `useEffect`), a new class will be created on every rendering pass,
+of a React hook (e.g., in `useMemo`, `useState` or `useEffect`), a new class will be created on every rendering pass,
 which causes infinite re-rendering.
 
 To prevent this, Seskar disables autoboxing for `value class` dependencies in hooks.
-Also, it converts `Long` values to `String`.
+It also converts `Long` values to `String`.
 
 Seskar supports `Duration` by default.
 
