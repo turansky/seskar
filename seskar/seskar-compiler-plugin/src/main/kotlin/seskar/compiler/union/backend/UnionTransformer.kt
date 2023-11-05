@@ -22,6 +22,9 @@ internal class UnionTransformer(
         declaration: IrClass,
         data: ValueMode?,
     ): IrStatement {
+        if (!declaration.isExternal)
+            return declaration
+
         val value = declaration.value()
 
         if (value != null && declaration.isTopLevelDeclaration && declaration.kind == ClassKind.OBJECT) {
