@@ -51,11 +51,12 @@ internal class UnionTransformer(
         data: ValueMode?,
     ): IrStatement {
         val value = declaration.value(useDefaultValue = (data == ValueMode.COMPANION))
-            ?: return declaration
 
-        addPropertyGetter(declaration, value)
+        if (value != null) {
+            addPropertyGetter(declaration, value)
+        }
 
-        return super.visitProperty(declaration, data)
+        return declaration
     }
 
     private fun addPropertyGetter(
