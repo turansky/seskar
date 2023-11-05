@@ -9,15 +9,22 @@ import seskar.js.JsValue
 
 @JsUnion
 sealed external interface CustomAlignO {
-    @JsValue("t")
-    object TOP : CustomAlignO
+    companion object {
+        @JsValue("t")
+        val TOP: TOP
 
-    @JsValue("l")
-    object LEFT : CustomAlignO
+        @JsValue("l")
+        val LEFT: LEFT
 
-    @JsValue("b")
-    object BOTTOM : CustomAlignO
+        @JsValue("b")
+        val BOTTOM: BOTTOM
 
-    @JsValue("r")
-    object RIGHT : CustomAlignO
+        @JsValue("r")
+        val RIGHT: RIGHT
+    }
+
+    interface TOP : CustomAlignO
+    interface LEFT : CustomAlignO
+    interface BOTTOM : CustomAlignO
+    interface RIGHT : CustomAlignO
 }
