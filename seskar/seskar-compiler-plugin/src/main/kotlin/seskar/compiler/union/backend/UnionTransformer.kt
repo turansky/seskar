@@ -13,7 +13,6 @@ import org.jetbrains.kotlin.ir.expressions.impl.IrReturnImpl
 import org.jetbrains.kotlin.ir.symbols.impl.IrClassSymbolImpl
 import org.jetbrains.kotlin.ir.symbols.impl.IrPropertySymbolImpl
 import org.jetbrains.kotlin.ir.util.companionObject
-import org.jetbrains.kotlin.ir.util.isNonCompanionObject
 import org.jetbrains.kotlin.ir.util.isTopLevelDeclaration
 import org.jetbrains.kotlin.ir.util.parentAsClass
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformer
@@ -43,15 +42,19 @@ internal class UnionTransformer(
             data == ValueMode.ROOT && declaration.isCompanion
             -> ValueMode.COMPANION
 
+            /*
             data == ValueMode.ROOT && declaration.isNonCompanionObject
             -> return visitUnionEntry(declaration)
+            */
 
             else -> null
         }
 
         if (mode == ValueMode.ROOT) {
             declaration.annotations += JsName(context, declaration, "0")
+            /*
             checkCompanionObject(declaration)
+            */
         }
 
         return super.visitClass(declaration, mode)
