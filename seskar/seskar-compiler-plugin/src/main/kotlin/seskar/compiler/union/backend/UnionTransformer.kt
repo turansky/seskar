@@ -3,6 +3,7 @@ package seskar.compiler.union.backend
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.backend.common.ir.addDispatchReceiver
 import org.jetbrains.kotlin.descriptors.ClassKind
+import org.jetbrains.kotlin.descriptors.DescriptorVisibilities
 import org.jetbrains.kotlin.descriptors.Modality
 import org.jetbrains.kotlin.ir.IrStatement
 import org.jetbrains.kotlin.ir.builders.declarations.addGetter
@@ -11,12 +12,14 @@ import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
 import org.jetbrains.kotlin.ir.expressions.impl.IrReturnImpl
 import org.jetbrains.kotlin.ir.symbols.impl.IrClassSymbolImpl
+import org.jetbrains.kotlin.ir.symbols.impl.IrConstructorSymbolImpl
 import org.jetbrains.kotlin.ir.symbols.impl.IrPropertySymbolImpl
 import org.jetbrains.kotlin.ir.util.companionObject
 import org.jetbrains.kotlin.ir.util.isTopLevelDeclaration
 import org.jetbrains.kotlin.ir.util.parentAsClass
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformer
 import org.jetbrains.kotlin.name.Name
+import org.jetbrains.kotlin.name.SpecialNames
 
 private object SYNTHETIC_UNION_COMPANION : IrDeclarationOriginImpl("SYNTHETIC_UNION_COMPANION", isSynthetic = true)
 private object SYNTHETIC_UNION_PROPERTY : IrDeclarationOriginImpl("SYNTHETIC_UNION_PROPERTY", isSynthetic = true)
@@ -79,6 +82,25 @@ internal class UnionTransformer(
             isExternal = true,
             isCompanion = true,
         )
+
+        // required?
+        val constructor = context.irFactory.createConstructor(
+            startOffset = union.startOffset,
+            endOffset = union.endOffset,
+            origin = IrDeclarationOrigin.DEFINED,
+            name = SpecialNames.INIT,
+            visibility = DescriptorVisibilities.PRIVATE,
+            isInline = false,
+            isExpect = false,
+            returnType = context.irBuiltIns.unitType,
+            symbol = IrConstructorSymbolImpl(),
+            isPrimary = true,
+            // required?
+            isExternal = true,
+        )
+
+        companion.declarations.add(constructor)
+        constructor.parent = companion
 
         union.declarations.add(companion)
         companion.parent = union
