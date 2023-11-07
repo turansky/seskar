@@ -32,21 +32,11 @@ internal class UnionTransformer(
             return declaration
         }
 
-        val mode = when {
-            declaration.isJsUnion()
-            -> ValueMode.ROOT
-
-            data == ValueMode.ROOT && declaration.isCompanion
-            -> ValueMode.COMPANION
-
-            else -> null
-        }
-
-        if (mode == ValueMode.ROOT) {
+        if (declaration.isJsUnion()) {
             declaration.annotations += JsName(context, declaration, "0")
         }
 
-        return super.visitClass(declaration, mode)
+        return super.visitClass(declaration, null)
     }
 
     override fun visitProperty(
