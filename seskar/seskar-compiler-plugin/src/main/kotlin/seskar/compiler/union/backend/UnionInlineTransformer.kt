@@ -2,15 +2,15 @@ package seskar.compiler.union.backend
 
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.expressions.IrExpression
-import org.jetbrains.kotlin.ir.expressions.IrFieldAccessExpression
+import org.jetbrains.kotlin.ir.expressions.IrPropertyReference
 import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 
 internal class UnionInlineTransformer(
     private val context: IrPluginContext,
 ) : IrElementTransformerVoid() {
-    override fun visitFieldAccess(
-        expression: IrFieldAccessExpression,
+    override fun visitPropertyReference(
+        expression: IrPropertyReference,
     ): IrExpression {
         val value = expression.symbol.owner.value()
             ?: return expression
@@ -19,7 +19,7 @@ internal class UnionInlineTransformer(
     }
 
     private fun valueConstant(
-        declaration: IrFieldAccessExpression,
+        declaration: IrPropertyReference,
         value: Value,
     ): IrExpression {
         return when (value) {
