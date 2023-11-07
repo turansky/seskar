@@ -179,7 +179,7 @@ type LayoutOrientation = 'top_to_bottom'
 import seskar.js.JsUnion
 import seskar.js.Case
 
-@JsUnion(case = Case.SNAKE)
+@JsUnion
 sealed external interface LayoutOrientation {
     companion object {
         @JsValue("top_to_bottom")
