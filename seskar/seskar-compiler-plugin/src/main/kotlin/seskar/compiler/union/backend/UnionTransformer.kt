@@ -1,10 +1,8 @@
 package seskar.compiler.union.backend
 
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
-import org.jetbrains.kotlin.backend.common.ir.addDispatchReceiver
 import org.jetbrains.kotlin.descriptors.ClassKind
 import org.jetbrains.kotlin.ir.IrStatement
-import org.jetbrains.kotlin.ir.builders.declarations.addGetter
 import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.declarations.IrDeclarationWithName
 import org.jetbrains.kotlin.ir.declarations.IrProperty
@@ -54,15 +52,10 @@ internal class UnionTransformer(
         declaration: IrProperty,
         value: Value,
     ) {
-        val getter = declaration.addGetter {
-            isInline = true
-            returnType = context.irBuiltIns.stringType
-        }
+        val getter = declaration.getter
+            ?: error("No default getter!")
 
-        getter.addDispatchReceiver {
-            type = context.irBuiltIns.nothingNType
-        }
-
+        getter.isInline = true
         getter.body = context.irFactory.createBlockBody(
             startOffset = declaration.startOffset,
             endOffset = declaration.endOffset,
