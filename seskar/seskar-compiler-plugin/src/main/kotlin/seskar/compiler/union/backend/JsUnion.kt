@@ -1,8 +1,8 @@
 package seskar.compiler.union.backend
 
 import org.jetbrains.kotlin.descriptors.ClassKind
+import org.jetbrains.kotlin.ir.declarations.IrAnnotationContainer
 import org.jetbrains.kotlin.ir.declarations.IrClass
-import org.jetbrains.kotlin.ir.declarations.IrDeclarationWithName
 import org.jetbrains.kotlin.ir.expressions.IrConst
 import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
 import org.jetbrains.kotlin.ir.util.getAnnotation
@@ -18,7 +18,7 @@ private inline fun <reified T> IrConstructorCall.value(): T {
     return argument.value as T
 }
 
-internal fun IrDeclarationWithName.value(): Value? {
+internal fun IrAnnotationContainer.value(): Value? {
     val jsInt = getAnnotation(JS_INT_VALUE)
     if (jsInt != null) {
         return IntValue(jsInt.value<Int>())
