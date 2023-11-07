@@ -18,9 +18,7 @@ private inline fun <reified T> IrConstructorCall.value(): T {
     return argument.value as T
 }
 
-internal fun IrDeclarationWithName.value(
-    useDefaultValue: Boolean = false,
-): Value? {
+internal fun IrDeclarationWithName.value(): Value? {
     val jsInt = getAnnotation(JS_INT_VALUE)
     if (jsInt != null) {
         return IntValue(jsInt.value<Int>())
@@ -31,9 +29,7 @@ internal fun IrDeclarationWithName.value(
         return StringValue(jsString.value<String>())
     }
 
-    return if (useDefaultValue) {
-        StringValue(name.identifier)
-    } else null
+    return null
 }
 
 internal fun IrClass.isJsUnion(): Boolean =

@@ -53,7 +53,7 @@ internal class UnionTransformer(
         declaration: IrProperty,
         data: ValueMode?,
     ): IrStatement {
-        val value = declaration.value(useDefaultValue = (data == ValueMode.COMPANION))
+        val value = declaration.value()
 
         if (value != null) {
             addPropertyGetter(declaration, value)
