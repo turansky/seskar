@@ -3,6 +3,7 @@ package seskar.compiler.union.extensions
 import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.declarations.IrModuleFragment
+import org.jetbrains.kotlin.ir.visitors.transformChildrenVoid
 import seskar.compiler.union.backend.UnionTransformer
 
 internal class UnionTransformExtension : IrGenerationExtension {
@@ -10,6 +11,6 @@ internal class UnionTransformExtension : IrGenerationExtension {
         moduleFragment: IrModuleFragment,
         pluginContext: IrPluginContext,
     ) {
-        moduleFragment.transformChildren(UnionTransformer(pluginContext), null)
+        moduleFragment.transformChildrenVoid(UnionTransformer(pluginContext))
     }
 }

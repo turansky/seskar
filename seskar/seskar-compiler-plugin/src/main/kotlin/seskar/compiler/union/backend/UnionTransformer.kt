@@ -13,14 +13,13 @@ import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
 import org.jetbrains.kotlin.ir.expressions.impl.IrReturnImpl
 import org.jetbrains.kotlin.ir.util.isTopLevelDeclaration
-import org.jetbrains.kotlin.ir.visitors.IrElementTransformer
+import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 
 internal class UnionTransformer(
     private val context: IrPluginContext,
-) : IrElementTransformer<ValueMode?> {
+) : IrElementTransformerVoid() {
     override fun visitClass(
         declaration: IrClass,
-        data: ValueMode?,
     ): IrStatement {
         if (!declaration.isExternal)
             return declaration
@@ -36,12 +35,11 @@ internal class UnionTransformer(
             declaration.annotations += JsName(context, declaration, "0")
         }
 
-        return super.visitClass(declaration, null)
+        return super.visitClass(declaration)
     }
 
     override fun visitProperty(
         declaration: IrProperty,
-        data: ValueMode?,
     ): IrStatement {
         val value = declaration.value()
 
