@@ -1,14 +1,10 @@
 package seskar.compiler.union.backend
 
-import org.jetbrains.kotlin.descriptors.ClassKind
 import org.jetbrains.kotlin.ir.declarations.IrAnnotationContainer
-import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.expressions.IrConst
 import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
 import org.jetbrains.kotlin.ir.util.getAnnotation
 import org.jetbrains.kotlin.name.FqName
-
-private val JS_UNION = FqName("seskar.js.JsVirtual")
 
 private val JS_INT_VALUE = FqName("seskar.js.JsIntValue")
 private val JS_VALUE = FqName("seskar.js.JsValue")
@@ -31,6 +27,3 @@ internal fun IrAnnotationContainer.value(): Value? {
 
     return null
 }
-
-internal fun IrClass.isJsVirtual(): Boolean =
-    isExternal && kind == ClassKind.INTERFACE && getAnnotation(JS_UNION) != null
