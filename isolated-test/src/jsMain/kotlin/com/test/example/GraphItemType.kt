@@ -5,9 +5,9 @@
 package com.test.example
 
 import seskar.js.JsIntValue
-import seskar.js.JsUnion
+import seskar.js.JsVirtual
 
-@JsUnion
+@JsVirtual
 sealed external interface GraphItemType {
     companion object {
         @JsIntValue(1)

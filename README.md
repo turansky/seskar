@@ -115,9 +115,9 @@ type Align = 'TOP' | 'LEFT' | 'BOTTOM' | 'RIGHT'
 
 ```kotlin
 // Kotlin
-import seskar.js.JsUnion
+import seskar.js.JsVirtual
 
-@JsUnion
+@JsVirtual
 sealed external interface Align {
     companion object {
         @JsValue("TOP")
@@ -150,10 +150,10 @@ type LayoutOrientation = 'top-to-bottom'
 
 ```kotlin
 // Kotlin
-import seskar.js.JsUnion
+import seskar.js.JsVirtual
 import seskar.js.JsValue
 
-@JsUnion
+@JsVirtual
 sealed external interface LayoutOrientation {
     companion object {
         @JsValue("top-to-bottom")
@@ -183,10 +183,10 @@ type LayoutOrientation = 'top_to_bottom'
 
 ```kotlin
 // Kotlin
-import seskar.js.JsUnion
+import seskar.js.JsVirtual
 import seskar.js.Case
 
-@JsUnion
+@JsVirtual
 sealed external interface LayoutOrientation {
     companion object {
         @JsValue("top_to_bottom")
@@ -217,10 +217,10 @@ type Align = 't' | 'l' | 'b' | 'r'
 
 ```kotlin
 // Kotlin
-import seskar.js.JsUnion
+import seskar.js.JsVirtual
 import seskar.js.JsValue
 
-@JsUnion
+@JsVirtual
 sealed external interface CustomAlign {
     companion object {
         @JsValue("t")
@@ -259,9 +259,9 @@ type GraphItemType = GRAPH_ITEM_TYPE_NODE
 ```kotlin
 // Kotlin
 import seskar.js.JsIntValue
-import seskar.js.JsUnion
+import seskar.js.JsVirtual
 
-@JsUnion
+@JsVirtual
 sealed external interface GraphItemType {
     companion object {
         @JsIntValue(1)

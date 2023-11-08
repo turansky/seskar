@@ -29,7 +29,7 @@ internal class UnionTransformer(
             return declaration
         }
 
-        if (declaration.isJsUnion()) {
+        if (declaration.isJsVirtual()) {
             declaration.annotations += JsName(context, declaration, "0")
         }
 
