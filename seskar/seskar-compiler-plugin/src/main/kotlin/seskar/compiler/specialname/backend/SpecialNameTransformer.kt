@@ -2,17 +2,23 @@ package seskar.compiler.specialname.backend
 
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.IrStatement
-import org.jetbrains.kotlin.ir.declarations.IrDeclarationWithName
 import org.jetbrains.kotlin.ir.declarations.IrProperty
 import org.jetbrains.kotlin.ir.declarations.createBlockBody
 import org.jetbrains.kotlin.ir.expressions.IrExpression
+import org.jetbrains.kotlin.ir.expressions.impl.IrCallImpl
 import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
+import org.jetbrains.kotlin.ir.expressions.impl.IrGetValueImpl
 import org.jetbrains.kotlin.ir.expressions.impl.IrReturnImpl
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
-import seskar.compiler.union.backend.IntValue
-import seskar.compiler.union.backend.StringValue
-import seskar.compiler.union.backend.Value
-import seskar.compiler.union.backend.value
+import org.jetbrains.kotlin.name.CallableId
+import org.jetbrains.kotlin.name.FqName
+import org.jetbrains.kotlin.name.Name
+
+private val GET_PROPERTY = CallableId(
+    packageName = FqName("seskar.js.internal"),
+    className = null,
+    callableName = Name.identifier("getProperty"),
+)
 
 internal class SpecialNameTransformer(
     private val context: IrPluginContext,
@@ -20,18 +26,16 @@ internal class SpecialNameTransformer(
     override fun visitProperty(
         declaration: IrProperty,
     ): IrStatement {
-        val value = declaration.value()
+        val specialName = declaration.specialName()
+            ?: return declaration
 
-        if (value != null) {
-            addPropertyGetter(declaration, value)
-        }
-
+        inlineProperty(declaration, specialName)
         return declaration
     }
 
-    private fun addPropertyGetter(
+    private fun inlineProperty(
         declaration: IrProperty,
-        value: Value,
+        specialName: String,
     ) {
         val getter = declaration.getter
             ?: error("No default getter!")
@@ -44,34 +48,45 @@ internal class SpecialNameTransformer(
                 IrReturnImpl(
                     startOffset = declaration.startOffset,
                     endOffset = declaration.endOffset,
-                    type = context.irBuiltIns.nothingNType,
+                    type = context.irBuiltIns.anyNType,
                     returnTargetSymbol = getter.symbol,
-                    value = valueConstant(declaration, value),
+                    value = getValue(declaration, specialName),
                 )
             )
         )
     }
 
-    private fun valueConstant(
-        declaration: IrDeclarationWithName,
-        value: Value,
+    private fun getValue(
+        declaration: IrProperty,
+        specialName: String,
     ): IrExpression {
-        return when (value) {
-            is IntValue ->
-                IrConstImpl.int(
-                    startOffset = declaration.startOffset,
-                    endOffset = declaration.endOffset,
-                    type = context.irBuiltIns.intType,
-                    value = value.value,
-                )
+        val getProperty = context.referenceFunctions(GET_PROPERTY).single()
 
-            is StringValue ->
-                IrConstImpl.string(
-                    startOffset = declaration.startOffset,
-                    endOffset = declaration.endOffset,
-                    type = context.irBuiltIns.stringType,
-                    value = value.value,
-                )
-        }
+        val call = IrCallImpl.fromSymbolOwner(
+            startOffset = declaration.startOffset,
+            endOffset = declaration.endOffset,
+            symbol = getProperty,
+        )
+
+        call.putValueArgument(
+            index = 0,
+            valueArgument = IrGetValueImpl(
+                startOffset = declaration.startOffset,
+                endOffset = declaration.endOffset,
+                type = context.irBuiltIns.anyType,
+                symbol = declaration.getter!!.dispatchReceiverParameter!!.symbol,
+            )
+        )
+        call.putValueArgument(
+            index = 1,
+            valueArgument = IrConstImpl.string(
+                startOffset = declaration.startOffset,
+                endOffset = declaration.endOffset,
+                type = context.irBuiltIns.stringType,
+                value = specialName,
+            )
+        )
+
+        return call
     }
 }
