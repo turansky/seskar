@@ -1,42 +1,22 @@
 package seskar.compiler.specialname.backend
 
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
-import org.jetbrains.kotlin.descriptors.ClassKind
 import org.jetbrains.kotlin.ir.IrStatement
-import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.declarations.IrDeclarationWithName
 import org.jetbrains.kotlin.ir.declarations.IrProperty
 import org.jetbrains.kotlin.ir.declarations.createBlockBody
 import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
 import org.jetbrains.kotlin.ir.expressions.impl.IrReturnImpl
-import org.jetbrains.kotlin.ir.util.isTopLevelDeclaration
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
-import seskar.compiler.union.backend.*
+import seskar.compiler.union.backend.IntValue
+import seskar.compiler.union.backend.StringValue
+import seskar.compiler.union.backend.Value
+import seskar.compiler.union.backend.value
 
 internal class SpecialNameTransformer(
     private val context: IrPluginContext,
 ) : IrElementTransformerVoid() {
-    override fun visitClass(
-        declaration: IrClass,
-    ): IrStatement {
-        if (!declaration.isExternal)
-            return declaration
-
-        val value = declaration.value()
-
-        if (value != null && declaration.isTopLevelDeclaration && declaration.kind == ClassKind.OBJECT) {
-            declaration.annotations += JsName(context, declaration, value.toJsName())
-            return declaration
-        }
-
-        if (declaration.isJsVirtual()) {
-            declaration.annotations += JsName(context, declaration, "0")
-        }
-
-        return super.visitClass(declaration)
-    }
-
     override fun visitProperty(
         declaration: IrProperty,
     ): IrStatement {
