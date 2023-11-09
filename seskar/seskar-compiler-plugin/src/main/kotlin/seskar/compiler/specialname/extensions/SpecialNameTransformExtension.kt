@@ -1,4 +1,4 @@
-package seskar.compiler.union.extensions
+package seskar.compiler.specialname.extensions
 
 import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
@@ -6,7 +6,7 @@ import org.jetbrains.kotlin.ir.declarations.IrModuleFragment
 import org.jetbrains.kotlin.ir.visitors.transformChildrenVoid
 import seskar.compiler.specialname.backend.SpecialNameTransformer
 
-internal class UnionTransformExtension : IrGenerationExtension {
+internal class SpecialNameTransformExtension : IrGenerationExtension {
     override fun generate(
         moduleFragment: IrModuleFragment,
         pluginContext: IrPluginContext,

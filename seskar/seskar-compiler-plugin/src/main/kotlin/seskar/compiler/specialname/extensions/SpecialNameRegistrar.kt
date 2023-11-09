@@ -1,11 +1,10 @@
-package seskar.compiler.union.extensions
+package seskar.compiler.specialname.extensions
 
 import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
 import org.jetbrains.kotlin.compiler.plugin.CompilerPluginRegistrar
 import org.jetbrains.kotlin.config.CompilerConfiguration
-import seskar.compiler.specialname.extensions.SpecialNameTransformExtension
 
-class UnionRegistrar : CompilerPluginRegistrar() {
+class SpecialNameRegistrar : CompilerPluginRegistrar() {
     override val supportsK2: Boolean = true
 
     override fun ExtensionStorage.registerExtensions(
