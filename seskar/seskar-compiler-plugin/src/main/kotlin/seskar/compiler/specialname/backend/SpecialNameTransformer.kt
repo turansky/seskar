@@ -3,6 +3,7 @@ package seskar.compiler.specialname.backend
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.IrStatement
 import org.jetbrains.kotlin.ir.declarations.IrProperty
+import org.jetbrains.kotlin.ir.declarations.IrSimpleFunction
 import org.jetbrains.kotlin.ir.declarations.createBlockBody
 import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.impl.IrCallImpl
@@ -56,7 +57,7 @@ internal class SpecialNameTransformer(
                     endOffset = declaration.endOffset,
                     type = context.irBuiltIns.anyNType,
                     returnTargetSymbol = getter.symbol,
-                    value = getValue(declaration, specialName),
+                    value = getValue(getter, specialName),
                 )
             )
         )
@@ -69,37 +70,37 @@ internal class SpecialNameTransformer(
             startOffset = declaration.startOffset,
             endOffset = declaration.endOffset,
             statements = listOf(
-                setValue(declaration, specialName),
+                setValue(setter, specialName),
             )
         )
     }
 
     private fun getValue(
-        declaration: IrProperty,
+        getter: IrSimpleFunction,
         specialName: String,
     ): IrExpression {
         val getProperty = context.referenceFunctions(GET_PROPERTY).single()
 
         val call = IrCallImpl.fromSymbolOwner(
-            startOffset = declaration.startOffset,
-            endOffset = declaration.endOffset,
+            startOffset = getter.startOffset,
+            endOffset = getter.endOffset,
             symbol = getProperty,
         )
 
         call.putValueArgument(
             index = 0,
             valueArgument = IrGetValueImpl(
-                startOffset = declaration.startOffset,
-                endOffset = declaration.endOffset,
+                startOffset = getter.startOffset,
+                endOffset = getter.endOffset,
                 type = context.irBuiltIns.anyType,
-                symbol = declaration.getter!!.dispatchReceiverParameter!!.symbol,
+                symbol = getter.dispatchReceiverParameter!!.symbol,
             )
         )
         call.putValueArgument(
             index = 1,
             valueArgument = IrConstImpl.string(
-                startOffset = declaration.startOffset,
-                endOffset = declaration.endOffset,
+                startOffset = getter.startOffset,
+                endOffset = getter.endOffset,
                 type = context.irBuiltIns.stringType,
                 value = specialName,
             )
@@ -109,32 +110,32 @@ internal class SpecialNameTransformer(
     }
 
     private fun setValue(
-        declaration: IrProperty,
+        setter: IrSimpleFunction,
         specialName: String,
     ): IrExpression {
         val setProperty = context.referenceFunctions(SET_PROPERTY).single()
 
         val call = IrCallImpl.fromSymbolOwner(
-            startOffset = declaration.startOffset,
-            endOffset = declaration.endOffset,
+            startOffset = setter.startOffset,
+            endOffset = setter.endOffset,
             symbol = setProperty,
         )
 
         call.putValueArgument(
             index = 0,
             valueArgument = IrGetValueImpl(
-                startOffset = declaration.startOffset,
-                endOffset = declaration.endOffset,
+                startOffset = setter.startOffset,
+                endOffset = setter.endOffset,
                 type = context.irBuiltIns.anyType,
-                symbol = declaration.setter!!.dispatchReceiverParameter!!.symbol,
+                symbol = setter.dispatchReceiverParameter!!.symbol,
             )
         )
 
         call.putValueArgument(
             index = 1,
             valueArgument = IrConstImpl.string(
-                startOffset = declaration.startOffset,
-                endOffset = declaration.endOffset,
+                startOffset = setter.startOffset,
+                endOffset = setter.endOffset,
                 type = context.irBuiltIns.stringType,
                 value = specialName,
             )
@@ -143,10 +144,10 @@ internal class SpecialNameTransformer(
         call.putValueArgument(
             index = 2,
             valueArgument = IrGetValueImpl(
-                startOffset = declaration.startOffset,
-                endOffset = declaration.endOffset,
+                startOffset = setter.startOffset,
+                endOffset = setter.endOffset,
                 type = context.irBuiltIns.anyType,
-                symbol = declaration.setter!!.valueParameters[0].symbol,
+                symbol = setter.valueParameters[0].symbol,
             )
         )
 
