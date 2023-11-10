@@ -20,6 +20,12 @@ private val GET_PROPERTY = CallableId(
     callableName = Name.identifier("getProperty"),
 )
 
+private val SET_PROPERTY = CallableId(
+    packageName = FqName("seskar.js.internal"),
+    className = null,
+    callableName = Name.identifier("setProperty"),
+)
+
 internal class SpecialNameTransformer(
     private val context: IrPluginContext,
 ) : IrElementTransformerVoid() {
@@ -54,6 +60,18 @@ internal class SpecialNameTransformer(
                 )
             )
         )
+
+        val setter = declaration.setter
+            ?: return
+
+        setter.isInline = true
+        setter.body = context.irFactory.createBlockBody(
+            startOffset = declaration.startOffset,
+            endOffset = declaration.endOffset,
+            statements = listOf(
+                setValue(declaration, specialName),
+            )
+        )
     }
 
     private fun getValue(
@@ -84,6 +102,51 @@ internal class SpecialNameTransformer(
                 endOffset = declaration.endOffset,
                 type = context.irBuiltIns.stringType,
                 value = specialName,
+            )
+        )
+
+        return call
+    }
+
+    private fun setValue(
+        declaration: IrProperty,
+        specialName: String,
+    ): IrExpression {
+        val setProperty = context.referenceFunctions(SET_PROPERTY).single()
+
+        val call = IrCallImpl.fromSymbolOwner(
+            startOffset = declaration.startOffset,
+            endOffset = declaration.endOffset,
+            symbol = setProperty,
+        )
+
+        call.putValueArgument(
+            index = 0,
+            valueArgument = IrGetValueImpl(
+                startOffset = declaration.startOffset,
+                endOffset = declaration.endOffset,
+                type = context.irBuiltIns.anyType,
+                symbol = declaration.setter!!.dispatchReceiverParameter!!.symbol,
+            )
+        )
+
+        call.putValueArgument(
+            index = 1,
+            valueArgument = IrConstImpl.string(
+                startOffset = declaration.startOffset,
+                endOffset = declaration.endOffset,
+                type = context.irBuiltIns.stringType,
+                value = specialName,
+            )
+        )
+
+        call.putValueArgument(
+            index = 2,
+            valueArgument = IrGetValueImpl(
+                startOffset = declaration.startOffset,
+                endOffset = declaration.endOffset,
+                type = context.irBuiltIns.anyType,
+                symbol = declaration.setter!!.valueParameters[0].symbol,
             )
         )
 
