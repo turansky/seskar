@@ -5,6 +5,8 @@ plugins {
 }
 
 dependencies {
+    jsMainImplementation(project(":tests:union-data"))
+
     jsMainImplementation("io.github.turansky.seskar:seskar-core")
     jsMainImplementation(wrappers("web"))
 
