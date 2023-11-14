@@ -2,5 +2,5 @@ package com.test.example
 
 import seskar.js.JsValue
 
-@JsValue("popper")
-external val Popper: Name
+@JsValue("arrow")
+external val Arrow: Modifier
