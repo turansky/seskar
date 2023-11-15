@@ -40,8 +40,11 @@ internal class UnionTransformer(
         declaration: IrProperty,
     ): IrStatement {
         val value = declaration.value()
+            ?: return declaration
 
-        if (value != null) {
+        if (declaration.isTopLevelDeclaration) {
+            declaration.annotations += JsName(context, declaration, value.toJsName())
+        } else {
             addPropertyGetter(declaration, value)
         }
 
