@@ -7,4 +7,9 @@ class TopPropertyFromOtherModuleTest {
     fun test() {
         assertEquals("arrow", Arrow)
     }
+
+    @Test
+    fun testReassign() {
+        assertEquals("arrow", MyArrow)
+    }
 }
