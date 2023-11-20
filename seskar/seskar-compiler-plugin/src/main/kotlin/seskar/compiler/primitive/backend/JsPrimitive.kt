@@ -16,5 +16,5 @@ internal fun getPrimitiveTypeName(
     if (!clazz.hasAnnotation(JS_PRIMITIVE))
         return null
 
-    return clazz.name.identifier
+    return clazz.name.identifier.lowercase()
 }
