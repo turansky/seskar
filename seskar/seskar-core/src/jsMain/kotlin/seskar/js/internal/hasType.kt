@@ -5,7 +5,7 @@
 package seskar.js.internal
 
 internal inline fun hasType(
-    o: Any,
+    o: Any?,
     type: String,
 ): Boolean =
     jsTypeOf(o) == type
