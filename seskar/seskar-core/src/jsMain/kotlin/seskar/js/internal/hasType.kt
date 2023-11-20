@@ -1,6 +1,10 @@
+@file:Suppress(
+    "NOTHING_TO_INLINE",
+)
+
 package seskar.js.internal
 
-internal fun hasType(
+internal inline fun hasType(
     o: Any,
     type: String,
 ): Boolean =
