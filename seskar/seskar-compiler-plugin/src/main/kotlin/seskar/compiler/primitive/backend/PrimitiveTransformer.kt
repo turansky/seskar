@@ -7,8 +7,6 @@ import org.jetbrains.kotlin.ir.expressions.IrTypeOperator.*
 import org.jetbrains.kotlin.ir.expressions.IrTypeOperatorCall
 import org.jetbrains.kotlin.ir.expressions.impl.IrCallImpl
 import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
-import org.jetbrains.kotlin.ir.types.getClass
-import org.jetbrains.kotlin.ir.util.hasAnnotation
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.name.FqName
@@ -37,13 +35,12 @@ internal class PrimitiveTransformer(
         if (expression.operator !in SUPPORTED_OPERATORS)
             return expression
 
-        val primitiveType = expression.typeOperand.getClass()
-            ?.takeIf { it.hasAnnotation(JS_PRIMITIVE) }
+        val primitiveTypeName = getPrimitiveTypeName(expression.typeOperand)
             ?: return expression
 
         return hasType(
             argument = expression.argument,
-            typeName = primitiveType.name.identifier,
+            typeName = primitiveTypeName,
         )
     }
 
