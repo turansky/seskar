@@ -6,5 +6,5 @@ internal val KOTLIN_PLUGIN_ARTIFACT: SubpluginArtifact
     get() = SubpluginArtifact(
         groupId = "io.github.turansky.seskar",
         artifactId = "seskar-compiler-plugin",
-        version = "2.14.2-SNAPSHOT",
+        version = "2.15.1-SNAPSHOT",
     )
