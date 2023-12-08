@@ -1,12 +1,10 @@
 package com.test.example
 
 import js.core.jso
-import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertIs
 import kotlin.test.assertIsNot
 
-@Ignore
 class StreamResultTest {
     @Test
     fun testValue() {

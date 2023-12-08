@@ -1,6 +1,6 @@
 package seskar.compiler.typeguard.backend
 
-import org.jetbrains.kotlin.ir.declarations.IrProperty
+import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.expressions.IrConst
 import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
 import org.jetbrains.kotlin.ir.util.getAnnotation
@@ -18,7 +18,7 @@ private fun IrConstructorCall.value(index: Int): String {
     return argument.value as String
 }
 
-internal fun IrProperty.typeGuardData(): TypeGuardData? {
+internal fun IrClass.typeGuardData(): TypeGuardData? {
     val guard = getAnnotation(JS_TYPE_GUARD)
         ?: return null
 
