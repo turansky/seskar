@@ -10,10 +10,25 @@ import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
 
+private val JS_QUALIFIER = ClassId(
+    FqName("kotlin.js"),
+    Name.identifier("JsQualifier"),
+)
+
 private val JS_NAME = ClassId(
     FqName("kotlin.js"),
     Name.identifier("JsName"),
 )
+
+internal fun JsQualifier(
+    context: IrPluginContext,
+    value: String,
+): IrConstructorCall =
+    annotation(
+        context = context,
+        classId = JS_QUALIFIER,
+        value = value,
+    )
 
 internal fun JsName(
     context: IrPluginContext,
