@@ -12,7 +12,7 @@ internal class EnvTransformer(
     override fun visitProperty(declaration: IrProperty): IrStatement {
         val variableName = declaration.toEnvVariableName()
         if (variableName != null) {
-            declaration.annotations += JsName(context, declaration, variableName)
+            declaration.annotations += JsName(context, variableName)
         }
 
         return super.visitProperty(declaration)

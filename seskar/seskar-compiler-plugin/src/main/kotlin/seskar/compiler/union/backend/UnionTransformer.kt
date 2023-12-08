@@ -26,12 +26,12 @@ internal class UnionTransformer(
         val value = declaration.value()
 
         if (value != null && declaration.isTopLevelDeclaration && declaration.kind == ClassKind.OBJECT) {
-            declaration.annotations += JsName(context, declaration, value.toJsName())
+            declaration.annotations += JsName(context, value.toJsName())
             return declaration
         }
 
         if (declaration.isJsVirtual()) {
-            declaration.annotations += JsName(context, declaration, "0")
+            declaration.annotations += JsName(context, "0")
         }
 
         return super.visitClass(declaration)
@@ -44,7 +44,7 @@ internal class UnionTransformer(
             ?: return declaration
 
         if (declaration.isTopLevelDeclaration) {
-            declaration.annotations += JsName(context, declaration, value.toJsName())
+            declaration.annotations += JsName(context, value.toJsName())
         } else {
             addPropertyGetter(declaration, value)
         }

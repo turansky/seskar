@@ -1,7 +1,7 @@
 package seskar.compiler.common.backend
 
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
-import org.jetbrains.kotlin.ir.IrElement
+import org.jetbrains.kotlin.ir.UNDEFINED_OFFSET
 import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
 import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
 import org.jetbrains.kotlin.ir.expressions.impl.IrConstructorCallImpl
@@ -17,14 +17,13 @@ private val JS_NAME = ClassId(
 
 internal fun JsName(
     context: IrPluginContext,
-    source: IrElement,
     name: String,
 ): IrConstructorCall {
     val type = context.referenceClass(JS_NAME)!!.defaultType
     val symbol = context.referenceConstructors(JS_NAME).single()
     val annotation = IrConstructorCallImpl(
-        startOffset = source.startOffset,
-        endOffset = source.endOffset,
+        startOffset = UNDEFINED_OFFSET,
+        endOffset = UNDEFINED_OFFSET,
         type = type,
         symbol = symbol,
         typeArgumentsCount = 0,
@@ -34,8 +33,8 @@ internal fun JsName(
     )
 
     val nameParameter = IrConstImpl.string(
-        startOffset = source.startOffset,
-        endOffset = source.endOffset,
+        startOffset = UNDEFINED_OFFSET,
+        endOffset = UNDEFINED_OFFSET,
         type = context.irBuiltIns.stringType,
         value = name,
     )
