@@ -17,7 +17,7 @@ private val JS_NAME = ClassId(
 
 internal fun JsName(
     context: IrPluginContext,
-    name: String,
+    value: String,
 ): IrConstructorCall {
     val type = context.referenceClass(JS_NAME)!!.defaultType
     val symbol = context.referenceConstructors(JS_NAME).single()
@@ -32,14 +32,14 @@ internal fun JsName(
         origin = null,
     )
 
-    val nameParameter = IrConstImpl.string(
+    val valueParameter = IrConstImpl.string(
         startOffset = UNDEFINED_OFFSET,
         endOffset = UNDEFINED_OFFSET,
         type = context.irBuiltIns.stringType,
-        value = name,
+        value = value,
     )
 
-    annotation.putValueArgument(0, nameParameter)
+    annotation.putValueArgument(0, valueParameter)
 
     return annotation
 }
