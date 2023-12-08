@@ -12,6 +12,7 @@ import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
 import org.jetbrains.kotlin.ir.expressions.impl.IrReturnImpl
 import org.jetbrains.kotlin.ir.util.isTopLevelDeclaration
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
+import seskar.compiler.common.backend.JsName
 
 internal class UnionTransformer(
     private val context: IrPluginContext,
