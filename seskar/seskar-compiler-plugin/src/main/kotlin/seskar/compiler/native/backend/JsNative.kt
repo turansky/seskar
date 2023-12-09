@@ -9,9 +9,9 @@ import org.jetbrains.kotlin.name.Name
 private val JS_NATIVE = FqName("seskar.js.JsNative")
 
 private val ANNOTATION_MAP = mapOf(
-    "get" to ClassId(FqName("koltin.js"), Name.identifier("nativeGetter")),
-    "set" to ClassId(FqName("koltin.js"), Name.identifier("nativeSetter")),
-    "invoke" to ClassId(FqName("koltin.js"), Name.identifier("nativeInvoke")),
+    "get" to ClassId(FqName("kotlin.js"), Name.identifier("nativeGetter")),
+    "set" to ClassId(FqName("kotlin.js"), Name.identifier("nativeSetter")),
+    "invoke" to ClassId(FqName("kotlin.js"), Name.identifier("nativeInvoke")),
 )
 
 internal fun IrFunction.nativeAnnotation(): ClassId? {
