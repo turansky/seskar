@@ -27,7 +27,7 @@ internal fun JsQualifier(
     annotation(
         context = context,
         classId = JS_QUALIFIER,
-        value = value,
+        parameters = arrayOf(value),
     )
 
 internal fun JsName(
@@ -37,13 +37,13 @@ internal fun JsName(
     annotation(
         context = context,
         classId = JS_NAME,
-        value = value,
+        parameters = arrayOf(value),
     )
 
-private fun annotation(
+internal fun annotation(
     context: IrPluginContext,
     classId: ClassId,
-    value: String,
+    vararg parameters: String,
 ): IrConstructorCall {
     val type = context.referenceClass(classId)!!.defaultType
     val symbol = context.referenceConstructors(classId).single()
@@ -54,18 +54,20 @@ private fun annotation(
         symbol = symbol,
         typeArgumentsCount = 0,
         constructorTypeArgumentsCount = 0,
-        valueArgumentsCount = 1,
+        valueArgumentsCount = parameters.size,
         origin = null,
     )
 
-    val valueParameter = IrConstImpl.string(
-        startOffset = UNDEFINED_OFFSET,
-        endOffset = UNDEFINED_OFFSET,
-        type = context.irBuiltIns.stringType,
-        value = value,
-    )
+    for ((index, value) in parameters.withIndex()) {
+        val valueParameter = IrConstImpl.string(
+            startOffset = UNDEFINED_OFFSET,
+            endOffset = UNDEFINED_OFFSET,
+            type = context.irBuiltIns.stringType,
+            value = value,
+        )
 
-    annotation.putValueArgument(0, valueParameter)
+        annotation.putValueArgument(index, valueParameter)
+    }
 
     return annotation
 }

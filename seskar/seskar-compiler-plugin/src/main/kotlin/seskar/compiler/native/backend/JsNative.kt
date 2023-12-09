@@ -1,0 +1,21 @@
+package seskar.compiler.native.backend
+
+import org.jetbrains.kotlin.ir.declarations.IrFunction
+import org.jetbrains.kotlin.ir.util.getAnnotation
+import org.jetbrains.kotlin.name.ClassId
+import org.jetbrains.kotlin.name.FqName
+import org.jetbrains.kotlin.name.Name
+
+private val JS_NATIVE = FqName("seskar.js.JsNative")
+
+private val ANNOTATION_MAP = mapOf(
+    "get" to ClassId(FqName("koltin.js"), Name.identifier("nativeGetter")),
+    "set" to ClassId(FqName("koltin.js"), Name.identifier("nativeSetter")),
+    "invoke" to ClassId(FqName("koltin.js"), Name.identifier("nativeInvoke")),
+)
+
+internal fun IrFunction.nativeAnnotation(): ClassId? {
+    getAnnotation(JS_NATIVE) ?: return null
+
+    return ANNOTATION_MAP.getValue(name.identifier)
+}
