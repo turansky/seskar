@@ -1,11 +1,11 @@
 plugins {
     kotlin("multiplatform") apply false
     id("io.github.turansky.kfc.application")
-    id("io.github.turansky.seskar") version "2.16.0"
+    id("io.github.turansky.seskar") version "2.17.0"
 }
 
 dependencies {
-    jsMainImplementation("io.github.turansky.seskar:seskar-core:2.16.0")
+    jsMainImplementation("io.github.turansky.seskar:seskar-core:2.17.0")
 
     jsTestImplementation(kotlin("test-js"))
 }
