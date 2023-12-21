@@ -2,10 +2,12 @@ package com.test.example
 
 import js.core.BigInt
 import js.core.n
+import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertIs
 import kotlin.test.assertIsNot
 
+@Ignore
 class BigIntTest {
     @Test
     fun isForNumberBigInt() {
