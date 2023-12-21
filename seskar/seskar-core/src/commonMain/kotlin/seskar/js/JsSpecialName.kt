@@ -1,6 +1,9 @@
 package seskar.js
 
-@Target(AnnotationTarget.PROPERTY)
+@Target(
+    AnnotationTarget.CLASS,
+    AnnotationTarget.PROPERTY,
+)
 @Retention(AnnotationRetention.BINARY)
 annotation class JsSpecialName(
     val value: String,
