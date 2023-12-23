@@ -1,7 +1,5 @@
 package com.test.counter
 
-import js.core.globalThis
-
 const val TEST_LOG = "data-count"
 
 fun testLog(
