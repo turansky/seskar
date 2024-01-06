@@ -1,6 +1,6 @@
 package com.test.example
 
-import js.core.Symbol
+import js.symbol.Symbol
 import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertIs

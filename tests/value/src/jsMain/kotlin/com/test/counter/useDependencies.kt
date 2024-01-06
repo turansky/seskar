@@ -1,6 +1,6 @@
 package com.test.counter
 
-import js.core.ReadonlyArray
+import js.array.ReadonlyArray
 
 fun useDependencies(
     vararg dependencies: Any?,
