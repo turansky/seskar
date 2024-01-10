@@ -1,6 +1,7 @@
 seskar.compiler.env.extensions.EnvRegistrar
 seskar.compiler.key.extensions.DefaultKeyRegistrar
 seskar.compiler.memo.extensions.MemoRegistrar
+seskar.compiler.mixin.extensions.MixinRegistrar
 seskar.compiler.native.extensions.NativeRegistrar
 seskar.compiler.primitive.extensions.PrimitiveRegistrar
 seskar.compiler.specialname.extensions.SpecialNameRegistrar
