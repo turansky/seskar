@@ -11,6 +11,6 @@ internal class PlainObjectTransformExtension : IrGenerationExtension {
         moduleFragment: IrModuleFragment,
         pluginContext: IrPluginContext,
     ) {
-        moduleFragment.transformChildrenVoid(PlainObjectTransformer())
+        moduleFragment.transformChildrenVoid(PlainObjectTransformer(pluginContext))
     }
 }
