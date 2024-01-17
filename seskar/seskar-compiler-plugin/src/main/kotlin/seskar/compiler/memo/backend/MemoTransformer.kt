@@ -39,7 +39,6 @@ private val CONTEXT_FACTORIES = setOf(
 
 private val MEMO = CallableId(
     packageName = FqName("react"),
-    className = null,
     callableName = Name.identifier("memo"),
 )
 

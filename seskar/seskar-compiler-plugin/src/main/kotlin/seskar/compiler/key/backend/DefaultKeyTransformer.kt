@@ -19,7 +19,6 @@ private val ELEMENT_BUILDER = FqName("react.ElementBuilder")
 
 private val SET_DEFAULT_KEY = CallableId(
     packageName = FqName("react"),
-    className = null,
     callableName = Name.identifier("setDefaultKey"),
 )
 

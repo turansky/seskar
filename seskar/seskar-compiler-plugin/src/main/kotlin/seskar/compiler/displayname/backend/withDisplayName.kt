@@ -11,7 +11,6 @@ import org.jetbrains.kotlin.name.Name
 
 private val WITH_DISPLAY_NAME = CallableId(
     packageName = FqName("seskar.react"),
-    className = null,
     callableName = Name.identifier("withDisplayName"),
 )
 

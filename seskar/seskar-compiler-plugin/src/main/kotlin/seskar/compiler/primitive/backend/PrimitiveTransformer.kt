@@ -14,7 +14,6 @@ import org.jetbrains.kotlin.name.Name
 
 private val HAS_TYPE = CallableId(
     packageName = FqName("seskar.js.internal"),
-    className = null,
     callableName = Name.identifier("hasType"),
 )
 
