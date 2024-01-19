@@ -10,6 +10,11 @@ nexusPublishing {
             snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
         }
     }
+
+    // increased timeout
+    transitionCheckOptions {
+        maxRetries = 200
+    }
 }
 
 tasks.wrapper {
