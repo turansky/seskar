@@ -8,13 +8,16 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinCompilerPluginSupportPlugin
 import org.jetbrains.kotlin.gradle.plugin.SubpluginArtifact
 import org.jetbrains.kotlin.gradle.plugin.SubpluginOption
 
-private val SESKAR_COMPILER_PLUGIN_ID = "io.github.turansky.seskar"
+private const val SESKAR_COMPILER_PLUGIN_ID = "io.github.turansky.seskar"
+private const val SESKAR_REACT = "seskar.react"
 
 class SeskarGradleSubplugin : KotlinCompilerPluginSupportPlugin {
     override fun apply(target: Project) {
         super.apply(target)
 
-        target.plugins.apply(SeskarReactPlugin::class)
+        if (target.findProperty(SESKAR_REACT) != "false") {
+            target.plugins.apply(SeskarReactPlugin::class)
+        }
     }
 
     override fun isApplicable(
