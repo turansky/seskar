@@ -1,6 +1,9 @@
 package seskar.js
 
-@Target(AnnotationTarget.PROPERTY)
+@Target(
+    AnnotationTarget.PROPERTY,
+    AnnotationTarget.FUNCTION,
+)
 @Retention(AnnotationRetention.BINARY)
 annotation class JsIntValue(
     val value: Int,
@@ -9,6 +12,7 @@ annotation class JsIntValue(
 @Target(
     AnnotationTarget.CLASS,
     AnnotationTarget.PROPERTY,
+    AnnotationTarget.FUNCTION,
 )
 @Retention(AnnotationRetention.BINARY)
 annotation class JsValue(
