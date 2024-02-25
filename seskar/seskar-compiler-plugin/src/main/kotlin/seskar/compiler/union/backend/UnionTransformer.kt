@@ -3,10 +3,7 @@ package seskar.compiler.union.backend
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.descriptors.ClassKind
 import org.jetbrains.kotlin.ir.IrStatement
-import org.jetbrains.kotlin.ir.declarations.IrClass
-import org.jetbrains.kotlin.ir.declarations.IrDeclarationWithName
-import org.jetbrains.kotlin.ir.declarations.IrProperty
-import org.jetbrains.kotlin.ir.declarations.createBlockBody
+import org.jetbrains.kotlin.ir.declarations.*
 import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
 import org.jetbrains.kotlin.ir.expressions.impl.IrReturnImpl
@@ -52,6 +49,17 @@ internal class UnionTransformer(
         return declaration
     }
 
+    override fun visitFunction(
+        declaration: IrFunction,
+    ): IrStatement {
+        val value = declaration.value()
+            ?: return declaration
+
+        addFunctionBody(declaration, value)
+
+        return declaration
+    }
+
     private fun addPropertyGetter(
         declaration: IrProperty,
         value: Value,
@@ -69,6 +77,26 @@ internal class UnionTransformer(
                     endOffset = declaration.endOffset,
                     type = context.irBuiltIns.nothingNType,
                     returnTargetSymbol = getter.symbol,
+                    value = valueConstant(declaration, value),
+                )
+            )
+        )
+    }
+
+    private fun addFunctionBody(
+        declaration: IrFunction,
+        value: Value,
+    ) {
+        declaration.isInline = true
+        declaration.body = context.irFactory.createBlockBody(
+            startOffset = declaration.startOffset,
+            endOffset = declaration.endOffset,
+            statements = listOf(
+                IrReturnImpl(
+                    startOffset = declaration.startOffset,
+                    endOffset = declaration.endOffset,
+                    type = context.irBuiltIns.nothingNType,
+                    returnTargetSymbol = declaration.symbol,
                     value = valueConstant(declaration, value),
                 )
             )
