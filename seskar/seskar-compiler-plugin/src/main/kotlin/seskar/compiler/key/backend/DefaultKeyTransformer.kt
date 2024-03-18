@@ -47,16 +47,17 @@ internal class DefaultKeyTransformer(
         // TODO: check how to avoid
         originalCall as IrStatement
 
-        return IrCompositeImpl(
+        val composite = IrCompositeImpl(
             startOffset = expression.startOffset,
             endOffset = expression.endOffset,
             type = expression.type,
             origin = expression.origin,
-            statements = listOf(
-                keyCall,
-                originalCall,
-            )
         )
+
+        composite.statements.add(keyCall)
+        composite.statements.add(originalCall)
+
+        return composite
     }
 
     private fun keyCall(
