@@ -5,9 +5,9 @@ import web.events.Event
 import web.events.EventTarget
 import web.events.EventType
 
-external class MouseEvent<C : EventTarget?> : Event<C> {
+external class MouseEvent : Event {
     companion object {
         @JsValue("click")
-        val CLICK: EventType<MouseEvent<EventTarget>>
+        val CLICK: EventType<MouseEvent, EventTarget>
     }
 }
