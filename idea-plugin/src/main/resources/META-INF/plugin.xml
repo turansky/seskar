@@ -7,6 +7,11 @@
   <description>
     <![CDATA[
     Companion of <a href="https://github.com/turansky/seskar">Seskar compiler plugin</a><br><br>
+
+    Enable:<br>
+    • Companion object in external interface
+    • Private constructor in external class
+    • Property-parameter in external class
     ]]>
   </description>
 
