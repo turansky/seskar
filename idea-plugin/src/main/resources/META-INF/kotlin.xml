@@ -1,0 +1,7 @@
+<idea-plugin>
+  <depends>org.jetbrains.kotlin</depends>
+
+  <extensions defaultExtensionNs="org.jetbrains.kotlin">
+    <diagnosticSuppressor implementation="io.github.turansky.seskar.SeskarDiagnosticSuppressor"/>
+  </extensions>
+</idea-plugin>

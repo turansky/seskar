@@ -1,0 +1,15 @@
+<idea-plugin>
+  <id>io.github.turansky.seskar</id>
+  <name>Seskar</name>
+  <vendor url="https://github.com/turansky">Victor Turansky</vendor>
+
+  <!-- language=HTML -->
+  <description>
+    <![CDATA[
+    Companion of <a href="https://github.com/turansky/seskar">Seskar compiler plugin</a><br><br>
+    ]]>
+  </description>
+
+  <depends>com.intellij.modules.lang</depends>
+  <depends optional="true" config-file="kotlin.xml">org.jetbrains.kotlin</depends>
+</idea-plugin>
