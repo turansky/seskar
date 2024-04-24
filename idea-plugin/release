@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+set -e
+set -o pipefail
+
+./gradlew setReleaseVersion
+./gradlew buildPlugin
+./gradlew verifyPlugin
+./gradlew publishPlugin
+./gradlew setNextSnapshotVersion
