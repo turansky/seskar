@@ -2,6 +2,6 @@
   <depends>org.jetbrains.kotlin</depends>
 
   <extensions defaultExtensionNs="org.jetbrains.kotlin">
-    <diagnosticSuppressor implementation="seskar.compiler.diagnostics.K1DiagnosticSuppressor"/>
+    <diagnosticSuppressor implementation="seskar.compiler.diagnostics.RedundantDiagnosticSuppressor"/>
   </extensions>
 </idea-plugin>

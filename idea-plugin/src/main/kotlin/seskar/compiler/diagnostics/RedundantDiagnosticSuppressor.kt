@@ -10,7 +10,7 @@ import org.jetbrains.kotlin.resolve.diagnostics.DiagnosticSuppressor
 
 private const val EXTERNAL_PRIVATE_CONSTRUCTOR = "private member of class"
 
-class K1DiagnosticSuppressor : DiagnosticSuppressor {
+class RedundantDiagnosticSuppressor : DiagnosticSuppressor {
     override fun isSuppressed(
         diagnostic: Diagnostic,
     ): Boolean =
