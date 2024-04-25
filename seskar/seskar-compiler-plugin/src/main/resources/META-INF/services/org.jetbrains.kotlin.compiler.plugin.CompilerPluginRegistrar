@@ -1,3 +1,4 @@
+seskar.compiler.diagnostics.SuppressorRegistrar
 seskar.compiler.env.extensions.EnvRegistrar
 seskar.compiler.key.extensions.DefaultKeyRegistrar
 seskar.compiler.memo.extensions.MemoRegistrar
