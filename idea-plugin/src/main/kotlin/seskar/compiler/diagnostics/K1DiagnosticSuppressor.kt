@@ -1,8 +1,8 @@
-package io.github.turansky.seskar
+package seskar.compiler.diagnostics
 
 import org.jetbrains.kotlin.diagnostics.Diagnostic
 import org.jetbrains.kotlin.diagnostics.DiagnosticWithParameters1
-import org.jetbrains.kotlin.js.resolve.diagnostics.ErrorsJs.*
+import org.jetbrains.kotlin.js.resolve.diagnostics.ErrorsJs
 import org.jetbrains.kotlin.psi.KtObjectDeclaration
 import org.jetbrains.kotlin.psi.KtPrimaryConstructor
 import org.jetbrains.kotlin.resolve.BindingContext
@@ -26,7 +26,7 @@ class K1DiagnosticSuppressor : DiagnosticSuppressor {
         val factory = diagnostic.factory
 
         return when (factory) {
-            WRONG_EXTERNAL_DECLARATION,
+            ErrorsJs.WRONG_EXTERNAL_DECLARATION,
             -> when (psiElement) {
                 is KtPrimaryConstructor,
                 -> diagnostic.messageParameter == EXTERNAL_PRIVATE_CONSTRUCTOR
@@ -34,10 +34,10 @@ class K1DiagnosticSuppressor : DiagnosticSuppressor {
                 else -> false
             }
 
-            EXTERNAL_CLASS_CONSTRUCTOR_PROPERTY_PARAMETER,
+            ErrorsJs.EXTERNAL_CLASS_CONSTRUCTOR_PROPERTY_PARAMETER,
             -> true
 
-            NESTED_CLASS_IN_EXTERNAL_INTERFACE,
+            ErrorsJs.NESTED_CLASS_IN_EXTERNAL_INTERFACE,
             -> psiElement is KtObjectDeclaration && psiElement.isCompanion()
 
             else -> false
