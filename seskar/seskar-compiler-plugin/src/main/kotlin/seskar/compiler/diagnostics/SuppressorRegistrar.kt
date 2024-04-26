@@ -6,7 +6,7 @@ import org.jetbrains.kotlin.config.CompilerConfiguration
 import org.jetbrains.kotlin.resolve.diagnostics.DiagnosticSuppressor
 
 class SuppressorRegistrar : CompilerPluginRegistrar() {
-    override val supportsK2: Boolean = true
+    override val supportsK2: Boolean = false
 
     override fun ExtensionStorage.registerExtensions(
         configuration: CompilerConfiguration,
