@@ -12,7 +12,12 @@ class SuppressorRegistrar : CompilerPluginRegistrar() {
         configuration: CompilerConfiguration,
     ) {
         @Suppress("DEPRECATION")
-        Extensions.getRootArea()
+        val extensionArea = Extensions.getRootArea()
+
+        if (!extensionArea.hasExtensionPoint(DiagnosticSuppressor.EP_NAME))
+            return
+
+        extensionArea
             .getExtensionPoint(DiagnosticSuppressor.EP_NAME)
             .registerExtension(RedundantDiagnosticSuppressor()) { /* do nothing */ }
     }
