@@ -17,7 +17,7 @@ internal class UnionTransformer(
     override fun visitClass(
         declaration: IrClass,
     ): IrStatement {
-        if (!declaration.isExternal)
+        if (!isExternal(declaration))
             return declaration
 
         val value = declaration.value()
