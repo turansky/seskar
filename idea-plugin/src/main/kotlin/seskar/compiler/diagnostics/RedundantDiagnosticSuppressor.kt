@@ -34,9 +34,6 @@ class RedundantDiagnosticSuppressor : DiagnosticSuppressor {
                 else -> false
             }
 
-            ErrorsJs.EXTERNAL_CLASS_CONSTRUCTOR_PROPERTY_PARAMETER,
-            -> true
-
             ErrorsJs.NESTED_CLASS_IN_EXTERNAL_INTERFACE,
             -> psiElement is KtObjectDeclaration && psiElement.isCompanion()
 
