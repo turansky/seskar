@@ -1,11 +1,11 @@
 seskar.compiler.diagnostics.SuppressorRegistrar
 seskar.compiler.env.extensions.EnvRegistrar
-seskar.compiler.key.extensions.DefaultKeyRegistrar
-seskar.compiler.memo.extensions.MemoRegistrar
 seskar.compiler.mixin.extensions.MixinRegistrar
 seskar.compiler.native.extensions.NativeRegistrar
 seskar.compiler.primitive.extensions.PrimitiveRegistrar
+seskar.compiler.react.key.extensions.DefaultKeyRegistrar
+seskar.compiler.react.memo.extensions.MemoRegistrar
+seskar.compiler.react.value.extensions.ValueRegistrar
 seskar.compiler.specialname.extensions.SpecialNameRegistrar
 seskar.compiler.typeguard.extensions.TypeGuardRegistrar
 seskar.compiler.union.extensions.UnionRegistrar
-seskar.compiler.value.extensions.ValueRegistrar
