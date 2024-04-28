@@ -16,3 +16,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+
+include("kotlin-js-union")
