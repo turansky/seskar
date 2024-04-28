@@ -18,3 +18,4 @@ dependencyResolutionManagement {
 }
 
 include("kotlin-js-union")
+include("union-test")
