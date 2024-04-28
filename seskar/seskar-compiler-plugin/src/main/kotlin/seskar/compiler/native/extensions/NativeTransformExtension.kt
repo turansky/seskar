@@ -5,7 +5,6 @@ import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.declarations.IrModuleFragment
 import org.jetbrains.kotlin.ir.visitors.transformChildrenVoid
 import seskar.compiler.native.backend.NativeTransformer
-import seskar.compiler.native.backend.SealedTransformer
 
 internal class NativeTransformExtension : IrGenerationExtension {
     override fun generate(
@@ -13,6 +12,5 @@ internal class NativeTransformExtension : IrGenerationExtension {
         pluginContext: IrPluginContext,
     ) {
         moduleFragment.transformChildrenVoid(NativeTransformer(pluginContext))
-        moduleFragment.transformChildrenVoid(SealedTransformer())
     }
 }
