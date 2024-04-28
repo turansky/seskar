@@ -1,15 +1,15 @@
-package seskar.compiler.union.extensions
+package seskar.compiler.value.extensions
 
 import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
 import org.jetbrains.kotlin.compiler.plugin.CompilerPluginRegistrar
 import org.jetbrains.kotlin.config.CompilerConfiguration
 
-class UnionRegistrar : CompilerPluginRegistrar() {
+class ValueRegistrar : CompilerPluginRegistrar() {
     override val supportsK2: Boolean = true
 
     override fun ExtensionStorage.registerExtensions(
         configuration: CompilerConfiguration,
     ) {
-        IrGenerationExtension.registerExtension(UnionTransformExtension())
+        IrGenerationExtension.registerExtension(ValueTransformExtension())
     }
 }

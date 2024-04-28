@@ -1,4 +1,4 @@
-package seskar.compiler.union.backend
+package seskar.compiler.value.backend
 
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.descriptors.ClassKind
@@ -11,7 +11,7 @@ import org.jetbrains.kotlin.ir.util.isTopLevelDeclaration
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 import seskar.compiler.common.backend.JsName
 
-internal class UnionTransformer(
+internal class ValueTransformer(
     private val context: IrPluginContext,
 ) : IrElementTransformerVoid() {
     override fun visitClass(

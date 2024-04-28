@@ -8,4 +8,4 @@ seskar.compiler.react.memo.extensions.MemoRegistrar
 seskar.compiler.react.value.extensions.ValueRegistrar
 seskar.compiler.specialname.extensions.SpecialNameRegistrar
 seskar.compiler.typeguard.extensions.TypeGuardRegistrar
-seskar.compiler.union.extensions.UnionRegistrar
+seskar.compiler.value.extensions.ValueRegistrar
