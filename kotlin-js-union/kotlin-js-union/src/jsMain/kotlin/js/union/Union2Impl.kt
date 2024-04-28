@@ -1,6 +1,6 @@
 package js.union
 
-internal class Union2Impl<in A : Any, in B : Any>(
+class Union2Impl<in A : Any, in B : Any>(
     private val target: Any,
     private val propertyName: String,
 ) : Union2<A, B> {

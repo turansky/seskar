@@ -3,5 +3,7 @@ plugins {
 }
 
 dependencies {
+    jsMainImplementation(project(":kotlin-js-union"))
+
     jsTestImplementation(kotlin("test-js"))
 }
