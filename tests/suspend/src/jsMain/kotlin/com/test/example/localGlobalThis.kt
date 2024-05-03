@@ -1,4 +1,4 @@
 package com.test.example
 
 @JsName("globalThis")
-external val localGlobalThis: GlobalThis
+external val myGlobalThis: MyGlobalThis

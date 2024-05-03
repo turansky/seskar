@@ -2,7 +2,7 @@ package com.test.example
 
 import js.promise.Promise
 
-external interface GlobalThis {
+external interface MyGlobalThis {
     @JsName("getResponse")
     fun getResponseAsync(
         url: String,

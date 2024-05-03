@@ -7,7 +7,7 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class GlobalThisTest {
+class MyGlobalThisTest {
     @BeforeTest
     fun setUp() {
         globalThis.getResponse = {
@@ -17,7 +17,7 @@ class GlobalThisTest {
 
     @Test
     fun testGetResources() = runTest {
-        val data = localGlobalThis.getResponse("http://github.com")
+        val data = myGlobalThis.getResponse("http://github.com")
         assertEquals(42, data)
     }
 }
