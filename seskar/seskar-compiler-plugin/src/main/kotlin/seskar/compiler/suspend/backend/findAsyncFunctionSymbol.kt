@@ -15,6 +15,7 @@ internal fun findAsyncFunctionSymbol(
 ): IrSimpleFunctionSymbol {
     val parent = function.parent
     val asyncName = Name.identifier(function.name.identifier + "Async")
+    val parameterCount = function.valueParameters.size
 
     return when (parent) {
         is IrFile -> {
@@ -23,16 +24,22 @@ internal fun findAsyncFunctionSymbol(
                 callableName = asyncName,
             )
 
-            context.referenceFunctions(functionId).first {
-                val owner = it.owner
-                owner.isExternal && !owner.isSuspend
-            }
+            context.referenceFunctions(functionId)
+                .asSequence()
+                .filter { it.owner.isExternal }
+                .filter { !it.owner.isSuspend }
+                .filter { it.owner.valueParameters.size >= parameterCount }
+                .sortedBy { it.owner.valueParameters.size }
+                .first()
         }
 
         is IrClass -> {
             parent.functions
                 .filter { !it.isSuspend }
-                .first { it.name == asyncName }
+                .filter { it.name == asyncName }
+                .filter { it.valueParameters.size >= parameterCount }
+                .sortedBy { it.valueParameters.size }
+                .first()
                 .symbol
         }
 
