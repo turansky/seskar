@@ -1,4 +1,4 @@
-package seskar.compiler.value.backend
+package seskar.compiler.common.backend
 
 import org.jetbrains.kotlin.ir.declarations.IrClass
 

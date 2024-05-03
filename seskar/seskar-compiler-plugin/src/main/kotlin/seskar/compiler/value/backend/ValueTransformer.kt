@@ -10,6 +10,7 @@ import org.jetbrains.kotlin.ir.expressions.impl.IrReturnImpl
 import org.jetbrains.kotlin.ir.util.isTopLevelDeclaration
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 import seskar.compiler.common.backend.JsName
+import seskar.compiler.common.backend.isExternal
 
 internal class ValueTransformer(
     private val context: IrPluginContext,
