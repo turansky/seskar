@@ -8,6 +8,7 @@ import org.jetbrains.kotlin.ir.declarations.createBlockBody
 import org.jetbrains.kotlin.ir.expressions.IrCall
 import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.impl.IrCallImpl
+import org.jetbrains.kotlin.ir.expressions.impl.IrGetValueImpl
 import org.jetbrains.kotlin.ir.expressions.impl.IrReturnImpl
 import org.jetbrains.kotlin.ir.symbols.IrSimpleFunctionSymbol
 import org.jetbrains.kotlin.ir.util.isSuspend
@@ -54,6 +55,10 @@ internal class ExternalSuspendTransformer(
     private fun addFunctionBody(
         declaration: IrFunction,
     ) {
+        // TEMP
+        if (declaration.isTopLevel)
+            return
+
         declaration.isInline = true
         declaration.body = context.irFactory.createBlockBody(
             startOffset = declaration.startOffset,
@@ -80,6 +85,15 @@ internal class ExternalSuspendTransformer(
             endOffset = declaration.endOffset,
             symbol = function.symbol as IrSimpleFunctionSymbol,
         )
+
+        val dispatchReceiverParameter = declaration.dispatchReceiverParameter
+        if (dispatchReceiverParameter != null) {
+            promiseCall.dispatchReceiver = IrGetValueImpl(
+                startOffset = declaration.startOffset,
+                endOffset = declaration.endOffset,
+                symbol = dispatchReceiverParameter.symbol,
+            )
+        }
 
         return await(promiseCall)
     }

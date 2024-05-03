@@ -4,11 +4,9 @@ import js.globals.globalThis
 import js.promise.Promise
 import kotlinx.coroutines.test.runTest
 import kotlin.test.BeforeTest
-import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-@Ignore
 class GlobalThisTest {
     @BeforeTest
     fun setUp() {
