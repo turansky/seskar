@@ -10,7 +10,7 @@ import org.jetbrains.kotlin.ir.expressions.impl.IrReturnImpl
 import org.jetbrains.kotlin.ir.util.isTopLevelDeclaration
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 import seskar.compiler.common.backend.JsName
-import seskar.compiler.common.backend.isExternal
+import seskar.compiler.common.backend.isReallyExternal
 
 internal class ValueTransformer(
     private val context: IrPluginContext,
@@ -18,7 +18,7 @@ internal class ValueTransformer(
     override fun visitClass(
         declaration: IrClass,
     ): IrStatement {
-        if (!isExternal(declaration))
+        if (!isReallyExternal(declaration))
             return declaration
 
         val value = declaration.value()

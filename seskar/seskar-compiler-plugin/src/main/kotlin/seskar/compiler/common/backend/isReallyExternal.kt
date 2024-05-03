@@ -3,7 +3,7 @@ package seskar.compiler.common.backend
 import org.jetbrains.kotlin.ir.declarations.IrClass
 
 // WA for https://youtrack.jetbrains.com/issue/KT-67627
-internal fun isExternal(
+internal fun isReallyExternal(
     declaration: IrClass,
 ): Boolean {
     if (declaration.isExternal)
@@ -12,5 +12,5 @@ internal fun isExternal(
     val parent = declaration.parent as? IrClass
         ?: return false
 
-    return isExternal(parent)
+    return isReallyExternal(parent)
 }
