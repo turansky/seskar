@@ -23,7 +23,10 @@ internal fun findAsyncFunctionSymbol(
                 callableName = asyncName,
             )
 
-            context.referenceFunctions(functionId).single()
+            context.referenceFunctions(functionId).first {
+                val owner = it.owner
+                owner.isExternal && !owner.isSuspend
+            }
         }
 
         is IrClass -> {
