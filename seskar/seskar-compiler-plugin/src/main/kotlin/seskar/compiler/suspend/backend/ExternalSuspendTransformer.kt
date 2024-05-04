@@ -9,7 +9,6 @@ import org.jetbrains.kotlin.ir.declarations.createBlockBody
 import org.jetbrains.kotlin.ir.expressions.IrCall
 import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.impl.IrCallImpl
-import org.jetbrains.kotlin.ir.expressions.impl.IrGetValueImpl
 import org.jetbrains.kotlin.ir.expressions.impl.IrReturnImpl
 import org.jetbrains.kotlin.ir.util.isSuspend
 import org.jetbrains.kotlin.ir.util.isTopLevel
@@ -17,6 +16,7 @@ import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
+import seskar.compiler.common.backend.irGet
 import seskar.compiler.common.backend.isReallyExternal
 
 private val AWAIT = CallableId(
@@ -84,11 +84,7 @@ internal class ExternalSuspendTransformer(
 
         val dispatchReceiverParameter = declaration.dispatchReceiverParameter
         if (dispatchReceiverParameter != null) {
-            promiseCall.dispatchReceiver = IrGetValueImpl(
-                startOffset = UNDEFINED_OFFSET,
-                endOffset = UNDEFINED_OFFSET,
-                symbol = dispatchReceiverParameter.symbol,
-            )
+            promiseCall.dispatchReceiver = irGet(dispatchReceiverParameter)
         }
 
         return await(promiseCall)
