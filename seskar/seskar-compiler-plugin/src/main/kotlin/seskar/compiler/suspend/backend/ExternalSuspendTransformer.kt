@@ -2,6 +2,7 @@ package seskar.compiler.suspend.backend
 
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.IrStatement
+import org.jetbrains.kotlin.ir.UNDEFINED_OFFSET
 import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.declarations.IrFunction
 import org.jetbrains.kotlin.ir.declarations.createBlockBody
@@ -56,12 +57,12 @@ internal class ExternalSuspendTransformer(
     ) {
         declaration.isInline = true
         declaration.body = context.irFactory.createBlockBody(
-            startOffset = declaration.startOffset,
-            endOffset = declaration.endOffset,
+            startOffset = UNDEFINED_OFFSET,
+            endOffset = UNDEFINED_OFFSET,
             statements = listOf(
                 IrReturnImpl(
-                    startOffset = declaration.startOffset,
-                    endOffset = declaration.endOffset,
+                    startOffset = UNDEFINED_OFFSET,
+                    endOffset = UNDEFINED_OFFSET,
                     type = declaration.returnType,
                     returnTargetSymbol = declaration.symbol,
                     value = suspendCall(declaration),
@@ -84,8 +85,8 @@ internal class ExternalSuspendTransformer(
         val dispatchReceiverParameter = declaration.dispatchReceiverParameter
         if (dispatchReceiverParameter != null) {
             promiseCall.dispatchReceiver = IrGetValueImpl(
-                startOffset = declaration.startOffset,
-                endOffset = declaration.endOffset,
+                startOffset = UNDEFINED_OFFSET,
+                endOffset = UNDEFINED_OFFSET,
                 symbol = dispatchReceiverParameter.symbol,
             )
         }
@@ -99,8 +100,8 @@ internal class ExternalSuspendTransformer(
         val await = context.referenceFunctions(AWAIT).single()
 
         val call = IrCallImpl.fromSymbolOwner(
-            startOffset = promiseCall.startOffset,
-            endOffset = promiseCall.endOffset,
+            startOffset = UNDEFINED_OFFSET,
+            endOffset = UNDEFINED_OFFSET,
             symbol = await,
         )
 
