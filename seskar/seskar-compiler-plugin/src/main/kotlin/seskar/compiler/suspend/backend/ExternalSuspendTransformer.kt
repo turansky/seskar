@@ -8,7 +8,6 @@ import org.jetbrains.kotlin.ir.declarations.IrFunction
 import org.jetbrains.kotlin.ir.declarations.createBlockBody
 import org.jetbrains.kotlin.ir.expressions.IrCall
 import org.jetbrains.kotlin.ir.expressions.IrExpression
-import org.jetbrains.kotlin.ir.expressions.impl.IrCallImpl
 import org.jetbrains.kotlin.ir.expressions.impl.IrReturnImpl
 import org.jetbrains.kotlin.ir.util.isSuspend
 import org.jetbrains.kotlin.ir.util.isTopLevel
@@ -16,6 +15,7 @@ import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
+import seskar.compiler.common.backend.irCall
 import seskar.compiler.common.backend.irGet
 import seskar.compiler.common.backend.isReallyExternal
 
@@ -81,11 +81,7 @@ internal class ExternalSuspendTransformer(
     ): IrExpression {
         val asyncFunctionSymbol = findAsyncFunctionSymbol(context, declaration)
 
-        val promiseCall = IrCallImpl.fromSymbolOwner(
-            startOffset = declaration.startOffset,
-            endOffset = declaration.endOffset,
-            symbol = asyncFunctionSymbol,
-        )
+        val promiseCall = irCall(asyncFunctionSymbol)
 
         val dispatchReceiverParameter = declaration.dispatchReceiverParameter
         if (dispatchReceiverParameter != null) {
@@ -104,14 +100,7 @@ internal class ExternalSuspendTransformer(
     ): IrExpression {
         val await = context.referenceFunctions(AWAIT).single()
 
-        val call = IrCallImpl.fromSymbolOwner(
-            startOffset = UNDEFINED_OFFSET,
-            endOffset = UNDEFINED_OFFSET,
-            symbol = await,
-        )
-
-        call.extensionReceiver = promiseCall
-
-        return call
+        return irCall(await)
+            .also { it.extensionReceiver = promiseCall }
     }
 }

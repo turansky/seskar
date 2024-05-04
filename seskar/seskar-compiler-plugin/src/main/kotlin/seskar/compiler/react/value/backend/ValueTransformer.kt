@@ -5,13 +5,13 @@ import org.jetbrains.kotlin.ir.expressions.IrCall
 import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.IrVararg
 import org.jetbrains.kotlin.ir.expressions.IrVarargElement
-import org.jetbrains.kotlin.ir.expressions.impl.IrCallImpl
 import org.jetbrains.kotlin.ir.types.getClass
 import org.jetbrains.kotlin.ir.types.isNullable
 import org.jetbrains.kotlin.ir.util.getArgumentsWithIr
 import org.jetbrains.kotlin.ir.util.kotlinFqName
 import org.jetbrains.kotlin.ir.util.properties
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
+import seskar.compiler.common.backend.irCall
 
 internal class ValueTransformer(
     private val context: IrPluginContext,
@@ -66,12 +66,7 @@ internal class ValueTransformer(
         val value = klass.properties.first()
         val getter = value.getter!!
 
-        val call = IrCallImpl.fromSymbolOwner(
-            startOffset = element.startOffset,
-            endOffset = element.endOffset,
-            symbol = getter.symbol,
-        )
-
+        val call = irCall(getter.symbol)
         call.dispatchReceiver = element
 
         return when (getter.returnType) {
@@ -87,22 +82,10 @@ internal class ValueTransformer(
         nullable: Boolean,
     ): IrExpression =
         if (nullable) {
-            val call = IrCallImpl.fromSymbolOwner(
-                startOffset = element.startOffset,
-                endOffset = element.endOffset,
-                symbol = context.symbols.extensionToString,
-            )
-
-            call.extensionReceiver = element
-            call
+            irCall(context.symbols.extensionToString)
+                .also { it.extensionReceiver = element }
         } else {
-            val call = IrCallImpl.fromSymbolOwner(
-                startOffset = element.startOffset,
-                endOffset = element.endOffset,
-                symbol = context.symbols.memberToString,
-            )
-
-            call.dispatchReceiver = element
-            call
+            irCall(context.symbols.memberToString)
+                .also { it.dispatchReceiver = element }
         }
 }

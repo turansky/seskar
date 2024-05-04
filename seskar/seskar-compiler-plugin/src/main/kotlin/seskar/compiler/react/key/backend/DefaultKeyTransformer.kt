@@ -5,7 +5,6 @@ import org.jetbrains.kotlin.ir.IrElement
 import org.jetbrains.kotlin.ir.IrStatement
 import org.jetbrains.kotlin.ir.declarations.IrFile
 import org.jetbrains.kotlin.ir.expressions.IrCall
-import org.jetbrains.kotlin.ir.expressions.impl.IrCallImpl
 import org.jetbrains.kotlin.ir.expressions.impl.IrCompositeImpl
 import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
 import org.jetbrains.kotlin.ir.types.defaultType
@@ -14,6 +13,7 @@ import org.jetbrains.kotlin.ir.visitors.IrElementTransformer
 import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
+import seskar.compiler.common.backend.irCall
 
 private val ELEMENT_BUILDER = FqName("react.ElementBuilder")
 
@@ -74,11 +74,7 @@ internal class DefaultKeyTransformer(
 
         val key = keyProvider.get(expression)
 
-        val call = IrCallImpl.fromSymbolOwner(
-            startOffset = expression.startOffset,
-            endOffset = expression.endOffset,
-            symbol = setDefaultKey,
-        )
+        val call = irCall(setDefaultKey)
 
         val defaultKey = IrConstImpl.string(
             startOffset = expression.startOffset,

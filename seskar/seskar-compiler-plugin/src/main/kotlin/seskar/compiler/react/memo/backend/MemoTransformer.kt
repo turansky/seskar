@@ -5,7 +5,6 @@ import org.jetbrains.kotlin.ir.IrStatement
 import org.jetbrains.kotlin.ir.declarations.IrProperty
 import org.jetbrains.kotlin.ir.expressions.IrCall
 import org.jetbrains.kotlin.ir.expressions.IrExpression
-import org.jetbrains.kotlin.ir.expressions.impl.IrCallImpl
 import org.jetbrains.kotlin.ir.types.classFqName
 import org.jetbrains.kotlin.ir.util.fqNameWhenAvailable
 import org.jetbrains.kotlin.ir.util.isSimpleProperty
@@ -14,6 +13,7 @@ import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
+import seskar.compiler.common.backend.irCall
 import seskar.compiler.react.displayname.backend.withDisplayName
 
 private val FC = FqName("react.FC")
@@ -120,12 +120,7 @@ internal class MemoTransformer(
     ): IrExpression {
         val memo = context.referenceFunctions(MEMO).single()
 
-        val call = IrCallImpl.fromSymbolOwner(
-            startOffset = componentFactory.startOffset,
-            endOffset = componentFactory.endOffset,
-            symbol = memo,
-        )
-
+        val call = irCall(memo)
         call.putValueArgument(0, componentFactory)
 
         return call
