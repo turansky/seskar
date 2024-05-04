@@ -87,6 +87,10 @@ internal class ExternalSuspendTransformer(
             promiseCall.dispatchReceiver = irGet(dispatchReceiverParameter)
         }
 
+        declaration.valueParameters.forEachIndexed { index, parameter ->
+            promiseCall.putValueArgument(index, irGet(parameter))
+        }
+
         return await(promiseCall)
     }
 
