@@ -47,6 +47,10 @@ internal class ExternalSuspendTransformer(
             return declaration
         }
 
+        if (declaration.isInline) {
+            return declaration
+        }
+
         addFunctionBody(declaration)
 
         return declaration
