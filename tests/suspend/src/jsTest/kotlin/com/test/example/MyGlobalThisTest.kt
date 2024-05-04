@@ -10,14 +10,14 @@ import kotlin.test.assertEquals
 class MyGlobalThisTest {
     @BeforeTest
     fun setUp() {
-        globalThis.getResponse = {
-            Promise.resolve(42)
+        globalThis.getResponse = { url: String ->
+            Promise.resolve("$url?42")
         }
     }
 
     @Test
     fun testGetResources() = runTest {
         val data = myGlobalThis.getResponse("http://github.com")
-        assertEquals(42, data)
+        assertEquals("http://github.com?42", data)
     }
 }
