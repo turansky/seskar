@@ -5,6 +5,7 @@ import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.declarations.IrFile
 import org.jetbrains.kotlin.ir.declarations.IrFunction
 import org.jetbrains.kotlin.ir.symbols.IrSimpleFunctionSymbol
+import org.jetbrains.kotlin.ir.util.fqNameWhenAvailable
 import org.jetbrains.kotlin.ir.util.functions
 import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.name.Name
@@ -30,19 +31,22 @@ internal fun findAsyncFunctionSymbol(
                 .filter { !it.owner.isSuspend }
                 .filter { it.owner.valueParameters.size >= parameterCount }
                 .sortedBy { it.owner.valueParameters.size }
-                .first()
+                .firstOrNull()
+                ?: error("Unable to find async companion for function ${function.fqNameWhenAvailable}")
         }
 
         is IrClass -> {
-            parent.functions
+            val asyncFunction = parent.functions
                 .filter { !it.isSuspend }
                 .filter { it.name == asyncName }
                 .filter { it.valueParameters.size >= parameterCount }
                 .sortedBy { it.valueParameters.size }
-                .first()
-                .symbol
+                .firstOrNull()
+                ?: error("Unable to find async companion for function ${function.fqNameWhenAvailable}")
+
+            asyncFunction.symbol
         }
 
-        else -> TODO("Unable to find async function for parent ${parent::class.simpleName}")
+        else -> error("Unable to find async function for parent ${parent::class.simpleName}")
     }
 }
