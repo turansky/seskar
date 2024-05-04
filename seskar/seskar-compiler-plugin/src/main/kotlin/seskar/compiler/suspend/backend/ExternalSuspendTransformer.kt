@@ -55,19 +55,24 @@ internal class ExternalSuspendTransformer(
     private fun addFunctionBody(
         declaration: IrFunction,
     ) {
+        val suspendCall = suspendCall(declaration)
+        val statement = if (declaration.returnType != context.irBuiltIns.unitType) {
+            IrReturnImpl(
+                startOffset = UNDEFINED_OFFSET,
+                endOffset = UNDEFINED_OFFSET,
+                type = declaration.returnType,
+                returnTargetSymbol = declaration.symbol,
+                value = suspendCall,
+            )
+        } else {
+            suspendCall
+        }
+
         declaration.isInline = true
         declaration.body = context.irFactory.createBlockBody(
             startOffset = UNDEFINED_OFFSET,
             endOffset = UNDEFINED_OFFSET,
-            statements = listOf(
-                IrReturnImpl(
-                    startOffset = UNDEFINED_OFFSET,
-                    endOffset = UNDEFINED_OFFSET,
-                    type = declaration.returnType,
-                    returnTargetSymbol = declaration.symbol,
-                    value = suspendCall(declaration),
-                )
-            )
+            statements = listOf(statement),
         )
     }
 
