@@ -43,15 +43,15 @@ internal class ExternalSuspendTransformer(
             return declaration
         }
 
-        if (declaration.isTopLevel && !declaration.isExternal) {
-            return declaration
+        val useTransform = if (declaration.isTopLevel) {
+            declaration.isExternal
+        } else {
+            !declaration.isInline
         }
 
-        if (declaration.isInline) {
-            return declaration
+        if (useTransform) {
+            addFunctionBody(declaration)
         }
-
-        addFunctionBody(declaration)
 
         return declaration
     }
