@@ -1,5 +1,5 @@
 [![CI Status](https://github.com/turansky/seskar/workflows/idea%20plugin/badge.svg)](https://github.com/turansky/seskar/actions)
-[![Kotlin](https://img.shields.io/badge/kotlin-1.9.23-blue.svg?logo=kotlin)](http://kotlinlang.org)
+[![Kotlin](https://img.shields.io/badge/kotlin-1.9.24-blue.svg?logo=kotlin)](http://kotlinlang.org)
 
 # Seskar IDEA plugin
 
