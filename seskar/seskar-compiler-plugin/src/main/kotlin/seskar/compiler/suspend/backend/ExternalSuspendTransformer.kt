@@ -19,9 +19,9 @@ import seskar.compiler.common.backend.irCall
 import seskar.compiler.common.backend.irGet
 import seskar.compiler.common.backend.isReallyExternal
 
-private val AWAIT = CallableId(
+private val AWAIT_INTERNAL = CallableId(
     packageName = FqName("js.promise"),
-    callableName = Name.identifier("await"),
+    callableName = Name.identifier("awaitInternal"),
 )
 
 internal class ExternalSuspendTransformer(
@@ -103,9 +103,10 @@ internal class ExternalSuspendTransformer(
     private fun await(
         promiseCall: IrCall,
     ): IrExpression {
-        val await = context.referenceFunctions(AWAIT).single()
+        val await = context.referenceFunctions(AWAIT_INTERNAL).single()
 
-        return irCall(await)
-            .also { it.extensionReceiver = promiseCall }
+        val call = irCall(await)
+        call.putValueArgument(0, promiseCall)
+        return call
     }
 }
