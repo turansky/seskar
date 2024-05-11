@@ -1,12 +1,10 @@
 package seskar.compiler.value.extensions
 
 import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
-import org.jetbrains.kotlin.compiler.plugin.CompilerPluginRegistrar
 import org.jetbrains.kotlin.config.CompilerConfiguration
+import seskar.compiler.common.extensions.JsCompilerPluginRegistrar
 
-class ValueRegistrar : CompilerPluginRegistrar() {
-    override val supportsK2: Boolean = true
-
+class ValueRegistrar : JsCompilerPluginRegistrar() {
     override fun ExtensionStorage.registerExtensions(
         configuration: CompilerConfiguration,
     ) {

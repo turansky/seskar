@@ -1,13 +1,11 @@
 package seskar.compiler.diagnostics
 
 import org.jetbrains.kotlin.com.intellij.openapi.extensions.Extensions
-import org.jetbrains.kotlin.compiler.plugin.CompilerPluginRegistrar
 import org.jetbrains.kotlin.config.CompilerConfiguration
 import org.jetbrains.kotlin.resolve.diagnostics.DiagnosticSuppressor
+import seskar.compiler.common.extensions.JsCompilerPluginRegistrar
 
-class SuppressorRegistrar : CompilerPluginRegistrar() {
-    override val supportsK2: Boolean = true
-
+class SuppressorRegistrar : JsCompilerPluginRegistrar() {
     override fun ExtensionStorage.registerExtensions(
         configuration: CompilerConfiguration,
     ) {
