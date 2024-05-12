@@ -81,7 +81,7 @@ internal class ExternalSuspendTransformer(
             suspendCall
         }
 
-        declaration.isInline = !declaration.isTopLevel
+        declaration.isInline = true
         declaration.isExternal = false
         declaration.body = context.irFactory.createBlockBody(
             startOffset = UNDEFINED_OFFSET,
