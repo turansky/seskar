@@ -24,6 +24,11 @@ private val AWAIT_PROMISE_LIKE = CallableId(
     callableName = Name.identifier("awaitPromiseLike"),
 )
 
+private val AWAIT_OPTIONAL_PROMISE_LIKE = CallableId(
+    packageName = FqName("js.promise.internal"),
+    callableName = Name.identifier("awaitOptionalPromiseLike"),
+)
+
 internal class ExternalSuspendTransformer(
     private val context: IrPluginContext,
 ) : IrElementTransformerVoid() {
@@ -52,8 +57,6 @@ internal class ExternalSuspendTransformer(
         if (!useTransform) {
             return declaration
         }
-
-        declaration.getAsyncOptions()
 
         addFunctionBody(declaration)
         return declaration
@@ -100,13 +103,15 @@ internal class ExternalSuspendTransformer(
             promiseCall.putValueArgument(index, irGet(parameter))
         }
 
-        return await(promiseCall)
+        return await(promiseCall, declaration.getAsyncOptions())
     }
 
     private fun await(
         promiseCall: IrCall,
+        options: AsyncOptions,
     ): IrExpression {
-        val await = context.referenceFunctions(AWAIT_PROMISE_LIKE).single()
+        val awaitFunctionId = if (options.optional) AWAIT_OPTIONAL_PROMISE_LIKE else AWAIT_PROMISE_LIKE
+        val await = context.referenceFunctions(awaitFunctionId).single()
 
         val call = irCall(await)
         call.putValueArgument(0, promiseCall)
