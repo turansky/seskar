@@ -9,10 +9,8 @@ import org.jetbrains.kotlin.ir.declarations.createBlockBody
 import org.jetbrains.kotlin.ir.expressions.IrCall
 import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.impl.IrReturnImpl
-import org.jetbrains.kotlin.ir.util.hasAnnotation
 import org.jetbrains.kotlin.ir.util.isSuspend
 import org.jetbrains.kotlin.ir.util.isTopLevel
-import org.jetbrains.kotlin.ir.util.kotlinFqName
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.name.FqName
@@ -20,8 +18,6 @@ import org.jetbrains.kotlin.name.Name
 import seskar.compiler.common.backend.irCall
 import seskar.compiler.common.backend.irGet
 import seskar.compiler.common.backend.isReallyExternal
-
-private val JS_ASYNC = FqName("seskar.js.JsAsync")
 
 private val AWAIT_PROMISE_LIKE = CallableId(
     packageName = FqName("js.promise.internal"),
@@ -57,9 +53,7 @@ internal class ExternalSuspendTransformer(
             return declaration
         }
 
-        require(declaration.hasAnnotation(JS_ASYNC)) {
-            "Missed @JsAsync annotation for `${declaration.kotlinFqName.asString()}`"
-        }
+        declaration.getAsyncOptions()
 
         addFunctionBody(declaration)
         return declaration
