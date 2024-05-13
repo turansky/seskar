@@ -58,8 +58,14 @@ internal class ExternalSuspendTransformer(
             return declaration
         }
 
-        addFunctionBody(declaration)
+        patchFunction(declaration)
         return declaration
+    }
+
+    private fun patchFunction(
+        declaration: IrFunction,
+    ) {
+        addFunctionBody(declaration)
     }
 
     private fun addFunctionBody(
