@@ -10,4 +10,10 @@ class MyParametersLibraryTest {
         val data = getParameters("aaa", "bbb", "ccc")
         assertContentEquals(arrayOf("aaa", "bbb", "ccc"), data)
     }
+
+    @Test
+    fun oneParameter() = runTest {
+        val data = getParameters("aaa")
+        assertContentEquals(arrayOf("aaa", undefined, undefined), data)
+    }
 }
