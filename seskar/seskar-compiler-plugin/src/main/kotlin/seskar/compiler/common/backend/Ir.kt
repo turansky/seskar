@@ -3,9 +3,16 @@ package seskar.compiler.common.backend
 import org.jetbrains.kotlin.ir.UNDEFINED_OFFSET
 import org.jetbrains.kotlin.ir.declarations.IrValueParameter
 import org.jetbrains.kotlin.ir.expressions.IrCall
+import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.IrGetValue
 import org.jetbrains.kotlin.ir.expressions.impl.IrCallImpl
+import org.jetbrains.kotlin.ir.symbols.IrPropertySymbol
 import org.jetbrains.kotlin.ir.symbols.IrSimpleFunctionSymbol
+
+internal fun irGet(
+    property: IrPropertySymbol,
+): IrExpression =
+    irCall(property.owner.getter!!.symbol)
 
 internal fun irGet(
     parameter: IrValueParameter,
