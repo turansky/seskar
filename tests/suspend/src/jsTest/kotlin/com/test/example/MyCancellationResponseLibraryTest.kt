@@ -13,17 +13,21 @@ class MyCancellationResponseLibraryTest {
     fun testGetCancellableResponseOnlyWithOptions() = runTest {
         val collector = PromiseRejectionCollector()
 
-        val job = launch {
+        val dataJob = launch {
             getCancellableResponseOnlyWithOptions()
         }
 
-        delay(100.milliseconds)
-        job.cancel()
-        delay(200.milliseconds)
+        launch {
+            delay(100.milliseconds)
+            dataJob.cancel()
+        }
 
+        delay(300.milliseconds)
+
+        val rejectExceptions = collector.leave()
         assertContentEquals(
             expected = listOf(JsError("REQUEST TIMEOUT ERROR")),
-            actual = collector.leave(),
+            actual = rejectExceptions,
         )
     }
 }
