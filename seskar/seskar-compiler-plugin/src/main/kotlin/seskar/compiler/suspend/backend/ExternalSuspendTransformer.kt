@@ -181,7 +181,8 @@ internal class ExternalSuspendTransformer(
             promiseCall.putValueArgument(index, irGet(parameter))
         }
 
-        return await(promiseCall, declaration.getAsyncOptions())
+        val asyncOptions = declaration.getAsyncOptions()
+        return await(promiseCall, asyncOptions)
     }
 
     private fun await(
