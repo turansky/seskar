@@ -104,7 +104,7 @@ internal class ExternalSuspendTransformer(
         declaration: IrFunction,
     ) {
         val controller = abortController(declaration)
-        val suspendCall = suspendCall(declaration)
+        val suspendCall = suspendCall(declaration, controller)
         val statement = if (declaration.returnType != context.irBuiltIns.unitType) {
             IrReturnImpl(
                 startOffset = UNDEFINED_OFFSET,
@@ -167,6 +167,7 @@ internal class ExternalSuspendTransformer(
 
     private fun suspendCall(
         declaration: IrFunction,
+        controller: IrVariable?,
     ): IrExpression {
         val asyncFunctionSymbol = findAsyncFunctionSymbol(context, declaration)
 
@@ -182,7 +183,11 @@ internal class ExternalSuspendTransformer(
         }
 
         val asyncOptions = declaration.getAsyncOptions()
-        return await(promiseCall, asyncOptions)
+        return if (controller != null) {
+            awaitWithCancellation(promiseCall, controller)
+        } else {
+            await(promiseCall, asyncOptions)
+        }
     }
 
     private fun await(
@@ -199,11 +204,13 @@ internal class ExternalSuspendTransformer(
 
     private fun awaitWithCancellation(
         promiseCall: IrCall,
+        controller: IrVariable,
     ): IrExpression {
         val await = context.referenceFunctions(AWAIT_PROMISE_LIKE_WITH_CANCELLATION).single()
 
         val call = irCall(await)
         call.putValueArgument(0, promiseCall)
+        call.putValueArgument(1, irGet(controller))
         return call
     }
 
