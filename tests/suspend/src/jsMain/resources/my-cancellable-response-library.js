@@ -24,13 +24,14 @@ function getResponse(options, parameters) {
         }
 
         const timeoutId = setTimeout(() => {
-            const error = new Error("REQUEST TIMEOUT ERROR");
-            Promise?.globalRejectionHandler(error)
-            reject(error)
+            reject(new Error("REQUEST TIMEOUT ERROR"))
         }, 200);
 
         signal?.addEventListener("abort", () => {
             clearTimeout(timeoutId)
         })
+    }).catch(reason => {
+        Promise?.globalRejectionHandler(reason)
+        return Promise.reject(reason)
     })
 }
