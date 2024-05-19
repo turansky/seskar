@@ -15,8 +15,8 @@ export async function getCancellableResponseWithParentOptions(a, b, c, options) 
 }
 
 function getResponse(options, parameters) {
-    const signal = options.signal
-    const returnParameters = options.returnParameters
+    const signal = options?.signal
+    const returnParameters = options?.returnParameters
 
     return new Promise((resolve, reject) => {
         if (returnParameters) {
@@ -24,10 +24,10 @@ function getResponse(options, parameters) {
         }
 
         const timeoutId = setTimeout(() => {
-            reject(new Error())
+            reject(new Error("REQUEST TIMEOUT ERROR"))
         }, 200);
 
-        signal.addEventListener("abort", () => {
+        signal?.addEventListener("abort", () => {
             clearTimeout(timeoutId)
         })
     })
