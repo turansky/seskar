@@ -25,8 +25,8 @@ class ExceptionCollector : CoroutineExceptionHandler {
 
     private val _exceptions = mutableListOf<Throwable>()
 
-    val exceptions: List<Throwable> =
-        _exceptions.toList()
+    val exceptions: List<Throwable>
+        get() = _exceptions.toList()
 
     override fun handleException(
         context: CoroutineContext,
