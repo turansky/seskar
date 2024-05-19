@@ -24,7 +24,9 @@ function getResponse(options, parameters) {
         }
 
         const timeoutId = setTimeout(() => {
-            reject(new Error("REQUEST TIMEOUT ERROR"))
+            const error = new Error("REQUEST TIMEOUT ERROR");
+            Promise?.globalRejectionHandler(error)
+            reject(error)
         }, 200);
 
         signal?.addEventListener("abort", () => {

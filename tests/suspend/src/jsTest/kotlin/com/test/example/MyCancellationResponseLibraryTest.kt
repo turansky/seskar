@@ -1,6 +1,6 @@
 package com.test.example
 
-import kotlinx.coroutines.cancelAndJoin
+import js.errors.JsError
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
@@ -11,20 +11,19 @@ import kotlin.time.Duration.Companion.milliseconds
 class MyCancellationResponseLibraryTest {
     @Test
     fun testGetCancellableResponseOnlyWithOptions() = runTest {
-        val handler = UnhandledExceptionHandler()
-        handler.start()
+        val collector = PromiseRejectionCollector()
 
         val job = launch {
             getCancellableResponseOnlyWithOptions()
         }
 
         delay(100.milliseconds)
-        job.cancelAndJoin()
+        job.cancel()
         delay(200.milliseconds)
 
         assertContentEquals(
-            expected = emptyList(),
-            actual = handler.finish(),
+            expected = listOf(JsError("REQUEST TIMEOUT ERROR")),
+            actual = collector.leave(),
         )
     }
 }
