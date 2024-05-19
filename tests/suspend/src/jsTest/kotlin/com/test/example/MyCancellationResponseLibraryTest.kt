@@ -1,10 +1,9 @@
 package com.test.example
 
-import js.errors.JsError
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
-import kotlin.test.assertContentEquals
+import kotlin.test.assertEquals
 import kotlin.time.Duration.Companion.milliseconds
 
 class MyCancellationResponseLibraryTest {
@@ -24,9 +23,12 @@ class MyCancellationResponseLibraryTest {
         awaitTimeout(300.milliseconds)
 
         val rejectExceptions = collector.leave()
-        assertContentEquals(
-            expected = listOf(JsError("REQUEST TIMEOUT ERROR")),
-            actual = rejectExceptions,
+
+        assertEquals(1, rejectExceptions.size)
+
+        assertEquals(
+            "REQUEST TIMEOUT ERROR",
+            rejectExceptions.single().message,
         )
     }
 }
