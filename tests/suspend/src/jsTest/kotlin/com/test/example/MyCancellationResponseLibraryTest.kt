@@ -1,19 +1,21 @@
 package com.test.example
 
+import js.objects.jso
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
+import web.abort.AbortController
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.time.Duration.Companion.milliseconds
 
 class MyCancellationResponseLibraryTest {
-    @Test
-    fun testGetCancellableResponseOnlyWithOptions() = runTest {
+    private fun runCancellationTest(
+        block: suspend CoroutineScope.() -> Unit,
+    ) = runTest {
         val collector = PromiseRejectionCollector()
 
-        val dataJob = launch {
-            getCancellableResponseOnlyWithOptions()
-        }
+        val dataJob = launch(block = block)
 
         launch {
             awaitTimeout(100.milliseconds)
@@ -31,4 +33,25 @@ class MyCancellationResponseLibraryTest {
             rejectExceptions.single().message,
         )
     }
+
+    @Test
+    fun testGetCancellableResponseOnlyWithOptions_default() =
+        runCancellationTest {
+            getCancellableResponseOnlyWithOptions()
+        }
+
+    @Test
+    fun testGetCancellableResponseOnlyWithOptions_emptyOptions() =
+        runCancellationTest {
+            getCancellableResponseOnlyWithOptions(jso())
+        }
+
+    @Test
+    fun testGetCancellableResponseOnlyWithOptions_customSignal() =
+        runCancellationTest {
+            val controller = AbortController()
+            getCancellableResponseOnlyWithOptions(jso {
+                signal = controller.signal
+            })
+        }
 }
