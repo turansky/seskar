@@ -1,7 +1,6 @@
 package com.test.example
 
 import js.errors.JsError
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
@@ -18,11 +17,11 @@ class MyCancellationResponseLibraryTest {
         }
 
         launch {
-            delay(100.milliseconds)
+            awaitTimeout(100.milliseconds)
             dataJob.cancel()
         }
 
-        delay(300.milliseconds)
+        awaitTimeout(300.milliseconds)
 
         val rejectExceptions = collector.leave()
         assertContentEquals(
