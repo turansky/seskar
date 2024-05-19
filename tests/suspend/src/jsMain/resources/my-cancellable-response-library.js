@@ -31,7 +31,7 @@ function getResponse(options, parameters) {
             clearTimeout(timeoutId)
         })
     }).catch(reason => {
-        Promise?.globalRejectionHandler(reason)
+        Promise.globalRejectionHandler?.(reason)
         return Promise.reject(reason)
     })
 }
