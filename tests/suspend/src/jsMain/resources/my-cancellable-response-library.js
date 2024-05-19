@@ -14,7 +14,7 @@ export async function getCancellableResponseWithParentOptions(a, b, c, options) 
     return getResponse(options, [a, b, c])
 }
 
-function getResponse(options, parameters) {
+async function getResponse(options, parameters) {
     const signal = options?.signal
     const returnParameters = options?.returnParameters
 
