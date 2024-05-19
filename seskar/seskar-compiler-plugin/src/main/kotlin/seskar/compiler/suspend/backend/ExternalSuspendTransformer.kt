@@ -3,10 +3,7 @@ package seskar.compiler.suspend.backend
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.IrStatement
 import org.jetbrains.kotlin.ir.UNDEFINED_OFFSET
-import org.jetbrains.kotlin.ir.declarations.IrClass
-import org.jetbrains.kotlin.ir.declarations.IrFunction
-import org.jetbrains.kotlin.ir.declarations.createBlockBody
-import org.jetbrains.kotlin.ir.declarations.createExpressionBody
+import org.jetbrains.kotlin.ir.declarations.*
 import org.jetbrains.kotlin.ir.expressions.IrCall
 import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.IrExpressionBody
@@ -21,10 +18,7 @@ import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
-import seskar.compiler.common.backend.irCall
-import seskar.compiler.common.backend.irConstructorCall
-import seskar.compiler.common.backend.irGet
-import seskar.compiler.common.backend.isReallyExternal
+import seskar.compiler.common.backend.*
 
 private val UNDEFINED = CallableId(
     packageName = FqName("kotlin.js"),
@@ -134,14 +128,19 @@ internal class ExternalSuspendTransformer(
 
     private fun abortController(
         declaration: IrFunction,
-    ): IrExpression? {
+    ): IrVariable? {
         if (!hasAbortableOptions(declaration))
             return null
 
         val constructor = context.referenceConstructors(ABORT_CONTROLLER)
             .first { it.owner.valueParameters.isEmpty() }
 
-        return irConstructorCall(constructor)
+        return irVariable(
+            Name.identifier("controller"),
+            constructor.owner.returnType,
+        ).also {
+            it.initializer = irConstructorCall(constructor)
+        }
     }
 
     private fun hasAbortableOptions(
