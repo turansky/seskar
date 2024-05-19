@@ -18,7 +18,7 @@ function getResponse(options, parameters) {
     const signal = options.signal
     const returnParameters = options.returnParameters
 
-    return new Promise(resolve, reject => {
+    return new Promise((resolve, reject) => {
         if (returnParameters) {
             resolve(parameters)
         }
