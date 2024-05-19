@@ -178,8 +178,18 @@ internal class ExternalSuspendTransformer(
             promiseCall.dispatchReceiver = irGet(dispatchReceiverParameter)
         }
 
-        declaration.valueParameters.forEachIndexed { index, parameter ->
-            promiseCall.putValueArgument(index, irGet(parameter))
+        val valueParameters = declaration.valueParameters
+        val patchIndex = if (controller != null) valueParameters.lastIndex else -1
+        valueParameters.forEachIndexed { index, parameter ->
+            var value: IrExpression = irGet(parameter)
+            if (index == patchIndex) {
+                val patch = irCall(context.referenceFunctions(PATCH_ABORT_OPTIONS).single())
+                patch.putValueArgument(0, value)
+                patch.putValueArgument(1, irGet(controller!!))
+                value = patch
+            }
+
+            promiseCall.putValueArgument(index, value)
         }
 
         val asyncOptions = declaration.getAsyncOptions()
