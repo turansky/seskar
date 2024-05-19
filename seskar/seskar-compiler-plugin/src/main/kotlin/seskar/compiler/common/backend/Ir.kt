@@ -3,9 +3,12 @@ package seskar.compiler.common.backend
 import org.jetbrains.kotlin.ir.UNDEFINED_OFFSET
 import org.jetbrains.kotlin.ir.declarations.IrValueParameter
 import org.jetbrains.kotlin.ir.expressions.IrCall
+import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
 import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.IrGetValue
 import org.jetbrains.kotlin.ir.expressions.impl.IrCallImpl
+import org.jetbrains.kotlin.ir.expressions.impl.IrConstructorCallImpl
+import org.jetbrains.kotlin.ir.symbols.IrConstructorSymbol
 import org.jetbrains.kotlin.ir.symbols.IrPropertySymbol
 import org.jetbrains.kotlin.ir.symbols.IrSimpleFunctionSymbol
 
@@ -31,4 +34,12 @@ internal fun irCall(
         startOffset = UNDEFINED_OFFSET,
         endOffset = UNDEFINED_OFFSET,
         symbol = symbol,
+    )
+
+internal fun irConstructorCall(
+    symbol: IrConstructorSymbol,
+): IrConstructorCall =
+    IrConstructorCallImpl.fromSymbolOwner(
+        type = symbol.owner.returnType,
+        constructorSymbol = symbol,
     )

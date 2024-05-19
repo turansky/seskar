@@ -11,13 +11,18 @@ import org.jetbrains.kotlin.ir.expressions.IrCall
 import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.IrExpressionBody
 import org.jetbrains.kotlin.ir.expressions.impl.IrReturnImpl
+import org.jetbrains.kotlin.ir.types.classOrNull
+import org.jetbrains.kotlin.ir.types.isSubtypeOfClass
+import org.jetbrains.kotlin.ir.util.isInterface
 import org.jetbrains.kotlin.ir.util.isSuspend
 import org.jetbrains.kotlin.ir.util.isTopLevel
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 import org.jetbrains.kotlin.name.CallableId
+import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
 import seskar.compiler.common.backend.irCall
+import seskar.compiler.common.backend.irConstructorCall
 import seskar.compiler.common.backend.irGet
 import seskar.compiler.common.backend.isReallyExternal
 
@@ -34,6 +39,26 @@ private val AWAIT_PROMISE_LIKE = CallableId(
 private val AWAIT_OPTIONAL_PROMISE_LIKE = CallableId(
     packageName = FqName("js.promise.internal"),
     callableName = Name.identifier("awaitOptionalPromiseLike"),
+)
+
+private val ABORTABLE = ClassId(
+    FqName("web.abort"),
+    Name.identifier("Abortable"),
+)
+
+private val ABORT_CONTROLLER = ClassId(
+    FqName("web.abort"),
+    Name.identifier("AbortController"),
+)
+
+private val PATCH_ABORT_OPTIONS = CallableId(
+    packageName = FqName("web.abort.internal"),
+    callableName = Name.identifier("patchAbortOptions"),
+)
+
+private val AWAIT_PROMISE_LIKE_WITH_CANCELLATION = CallableId(
+    packageName = FqName("web.abort.internal"),
+    callableName = Name.identifier("awaitPromiseLike"),
 )
 
 internal class ExternalSuspendTransformer(
@@ -84,6 +109,7 @@ internal class ExternalSuspendTransformer(
     private fun addFunctionBody(
         declaration: IrFunction,
     ) {
+        val controller = abortController(declaration)
         val suspendCall = suspendCall(declaration)
         val statement = if (declaration.returnType != context.irBuiltIns.unitType) {
             IrReturnImpl(
@@ -102,8 +128,42 @@ internal class ExternalSuspendTransformer(
         declaration.body = context.irFactory.createBlockBody(
             startOffset = UNDEFINED_OFFSET,
             endOffset = UNDEFINED_OFFSET,
-            statements = listOf(statement),
+            statements = listOfNotNull(controller, statement),
         )
+    }
+
+    private fun abortController(
+        declaration: IrFunction,
+    ): IrExpression? {
+        if (!hasAbortableOptions(declaration))
+            return null
+
+        val constructor = context.referenceConstructors(ABORT_CONTROLLER)
+            .first { it.owner.valueParameters.isEmpty() }
+
+        return irConstructorCall(constructor)
+    }
+
+    private fun hasAbortableOptions(
+        declaration: IrFunction,
+    ): Boolean {
+        val options = declaration.valueParameters.lastOrNull()
+            ?: return false
+
+        val classSymbol = options.type.classOrNull
+            ?: return false
+
+        val klass = classSymbol.owner
+        if (!klass.isInterface)
+            return false
+
+        if (!klass.isExternal)
+            return false
+
+        val abortable = context.referenceClass(ABORTABLE)
+            ?: return false
+
+        return classSymbol.isSubtypeOfClass(abortable)
     }
 
     private fun suspendCall(
@@ -131,6 +191,16 @@ internal class ExternalSuspendTransformer(
     ): IrExpression {
         val awaitFunctionId = if (options.optional) AWAIT_OPTIONAL_PROMISE_LIKE else AWAIT_PROMISE_LIKE
         val await = context.referenceFunctions(awaitFunctionId).single()
+
+        val call = irCall(await)
+        call.putValueArgument(0, promiseCall)
+        return call
+    }
+
+    private fun awaitWithCancellation(
+        promiseCall: IrCall,
+    ): IrExpression {
+        val await = context.referenceFunctions(AWAIT_PROMISE_LIKE_WITH_CANCELLATION).single()
 
         val call = irCall(await)
         call.putValueArgument(0, promiseCall)
