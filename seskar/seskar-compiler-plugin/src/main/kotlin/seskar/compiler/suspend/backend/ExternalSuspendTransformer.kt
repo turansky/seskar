@@ -21,6 +21,11 @@ import seskar.compiler.common.backend.irCall
 import seskar.compiler.common.backend.irGet
 import seskar.compiler.common.backend.isReallyExternal
 
+private val UNDEFINED = CallableId(
+    packageName = FqName("kotlin.js"),
+    callableName = Name.identifier("undefined"),
+)
+
 private val AWAIT_PROMISE_LIKE = CallableId(
     packageName = FqName("js.promise.internal"),
     callableName = Name.identifier("awaitPromiseLike"),
@@ -29,11 +34,6 @@ private val AWAIT_PROMISE_LIKE = CallableId(
 private val AWAIT_OPTIONAL_PROMISE_LIKE = CallableId(
     packageName = FqName("js.promise.internal"),
     callableName = Name.identifier("awaitOptionalPromiseLike"),
-)
-
-private val UNDEFINED = CallableId(
-    packageName = FqName("kotlin.js"),
-    callableName = Name.identifier("undefined"),
 )
 
 internal class ExternalSuspendTransformer(
