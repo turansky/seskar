@@ -2,11 +2,13 @@ package com.test.example
 
 import js.objects.jso
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import web.abort.AbortController
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -31,11 +33,12 @@ class MyCancellationResponseLibraryTest {
     }
 
     private fun runLateCancellationTest(
-        block: suspend CoroutineScope.() -> Unit,
+        block: suspend CoroutineScope.() -> Any?,
     ) = runTest {
-        val collector = PromiseRejectionCollector()
-
-        val dataJob = launch(block = block)
+        var data: Result<Any?>? = null
+        val dataJob = launch {
+            data = async(block = block).toResult()
+        }
 
         launch {
             awaitTimeout(300.milliseconds)
@@ -44,13 +47,13 @@ class MyCancellationResponseLibraryTest {
 
         awaitTimeout(400.milliseconds)
 
-        val rejectExceptions = collector.leave()
+        assertNotNull(data)
 
-        assertEquals(1, rejectExceptions.size)
-
+        val rejectException = data?.exceptionOrNull()
+        assertNotNull(rejectException)
         assertEquals(
             "REQUEST TIMEOUT ERROR",
-            rejectExceptions.single().message,
+            rejectException.message,
         )
     }
 
