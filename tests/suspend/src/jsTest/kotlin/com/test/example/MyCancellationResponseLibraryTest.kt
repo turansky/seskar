@@ -9,7 +9,6 @@ import web.abort.AbortController
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
-import kotlin.test.assertTrue
 import kotlin.time.Duration.Companion.milliseconds
 
 class MyCancellationResponseLibraryTest {
@@ -29,7 +28,12 @@ class MyCancellationResponseLibraryTest {
 
         val rejectExceptions = collector.leave()
 
-        assertTrue(rejectExceptions.isEmpty())
+        assertEquals(1, rejectExceptions.size)
+
+        assertEquals(
+            "ABORT ABORT",
+            rejectExceptions.single().message,
+        )
     }
 
     private fun runLateCancellationTest(

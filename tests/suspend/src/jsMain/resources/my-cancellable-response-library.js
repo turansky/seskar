@@ -29,6 +29,7 @@ async function getResponse(options, parameters) {
 
         signal?.addEventListener("abort", () => {
             clearTimeout(timeoutId)
+            reject(new Error("ABORT ABORT"))
         })
     }).catch(reason => {
         Promise.globalRejectionHandler?.(reason)
