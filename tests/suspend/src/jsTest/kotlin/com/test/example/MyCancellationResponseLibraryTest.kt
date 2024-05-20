@@ -2,7 +2,6 @@ package com.test.example
 
 import js.objects.jso
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import web.abort.AbortController
@@ -37,11 +36,11 @@ class MyCancellationResponseLibraryTest {
     }
 
     private fun runLateCancellationTest(
-        block: suspend CoroutineScope.() -> Any?,
+        block: suspend () -> Any?,
     ) = runTest {
         var data: Result<Any?>? = null
         val dataJob = launch {
-            data = async(block = block).toResult()
+            data = toResult(block)
         }
 
         launch {
