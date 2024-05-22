@@ -19,6 +19,8 @@ import org.jetbrains.kotlin.ir.symbols.impl.IrVariableSymbolImpl
 import org.jetbrains.kotlin.ir.types.IrType
 import org.jetbrains.kotlin.name.Name
 
+private val SESKAR_LOCAL_VARIABLE = IrDeclarationOrigin.GeneratedByPlugin(SeskarPluginKey)
+
 internal fun irVariable(
     name: Name,
     type: IrType,
@@ -26,7 +28,7 @@ internal fun irVariable(
     IrVariableImpl(
         startOffset = UNDEFINED_OFFSET,
         endOffset = UNDEFINED_OFFSET,
-        origin = IrDeclarationOrigin.IR_TEMPORARY_VARIABLE,
+        origin = SESKAR_LOCAL_VARIABLE,
         symbol = IrVariableSymbolImpl(),
         name = name,
         type = type,
