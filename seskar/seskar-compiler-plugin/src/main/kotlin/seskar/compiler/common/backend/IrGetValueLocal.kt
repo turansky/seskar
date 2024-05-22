@@ -11,9 +11,9 @@ import org.jetbrains.kotlin.ir.types.IrType
 internal class IrGetValueLocal(
     override val startOffset: Int,
     override val endOffset: Int,
-    override var type: IrType,
     override var symbol: IrValueSymbol,
 ) : IrGetValue() {
+    override var type: IrType = symbol.owner.type
     override var origin: IrStatementOrigin? = null
     override var attributeOwnerId: IrAttributeContainer = this
     override var originalBeforeInline: IrAttributeContainer? = null

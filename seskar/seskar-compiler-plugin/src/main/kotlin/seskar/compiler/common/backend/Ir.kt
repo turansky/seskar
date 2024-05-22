@@ -11,7 +11,6 @@ import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.IrGetValue
 import org.jetbrains.kotlin.ir.expressions.impl.IrCallImpl
 import org.jetbrains.kotlin.ir.expressions.impl.IrConstructorCallImpl
-import org.jetbrains.kotlin.ir.expressions.impl.IrGetValueImpl
 import org.jetbrains.kotlin.ir.symbols.IrConstructorSymbol
 import org.jetbrains.kotlin.ir.symbols.IrPropertySymbol
 import org.jetbrains.kotlin.ir.symbols.IrSimpleFunctionSymbol
@@ -45,7 +44,7 @@ internal fun irGet(
 internal fun irGet(
     variable: IrVariable,
 ): IrExpression =
-    IrGetValueImpl(
+    IrGetValueLocal(
         startOffset = UNDEFINED_OFFSET,
         endOffset = UNDEFINED_OFFSET,
         symbol = variable.symbol,
@@ -57,7 +56,6 @@ internal fun irGet(
     IrGetValueLocal(
         startOffset = UNDEFINED_OFFSET,
         endOffset = UNDEFINED_OFFSET,
-        type = parameter.type,
         symbol = parameter.symbol,
     )
 
