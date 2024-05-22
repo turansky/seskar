@@ -16,4 +16,4 @@ jobs:
           java-version: '17'
       - name: Build
         run: |
-          ./gradlew build -Pkotlin.version=2.0.0-RC3
+          ./gradlew build -Pkotlin.version=2.0.0 -Pkfc.version=8.0.0
