@@ -5,8 +5,11 @@ import org.jetbrains.kotlin.ir.IrStatement
 import org.jetbrains.kotlin.ir.UNDEFINED_OFFSET
 import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.declarations.IrFunction
+import org.jetbrains.kotlin.ir.declarations.IrValueParameter
 import org.jetbrains.kotlin.ir.declarations.createBlockBody
+import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.util.isTopLevel
+import org.jetbrains.kotlin.ir.util.kotlinFqName
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 import seskar.compiler.common.backend.irGet
 import seskar.compiler.common.backend.irReturn
@@ -44,7 +47,7 @@ internal class AliasTransformer(
         val statement = irReturn(
             type = declaration.returnType,
             returnTargetSymbol = declaration.symbol,
-            value = irGet(declaration.dispatchReceiverParameter!!),
+            value = getAliasExpression(declaration, alias),
         )
 
         declaration.isInline = true
@@ -54,5 +57,26 @@ internal class AliasTransformer(
             endOffset = UNDEFINED_OFFSET,
             statements = listOfNotNull(statement),
         )
+    }
+
+    private fun getAliasExpression(
+        declaration: IrFunction,
+        alias: Alias,
+    ): IrExpression {
+        val dispatchReceiverParameter = declaration.dispatchReceiverParameter
+            ?: error("No receiver for function ${declaration.kotlinFqName}")
+
+        return when (alias) {
+            is ThisAlias -> irGet(dispatchReceiverParameter)
+            is IndexedAccessAlias -> getValue(dispatchReceiverParameter, alias.index)
+            is PropertyAlias -> TODO()
+        }
+    }
+
+    private fun getValue(
+        target: IrValueParameter,
+        index: Int,
+    ): IrExpression {
+        return irGet(target)
     }
 }
