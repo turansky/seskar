@@ -5,3 +5,5 @@ package seskar.js
 annotation class JsAlias(
     val value: String,
 )
+
+const val THIS: String = "<this>"
