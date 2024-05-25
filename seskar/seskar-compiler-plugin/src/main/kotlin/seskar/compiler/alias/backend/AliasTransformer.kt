@@ -2,10 +2,14 @@ package seskar.compiler.alias.backend
 
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.IrStatement
+import org.jetbrains.kotlin.ir.UNDEFINED_OFFSET
 import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.declarations.IrFunction
+import org.jetbrains.kotlin.ir.declarations.createBlockBody
 import org.jetbrains.kotlin.ir.util.isTopLevel
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
+import seskar.compiler.common.backend.irGet
+import seskar.compiler.common.backend.irReturn
 import seskar.compiler.common.backend.isReallyExternal
 
 internal class AliasTransformer(
@@ -26,8 +30,29 @@ internal class AliasTransformer(
         if (declaration.isTopLevel)
             return declaration
 
-        // TODO check alias
+        val alias = declaration.alias()
+            ?: return declaration
 
+        addFunctionBody(declaration, alias)
         return declaration
+    }
+
+    private fun addFunctionBody(
+        declaration: IrFunction,
+        alias: Alias,
+    ) {
+        val statement = irReturn(
+            type = declaration.returnType,
+            returnTargetSymbol = declaration.symbol,
+            value = irGet(declaration.dispatchReceiverParameter!!),
+        )
+
+        declaration.isInline = true
+        declaration.isExternal = false
+        declaration.body = context.irFactory.createBlockBody(
+            startOffset = UNDEFINED_OFFSET,
+            endOffset = UNDEFINED_OFFSET,
+            statements = listOfNotNull(statement),
+        )
     }
 }
