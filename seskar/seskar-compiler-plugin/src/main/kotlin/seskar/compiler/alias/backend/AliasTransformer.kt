@@ -1,12 +1,10 @@
 package seskar.compiler.alias.backend
 
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
+import org.jetbrains.kotlin.descriptors.Modality
 import org.jetbrains.kotlin.ir.IrStatement
 import org.jetbrains.kotlin.ir.UNDEFINED_OFFSET
-import org.jetbrains.kotlin.ir.declarations.IrClass
-import org.jetbrains.kotlin.ir.declarations.IrFunction
-import org.jetbrains.kotlin.ir.declarations.IrValueParameter
-import org.jetbrains.kotlin.ir.declarations.createBlockBody
+import org.jetbrains.kotlin.ir.declarations.*
 import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
 import org.jetbrains.kotlin.ir.util.isTopLevel
@@ -43,6 +41,9 @@ internal class AliasTransformer(
         if (declaration.isTopLevel)
             return declaration
 
+        if (declaration !is IrOverridableMember)
+            return declaration
+
         val alias = declaration.alias()
             ?: return declaration
 
@@ -50,10 +51,11 @@ internal class AliasTransformer(
         return declaration
     }
 
-    private fun addFunctionBody(
-        declaration: IrFunction,
+    private fun <T> addFunctionBody(
+        declaration: T,
         alias: Alias,
-    ) {
+    ) where T : IrFunction,
+            T : IrOverridableMember {
         val statement = irReturn(
             type = declaration.returnType,
             returnTargetSymbol = declaration.symbol,
@@ -62,6 +64,7 @@ internal class AliasTransformer(
 
         declaration.isInline = true
         declaration.isExternal = false
+        declaration.modality = Modality.FINAL
         declaration.body = context.irFactory.createBlockBody(
             startOffset = UNDEFINED_OFFSET,
             endOffset = UNDEFINED_OFFSET,
