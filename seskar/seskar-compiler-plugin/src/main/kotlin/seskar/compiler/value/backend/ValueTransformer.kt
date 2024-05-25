@@ -6,10 +6,10 @@ import org.jetbrains.kotlin.ir.IrStatement
 import org.jetbrains.kotlin.ir.declarations.*
 import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
-import org.jetbrains.kotlin.ir.expressions.impl.IrReturnImpl
 import org.jetbrains.kotlin.ir.util.isTopLevelDeclaration
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 import seskar.compiler.common.backend.JsName
+import seskar.compiler.common.backend.irReturn
 import seskar.compiler.common.backend.isReallyExternal
 
 internal class ValueTransformer(
@@ -73,9 +73,7 @@ internal class ValueTransformer(
             startOffset = declaration.startOffset,
             endOffset = declaration.endOffset,
             statements = listOf(
-                IrReturnImpl(
-                    startOffset = declaration.startOffset,
-                    endOffset = declaration.endOffset,
+                irReturn(
                     type = context.irBuiltIns.nothingNType,
                     returnTargetSymbol = getter.symbol,
                     value = valueConstant(declaration, value),
@@ -93,10 +91,8 @@ internal class ValueTransformer(
             startOffset = declaration.startOffset,
             endOffset = declaration.endOffset,
             statements = listOf(
-                IrReturnImpl(
-                    startOffset = declaration.startOffset,
-                    endOffset = declaration.endOffset,
-                    type = context.irBuiltIns.nothingNType,
+                irReturn(
+                    type = declaration.returnType,
                     returnTargetSymbol = declaration.symbol,
                     value = valueConstant(declaration, value),
                 )

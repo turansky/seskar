@@ -7,7 +7,6 @@ import org.jetbrains.kotlin.ir.declarations.*
 import org.jetbrains.kotlin.ir.expressions.IrCall
 import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.IrExpressionBody
-import org.jetbrains.kotlin.ir.expressions.impl.IrReturnImpl
 import org.jetbrains.kotlin.ir.types.classOrNull
 import org.jetbrains.kotlin.ir.types.isSubtypeOfClass
 import org.jetbrains.kotlin.ir.util.isInterface
@@ -106,9 +105,7 @@ internal class ExternalSuspendTransformer(
         val controller = abortController(declaration)
         val suspendCall = suspendCall(declaration, controller)
         val statement = if (declaration.returnType != context.irBuiltIns.unitType) {
-            IrReturnImpl(
-                startOffset = UNDEFINED_OFFSET,
-                endOffset = UNDEFINED_OFFSET,
+            irReturn(
                 type = declaration.returnType,
                 returnTargetSymbol = declaration.symbol,
                 value = suspendCall,
