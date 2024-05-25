@@ -8,12 +8,22 @@ import org.jetbrains.kotlin.ir.declarations.IrFunction
 import org.jetbrains.kotlin.ir.declarations.IrValueParameter
 import org.jetbrains.kotlin.ir.declarations.createBlockBody
 import org.jetbrains.kotlin.ir.expressions.IrExpression
+import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
 import org.jetbrains.kotlin.ir.util.isTopLevel
 import org.jetbrains.kotlin.ir.util.kotlinFqName
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
+import org.jetbrains.kotlin.name.CallableId
+import org.jetbrains.kotlin.name.FqName
+import org.jetbrains.kotlin.name.Name
+import seskar.compiler.common.backend.irCall
 import seskar.compiler.common.backend.irGet
 import seskar.compiler.common.backend.irReturn
 import seskar.compiler.common.backend.isReallyExternal
+
+private val GET_INDEXED_VALUE = CallableId(
+    packageName = FqName("seskar.js.internal"),
+    callableName = Name.identifier("getIndexedValue"),
+)
 
 internal class AliasTransformer(
     private val context: IrPluginContext,
@@ -77,6 +87,17 @@ internal class AliasTransformer(
         target: IrValueParameter,
         index: Int,
     ): IrExpression {
-        return irGet(target)
+        val getValue = irCall(context.referenceFunctions(GET_INDEXED_VALUE).single())
+        val indexConst = IrConstImpl.int(
+            startOffset = UNDEFINED_OFFSET,
+            endOffset = UNDEFINED_OFFSET,
+            type = context.irBuiltIns.intType,
+            value = index,
+        )
+
+        getValue.putValueArgument(0, irGet(target))
+        getValue.putValueArgument(1, indexConst)
+
+        return getValue
     }
 }
