@@ -79,7 +79,7 @@ internal class AliasTransformer(
         return when (alias) {
             is ThisAlias -> irGet(dispatchReceiverParameter)
             is IndexedAccessAlias -> getValue(dispatchReceiverParameter, alias.index)
-            is PropertyAlias -> TODO()
+            is PropertyAlias -> TODO("Property alias implementation is coming soon!")
         }
     }
 
