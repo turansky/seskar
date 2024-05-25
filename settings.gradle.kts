@@ -19,6 +19,7 @@ dependencyResolutionManagement {
 
 includeBuild("seskar")
 
+include("tests:alias")
 include("tests:data")
 include("tests:env")
 include("tests:mixin")
