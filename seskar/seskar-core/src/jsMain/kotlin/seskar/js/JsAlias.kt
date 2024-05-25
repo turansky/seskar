@@ -4,6 +4,8 @@ package seskar.js
 @Retention(AnnotationRetention.BINARY)
 annotation class JsAlias(
     val value: String,
-)
-
-const val THIS: String = "<this>"
+) {
+    companion object {
+        const val THIS: String = "<this>"
+    }
+}
