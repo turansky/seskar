@@ -1,6 +1,7 @@
 package seskar.compiler.suspend.backend
 
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
+import org.jetbrains.kotlin.descriptors.Modality
 import org.jetbrains.kotlin.ir.IrStatement
 import org.jetbrains.kotlin.ir.UNDEFINED_OFFSET
 import org.jetbrains.kotlin.ir.declarations.*
@@ -116,6 +117,9 @@ internal class ExternalSuspendTransformer(
 
         declaration.isInline = true
         declaration.isExternal = false
+        if (declaration is IrOverridableMember) {
+            declaration.modality = Modality.FINAL
+        }
         declaration.body = context.irFactory.createBlockBody(
             startOffset = UNDEFINED_OFFSET,
             endOffset = UNDEFINED_OFFSET,

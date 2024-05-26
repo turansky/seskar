@@ -2,6 +2,7 @@ package seskar.compiler.value.backend
 
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.descriptors.ClassKind
+import org.jetbrains.kotlin.descriptors.Modality
 import org.jetbrains.kotlin.ir.IrStatement
 import org.jetbrains.kotlin.ir.declarations.*
 import org.jetbrains.kotlin.ir.expressions.IrExpression
@@ -87,6 +88,10 @@ internal class ValueTransformer(
         value: Value,
     ) {
         declaration.isInline = true
+        declaration.isExternal = false
+        if (declaration is IrOverridableMember) {
+            declaration.modality = Modality.FINAL
+        }
         declaration.body = context.irFactory.createBlockBody(
             startOffset = declaration.startOffset,
             endOffset = declaration.endOffset,
