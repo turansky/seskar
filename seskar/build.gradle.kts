@@ -1,5 +1,6 @@
 plugins {
     kotlin("multiplatform") apply false
+    kotlin("plugin.js-plain-objects") apply false
     id("io.github.gradle-nexus.publish-plugin")
 }
 
