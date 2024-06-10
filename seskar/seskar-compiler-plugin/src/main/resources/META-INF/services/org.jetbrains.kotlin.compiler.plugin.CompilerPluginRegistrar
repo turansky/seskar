@@ -1,5 +1,4 @@
 seskar.compiler.alias.extensions.AliasRegistrar
-seskar.compiler.diagnostics.SuppressorRegistrar
 seskar.compiler.env.extensions.EnvRegistrar
 seskar.compiler.mixin.extensions.MixinRegistrar
 seskar.compiler.native.extensions.NativeRegistrar
