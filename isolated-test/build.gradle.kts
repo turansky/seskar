@@ -1,5 +1,6 @@
 plugins {
     kotlin("multiplatform") apply false
+    kotlin("plugin.js-plain-objects") apply false
     id("io.github.turansky.kfc.application")
     id("io.github.turansky.seskar") version "2.80.0"
 }
