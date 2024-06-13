@@ -4,6 +4,7 @@ package com.test.example
 
 import js.array.ReadonlyArray
 import js.promise.Promise
+import kotlinx.js.JsPlainObject
 import seskar.js.JsAsync
 import web.abort.Abortable
 
@@ -33,9 +34,20 @@ external suspend fun getCancellableResponseWithOptions(
     options: Abortable = definedExternally,
 ): ReadonlyArray<Any?>
 
-external interface CancellableOptions1 : Abortable
-external interface CancellableOptions2 : CancellableOptions1
-external interface CancellableOptions3 : CancellableOptions2
+@JsPlainObject
+external interface CancellableOptions1 : Abortable {
+    val o1: String?
+}
+
+@JsPlainObject
+external interface CancellableOptions2 : CancellableOptions1 {
+    val o2: String?
+}
+
+@JsPlainObject
+external interface CancellableOptions3 : CancellableOptions2 {
+    val o3: String?
+}
 
 @JsName("getCancellableResponseOnlyWithParentOptions")
 external fun getCancellableResponseOnlyWithParentOptionsAsync(
