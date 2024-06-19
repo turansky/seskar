@@ -5,9 +5,7 @@
 package com.test.example
 
 import seskar.js.JsValue
-import seskar.js.JsVirtual
 
-@JsVirtual
 sealed external interface LayoutOrientationK {
     companion object {
         @JsValue("top-to-bottom")
@@ -24,7 +22,6 @@ sealed external interface LayoutOrientationK {
     }
 }
 
-@JsVirtual
 sealed external interface LayoutOrientationS {
     companion object {
         @JsValue("top_to_bottom")

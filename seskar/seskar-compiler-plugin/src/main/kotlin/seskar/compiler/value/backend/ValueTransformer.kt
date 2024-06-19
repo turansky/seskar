@@ -29,10 +29,6 @@ internal class ValueTransformer(
             return declaration
         }
 
-        if (declaration.isJsVirtual()) {
-            declaration.annotations += JsName(context, "0")
-        }
-
         return super.visitClass(declaration)
     }
 

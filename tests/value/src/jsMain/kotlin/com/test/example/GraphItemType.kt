@@ -5,9 +5,7 @@
 package com.test.example
 
 import seskar.js.JsIntValue
-import seskar.js.JsVirtual
 
-@JsVirtual
 sealed external interface GraphItemType {
     companion object {
         @JsIntValue(1)

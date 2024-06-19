@@ -5,9 +5,7 @@
 package com.test.example
 
 import seskar.js.JsValue
-import seskar.js.JsVirtual
 
-@JsVirtual
 sealed external interface CustomAlign {
     companion object {
         @JsValue("t")
