@@ -35,9 +35,7 @@ external suspend fun getCancellableResponseWithOptions(
 ): ReadonlyArray<Any?>
 
 @JsPlainObject
-external interface CancellableOptions1 : Abortable {
-    val o1: String?
-}
+external interface CancellableOptions1 : Abortable
 
 @JsPlainObject
 external interface CancellableOptions2 : CancellableOptions1 {
@@ -45,9 +43,7 @@ external interface CancellableOptions2 : CancellableOptions1 {
 }
 
 @JsPlainObject
-external interface CancellableOptions3 : CancellableOptions2 {
-    val o3: String?
-}
+external interface CancellableOptions3 : CancellableOptions2
 
 @JsName("getCancellableResponseOnlyWithParentOptions")
 external fun getCancellableResponseOnlyWithParentOptionsAsync(
