@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.gradle.dsl.KotlinCompile
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 plugins {
     kotlin("jvm")
@@ -17,9 +17,8 @@ dependencies {
     compileOnly(kotlin("compiler-embeddable"))
 }
 
-// TODO: remove after migration
-tasks.withType<KotlinCompile<*>>().configureEach {
-    kotlinOptions.freeCompilerArgs += listOf(
+tasks.withType<KotlinCompilationTask<*>>().configureEach {
+    compilerOptions.freeCompilerArgs.addAll(
         "-opt-in=org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi",
         "-opt-in=org.jetbrains.kotlin.ir.symbols.UnsafeDuringIrConstructionAPI",
     )
