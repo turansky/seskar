@@ -9,7 +9,7 @@ dependencies {
     jsTestImplementation(kotlin("test-js"))
 }
 
-tasks.patchWebpackConfig {
+tasks.patchBundlerConfig {
     env("BUILD_NUMBER", "generic-number")
     env("NUMBER", "42")
 }
