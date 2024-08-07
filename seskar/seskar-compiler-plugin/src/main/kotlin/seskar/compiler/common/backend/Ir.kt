@@ -8,6 +8,7 @@ import org.jetbrains.kotlin.ir.declarations.impl.IrVariableImpl
 import org.jetbrains.kotlin.ir.expressions.*
 import org.jetbrains.kotlin.ir.expressions.impl.IrCallImpl
 import org.jetbrains.kotlin.ir.expressions.impl.IrConstructorCallImpl
+import org.jetbrains.kotlin.ir.expressions.impl.IrGetValueImpl
 import org.jetbrains.kotlin.ir.expressions.impl.IrReturnImpl
 import org.jetbrains.kotlin.ir.symbols.IrConstructorSymbol
 import org.jetbrains.kotlin.ir.symbols.IrPropertySymbol
@@ -43,7 +44,7 @@ internal fun irGet(
 internal fun irGet(
     variable: IrVariable,
 ): IrExpression =
-    IrGetValueLocal(
+    IrGetValueImpl(
         startOffset = UNDEFINED_OFFSET,
         endOffset = UNDEFINED_OFFSET,
         symbol = variable.symbol,
@@ -52,7 +53,7 @@ internal fun irGet(
 internal fun irGet(
     parameter: IrValueParameter,
 ): IrGetValue =
-    IrGetValueLocal(
+    IrGetValueImpl(
         startOffset = UNDEFINED_OFFSET,
         endOffset = UNDEFINED_OFFSET,
         symbol = parameter.symbol,
