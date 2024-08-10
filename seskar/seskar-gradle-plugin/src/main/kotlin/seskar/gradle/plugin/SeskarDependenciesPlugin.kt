@@ -14,7 +14,7 @@ import org.jetbrains.kotlin.gradle.targets.js.ir.KotlinJsIrTarget
 private val SESKAR_GROUP = KOTLIN_PLUGIN_ARTIFACT.groupId
 private val SESKAR_CORE = "seskar-core"
 private val SESKAR_REACT = "seskar-react"
-private val SESKAR_VERSION = KOTLIN_PLUGIN_ARTIFACT.groupId
+private val SESKAR_VERSION = KOTLIN_PLUGIN_ARTIFACT.version
 
 private val SESKAR_IMPLEMENTATION = "seskarImplementation"
 
