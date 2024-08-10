@@ -4,6 +4,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
 import org.gradle.kotlin.dsl.configure
+import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.withType
 import org.gradle.util.GradleVersion
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
@@ -23,7 +24,7 @@ internal class SeskarDependenciesPlugin : Plugin<Project> {
             description = "Seskar dependencies required during compilation and runtime Kotlin/JS."
             declarable()
             withDependencies {
-                add(project.dependencies.create(SESKAR_REACT))
+                add(project.dependencies.create(group = SESKAR_GROUP, name = SESKAR_REACT, version = SESKAR_VERSION))
             }
         }
     }
@@ -48,13 +49,10 @@ internal class SeskarDependenciesPlugin : Plugin<Project> {
         }
     }
 
-    companion object {
-        private val SESKAR_REACT: String
-            get() = sequenceOf(
-                KOTLIN_PLUGIN_ARTIFACT.groupId,
-                "seskar-react",
-                KOTLIN_PLUGIN_ARTIFACT.version,
-            ).joinToString(":")
+    private companion object {
+        val SESKAR_GROUP = KOTLIN_PLUGIN_ARTIFACT.groupId
+        val SESKAR_REACT = "seskar-react"
+        val SESKAR_VERSION = KOTLIN_PLUGIN_ARTIFACT.groupId
 
         /**
          * Mark this [Configuration] as one that should be used to declare dependencies in
