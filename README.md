@@ -17,11 +17,6 @@ plugins {
     kotlin("multiplatform") version "2.0.10"
     id("io.github.turansky.seskar") version "3.7.0"
 }
-
-// browser target
-dependencies {
-    implementation("io.github.turansky.seskar:seskar-core:3.7.0")
-}
 ```
 
 ## React
