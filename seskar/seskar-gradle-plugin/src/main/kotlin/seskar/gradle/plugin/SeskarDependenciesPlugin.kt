@@ -10,7 +10,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinCompilation
 import org.jetbrains.kotlin.gradle.targets.js.ir.KotlinJsIrTarget
 
-internal class SeskarReactPlugin : Plugin<Project> {
+internal class SeskarDependenciesPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
         val seskarImplementation = createSeskarImplementationConfiguration(project)
