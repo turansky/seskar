@@ -11,6 +11,12 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinCompilation
 import org.jetbrains.kotlin.gradle.targets.js.ir.KotlinJsIrTarget
 
+private val SESKAR_GROUP = KOTLIN_PLUGIN_ARTIFACT.groupId
+private val SESKAR_REACT = "seskar-react"
+private val SESKAR_VERSION = KOTLIN_PLUGIN_ARTIFACT.groupId
+
+private val SESKAR_IMPLEMENTATION = "seskarImplementation"
+
 internal class SeskarDependenciesPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
@@ -20,7 +26,7 @@ internal class SeskarDependenciesPlugin : Plugin<Project> {
     }
 
     private fun createSeskarImplementationConfiguration(project: Project): Configuration {
-        return project.configurations.create("seskarImplementation") {
+        return project.configurations.create(SESKAR_IMPLEMENTATION) {
             description = "Seskar dependencies required during compilation and runtime Kotlin/JS."
             declarable()
             withDependencies {
@@ -50,10 +56,6 @@ internal class SeskarDependenciesPlugin : Plugin<Project> {
     }
 
     private companion object {
-        val SESKAR_GROUP = KOTLIN_PLUGIN_ARTIFACT.groupId
-        val SESKAR_REACT = "seskar-react"
-        val SESKAR_VERSION = KOTLIN_PLUGIN_ARTIFACT.groupId
-
         /**
          * Mark this [Configuration] as one that should be used to declare dependencies in
          * [org.gradle.api.Project.dependencies] block.
