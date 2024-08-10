@@ -5,6 +5,5 @@ plugins {
 }
 
 dependencies {
-    jsMainImplementation("io.github.turansky.seskar:seskar-core")
     jsMainImplementation(wrappers("web"))
 }

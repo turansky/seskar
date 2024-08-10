@@ -3,7 +3,3 @@ plugins {
     id("io.github.turansky.kfc.wrappers")
     id("io.github.turansky.seskar")
 }
-
-dependencies {
-    jsMainImplementation("io.github.turansky.seskar:seskar-core")
-}
