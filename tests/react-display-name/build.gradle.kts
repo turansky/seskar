@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.kfc.application)
-    id("io.github.turansky.seskar")
+    alias(libs.plugins.seskar)
 }
 
 dependencies {

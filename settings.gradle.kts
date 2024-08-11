@@ -20,6 +20,9 @@ dependencyResolutionManagement {
             val kfcVersion = extra["kfc.version"] as String
             plugin("kfc-application", "io.github.turansky.kfc.application").version(kfcVersion)
 
+            val seskarVersion = "--predefined--"
+            plugin("seskar", "io.github.turansky.seskar").version(seskarVersion)
+
             val kotlinVersion = extra["kotlin.version"] as String
             library("kotlin-test-js", "org.jetbrains.kotlin", "kotlin-test-js").version(kotlinVersion)
 
