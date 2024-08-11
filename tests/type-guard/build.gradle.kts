@@ -7,5 +7,5 @@ plugins {
 dependencies {
     jsMainImplementation(wrappers("web"))
 
-    jsTestImplementation(kotlin("test-js"))
+    jsTestImplementation(libs.kotlin.test.js)
 }

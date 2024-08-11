@@ -4,12 +4,10 @@ plugins {
     id("io.github.turansky.seskar")
 }
 
-val coroutinesVersion = project.property("kotlinx-coroutines.version") as String
-
 dependencies {
     jsMainImplementation(wrappers("react"))
     jsMainImplementation(wrappers("react-dom"))
-    jsMainImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:$coroutinesVersion")
-    jsMainImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion")
+    jsMainImplementation(libs.coroutines.core)
+    jsMainImplementation(libs.coroutines.test)
     jsMainImplementation(wrappers("react-dom-test-utils"))
 }
