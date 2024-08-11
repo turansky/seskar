@@ -7,9 +7,6 @@ pluginManagement {
         val kotlinVersion = extra["kotlin.version"] as String
         kotlin("multiplatform") version kotlinVersion
         kotlin("plugin.js-plain-objects") version kotlinVersion
-
-        val kfcVersion = extra["kfc.version"] as String
-        id("io.github.turansky.kfc.application") version kfcVersion
     }
 }
 
@@ -20,6 +17,9 @@ dependencyResolutionManagement {
 
     versionCatalogs {
         create("libs") {
+            val kfcVersion = extra["kfc.version"] as String
+            plugin("kfc-application", "io.github.turansky.kfc.application").version(kfcVersion)
+
             val kotlinVersion = extra["kotlin.version"] as String
             library("kotlin-test-js", "org.jetbrains.kotlin", "kotlin-test-js").version(kotlinVersion)
 
