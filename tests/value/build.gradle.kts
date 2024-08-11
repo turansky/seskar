@@ -4,7 +4,7 @@ plugins {
 }
 
 dependencies {
-    jsMainImplementation(project(":tests:union-data"))
+    jsMainImplementation(projects.tests.unionData)
 
     jsMainImplementation(libs.wrappers.web)
 

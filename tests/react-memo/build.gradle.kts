@@ -11,6 +11,6 @@ dependencies {
     jsTestImplementation(libs.kotlin.test.js)
     jsTestImplementation(libs.coroutines.core)
     jsTestImplementation(libs.coroutines.test)
-    jsTestImplementation(project(":tests:react-test"))
+    jsTestImplementation(projects.tests.reactTest)
     jsTestImplementation(libs.wrappers.react.dom.test.utils)
 }

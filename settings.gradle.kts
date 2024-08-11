@@ -1,5 +1,7 @@
 rootProject.name = "seskar"
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 pluginManagement {
     plugins {
         val kotlinVersion = extra["kotlin.version"] as String
