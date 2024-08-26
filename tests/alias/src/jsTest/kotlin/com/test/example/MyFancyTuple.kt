@@ -1,4 +1,4 @@
-@file:JsModule("my-fancy-tuple")
+@file:JsModule("./my-fancy-tuple")
 
 package com.test.example
 

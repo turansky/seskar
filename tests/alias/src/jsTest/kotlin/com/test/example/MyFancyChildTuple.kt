@@ -1,4 +1,4 @@
-@file:JsModule("my-fancy-child-tuple")
+@file:JsModule("./my-fancy-child-tuple")
 
 package com.test.example
 
