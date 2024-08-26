@@ -1,4 +1,4 @@
-@file:JsModule("my-cancellable-response-library")
+@file:JsModule("./my-cancellable-response-library")
 
 package com.test.example
 

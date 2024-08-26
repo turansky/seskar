@@ -1,4 +1,4 @@
-@file:JsModule("my-parameters-library")
+@file:JsModule("./my-parameters-library")
 
 package com.test.example
 
