@@ -1,12 +1,12 @@
 plugins {
-    kotlin("multiplatform") apply false
-    kotlin("plugin.js-plain-objects") apply false
-    id("io.github.turansky.kfc.application")
-    id("io.github.turansky.seskar") version "3.20.0"
+    alias(libs.plugins.kotlin.multiplatform) apply false
+    alias(libs.plugins.kotlin.js.plain.objects) apply false
+    alias(libs.plugins.kfc.application)
+    alias(libs.plugins.seskar)
 }
 
 dependencies {
-    jsTestImplementation(kotlin("test-js"))
+    jsTestImplementation(libs.kotlin.test.js)
 }
 
 tasks.wrapper {
