@@ -1,4 +1,4 @@
-@file:JsModule("./my-response-library")
+@file:JsModule("./my-response-library.mjs")
 
 package com.test.example
 
