@@ -3,11 +3,11 @@ plugins {
     alias(libs.plugins.seskar)
 }
 
-dependencies {
-    jsTestImplementation(libs.kotlin.test.js)
+bundlerEnvironment {
+    set("BUILD_NUMBER", "generic-number")
+    set("NUMBER", "42")
 }
 
-tasks.patchBundlerConfig {
-    env("BUILD_NUMBER", "generic-number")
-    env("NUMBER", "42")
+dependencies {
+    jsTestImplementation(libs.kotlin.test.js)
 }
