@@ -1,0 +1,13 @@
+name: Package Lock
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update
+        uses: karakum-team/vitalik@v0.5
