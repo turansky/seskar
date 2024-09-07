@@ -8,5 +8,5 @@ dependencies {
 
     jsMainImplementation(libs.wrappers.web)
 
-    jsTestImplementation(libs.kotlin.test.js)
+    jsTestImplementation(libs.kotlin.testJs)
 }

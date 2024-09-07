@@ -6,7 +6,7 @@ plugins {
 }
 
 dependencies {
-    jsTestImplementation(libs.kotlin.test.js)
+    jsTestImplementation(libs.kotlin.testJs)
 }
 
 tasks.wrapper {

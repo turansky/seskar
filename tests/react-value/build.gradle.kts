@@ -8,7 +8,7 @@ dependencies {
     jsMainImplementation(libs.wrappers.reactDom)
     jsMainImplementation(libs.wrappers.reactUse)
 
-    jsTestImplementation(libs.kotlin.test.js)
+    jsTestImplementation(libs.kotlin.testJs)
     jsTestImplementation(libs.coroutines.core)
     jsTestImplementation(libs.coroutines.test)
     jsTestImplementation(projects.tests.reactTest)
