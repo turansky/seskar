@@ -4,6 +4,7 @@ plugins {
 }
 
 dependencies {
+    jsMainImplementation(libs.wrappers.emotion)
     jsMainImplementation(libs.wrappers.react)
     jsMainImplementation(libs.wrappers.reactDom)
 
