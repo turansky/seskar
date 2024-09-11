@@ -14,7 +14,7 @@ internal class LazyComponentTransformer(
         if (!declaration.isLazy())
             return declaration
 
-        declaration.file.annotations += JsFileName(context, "${declaration.name.identifier}.very.very.lazy")
+        declaration.file.annotations += JsFileName(context, "${declaration.name.identifier}__lazy__component")
 
         return super.visitProperty(declaration)
     }
