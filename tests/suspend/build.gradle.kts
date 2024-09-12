@@ -4,7 +4,7 @@ plugins {
 }
 
 dependencies {
-    jsMainImplementation(libs.wrappers.web)
+    jsMainImplementation(kotlinWrappers.web)
 
     jsTestImplementation(libs.kotlin.testJs)
     jsTestImplementation(libs.coroutines.core)

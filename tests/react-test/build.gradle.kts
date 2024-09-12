@@ -4,9 +4,9 @@ plugins {
 }
 
 dependencies {
-    jsMainImplementation(libs.wrappers.react)
-    jsMainImplementation(libs.wrappers.reactDom)
+    jsMainImplementation(kotlinWrappers.react)
+    jsMainImplementation(kotlinWrappers.reactDom)
     jsMainImplementation(libs.coroutines.core)
     jsMainImplementation(libs.coroutines.test)
-    jsMainImplementation(libs.wrappers.reactDomTestUtils)
+    jsMainImplementation(kotlinWrappers.reactDomTestUtils)
 }

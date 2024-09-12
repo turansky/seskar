@@ -4,5 +4,5 @@ plugins {
 }
 
 dependencies {
-    jsMainImplementation(libs.wrappers.react)
+    jsMainImplementation(kotlinWrappers.react)
 }

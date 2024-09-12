@@ -5,12 +5,12 @@ plugins {
 
 dependencies {
     jsMainImplementation(projects.tests.data)
-    jsMainImplementation(libs.wrappers.reactDom)
-    jsMainImplementation(libs.wrappers.reactUse)
+    jsMainImplementation(kotlinWrappers.reactDom)
+    jsMainImplementation(kotlinWrappers.reactUse)
 
     jsTestImplementation(libs.kotlin.testJs)
     jsTestImplementation(libs.coroutines.core)
     jsTestImplementation(libs.coroutines.test)
     jsTestImplementation(projects.tests.reactTest)
-    jsTestImplementation(libs.wrappers.reactDomTestUtils)
+    jsTestImplementation(kotlinWrappers.reactDomTestUtils)
 }

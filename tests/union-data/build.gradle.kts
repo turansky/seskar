@@ -4,5 +4,5 @@ plugins {
 }
 
 dependencies {
-    jsMainImplementation(libs.wrappers.web)
+    jsMainImplementation(kotlinWrappers.web)
 }
