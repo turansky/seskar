@@ -11,7 +11,7 @@ internal class SeskarLazyPlugin : Plugin<Project> {
     override fun apply(project: Project): Unit = with(project) {
         afterEvaluate {
             for (configuration in LazyConfiguration.ALL) {
-                val syncTask = tasks.findByName(configuration.syncTask)
+                val syncTask = tasks.findByName(configuration.syncTask) as Sync?
                     ?: continue
 
                 val generateTask = tasks.create<Sync>(configuration.generateTask) {
@@ -19,6 +19,8 @@ internal class SeskarLazyPlugin : Plugin<Project> {
 
                     from(tasks.named(configuration.compileTask)) {
                         include("**/*__lazy__component.mjs")
+                        rename { it.replace("__lazy__", "__original__") }
+
                         includeEmptyDirs = false
                     }
 
