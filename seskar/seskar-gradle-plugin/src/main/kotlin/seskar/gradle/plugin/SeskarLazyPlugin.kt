@@ -9,8 +9,11 @@ private const val SESKAR_TASK_GROUP = "seskar"
 
 internal class SeskarLazyPlugin : Plugin<Project> {
     override fun apply(project: Project): Unit = with(project) {
-        plugins.withId("io.github.turansky.kfc.application") {
+        afterEvaluate {
             for (configuration in LazyConfiguration.ALL) {
+                val syncTask = tasks.findByName(configuration.syncTask)
+                    ?: continue
+
                 val generateTask = tasks.create<Sync>(configuration.generateTask) {
                     group = SESKAR_TASK_GROUP
 
@@ -22,9 +25,7 @@ internal class SeskarLazyPlugin : Plugin<Project> {
                     into(temporaryDir)
                 }
 
-                tasks.named(configuration.syncTask) {
-                    dependsOn(generateTask)
-                }
+                syncTask.dependsOn(generateTask)
             }
         }
     }
