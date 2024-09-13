@@ -14,6 +14,7 @@ private fun lazyComponentTransformer(
 ): Reader {
     val writer = StringWriter()
     input.transferTo(writer)
-    val content = writer.buffer.toString()
+    val content = writer.toString()
+
     return StringReader("""import { lazy } from "react"""" + "\n\n" + content)
 }
