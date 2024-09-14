@@ -57,7 +57,7 @@ val App = FC {
 
 ##### Examples
 
-2. [Lazy app](/tests/lazy/app)
+2. [Lazy app](/tests/react-lazy-components/app)
 2. [Kotlin Wrappers Example](https://github.com/JetBrains/kotlin-wrappers/tree/master/examples/react-lazy-modules-webpack)
 
 #### Conditional rendering

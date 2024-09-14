@@ -8,7 +8,7 @@ dependencies {
     jsMainImplementation(kotlinWrappers.react)
     jsMainImplementation(kotlinWrappers.reactDom)
 
-    jsMainImplementation(projects.tests.lazy.content)
-    jsMainImplementation(projects.tests.lazy.header)
-    jsMainImplementation(projects.tests.lazy.footer)
+    jsMainImplementation(projects.tests.reactLazyComponents.content)
+    jsMainImplementation(projects.tests.reactLazyComponents.header)
+    jsMainImplementation(projects.tests.reactLazyComponents.footer)
 }
