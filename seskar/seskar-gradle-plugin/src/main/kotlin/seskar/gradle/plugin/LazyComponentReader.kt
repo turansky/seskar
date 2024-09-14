@@ -1,5 +1,6 @@
 package seskar.gradle.plugin
 
+import seskar.gradle.plugin.Components.ORIGINAL_COMPONENT_SUFFIX
 import java.io.FilterReader
 import java.io.Reader
 import java.io.StringReader
@@ -18,15 +19,20 @@ private fun lazyComponentTransformer(
     val componentProvider = getComponentProvider(writer.toString())
         ?: return StringReader("export {}")
 
+    val componentName = componentProvider
+        .removePrefix("get_")
+        .substringBefore("__react__component")
+
+    val originalComponentPath = "./$componentName$ORIGINAL_COMPONENT_SUFFIX"
+
     // language=javascript
     val proxyBody = """
     import { lazy } from "react"
 
-    const component = lazy(
-        () => Promise.resolve({
-            default: () => "LAZY COMPONENT $componentProvider !!!"
-            /* default: componentProvider.get(), */
-        })
+    const component = lazy(() => 
+        import("$originalComponentPath")
+            .then(module => module.${componentProvider}.get())
+            .then(component => ({ default: component }))
     )
     
     const provider = {
