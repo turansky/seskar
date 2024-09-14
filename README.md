@@ -21,6 +21,44 @@ plugins {
 
 ## React
 
+#### Lazy components
+
+Steps:
+
+1. Configure Kotlin/JS
+   * target -
+     `es2015` ([example](https://github.com/JetBrains/kotlin-wrappers/blob/fdc8fb9b8ac2b13ba151449e13977a0327e7e3df/examples/buildSrc/src/main/kotlin/kotlin-conventions.gradle.kts#L35))
+   * granularity -
+     `per-file` ([example](https://github.com/JetBrains/kotlin-wrappers/blob/fdc8fb9b8ac2b13ba151449e13977a0327e7e3df/examples/gradle.properties#L7))
+2. Mark lazy components with `@Lazy` annotations
+   * Important - component must be single imported runtime entity from file
+3. PROFIT
+
+```kotlin
+// Content.kt
+@Lazy
+val Content = FC {
+   MyHeavyComponent1()
+   MyHeavyComponent2()
+}
+
+// App.kt
+val App = FC {
+   Header()
+
+   Suspense {
+      Content()
+   }
+
+   Footer()
+}
+```
+
+##### Examples
+
+2. [Lazy app](/tests/lazy/app)
+2. [Kotlin Wrappers Example](https://github.com/JetBrains/kotlin-wrappers/tree/master/examples/react-lazy-modules-webpack)
+
 #### Conditional rendering
 
 Seskar generates keys for child elements to prevent problems with conditional rendering.
