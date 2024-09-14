@@ -25,6 +25,7 @@ plugins {
 
 Steps:
 
+0. Apply Seskar plugin
 1. Configure Kotlin/JS
     * target -`es2015`
        * [example](https://github.com/JetBrains/kotlin-wrappers/blob/fdc8fb9b8ac2b13ba151449e13977a0327e7e3df/examples/buildSrc/src/main/kotlin/kotlin-conventions.gradle.kts#L35)
