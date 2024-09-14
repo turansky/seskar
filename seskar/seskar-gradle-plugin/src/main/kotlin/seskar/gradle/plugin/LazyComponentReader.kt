@@ -31,13 +31,11 @@ private fun lazyComponentTransformer(
 
     const component = lazy(() => 
         import("$originalComponentPath")
-            .then(module => module.${componentProvider}.get())
+            .then(module => module.${componentProvider}())
             .then(component => ({ default: component }))
     )
     
-    const provider = {
-        get: () => component
-    }
+    const provider = () => component
     
     export {
         provider as $componentProvider,
