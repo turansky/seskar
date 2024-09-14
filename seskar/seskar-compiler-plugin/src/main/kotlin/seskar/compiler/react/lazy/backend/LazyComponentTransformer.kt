@@ -6,6 +6,7 @@ import org.jetbrains.kotlin.ir.declarations.IrProperty
 import org.jetbrains.kotlin.ir.util.file
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 import seskar.compiler.common.backend.JsFileName
+import seskar.compiler.common.backend.JsName
 
 internal class LazyComponentTransformer(
     private val context: IrPluginContext,
@@ -14,7 +15,9 @@ internal class LazyComponentTransformer(
         if (!declaration.isLazy())
             return declaration
 
-        declaration.file.annotations += JsFileName(context, "${declaration.name.identifier}__lazy__component")
+        val componentName = declaration.name.identifier
+        declaration.file.annotations += JsFileName(context, "${componentName}__lazy__component")
+        declaration.annotations += JsName(context, componentName + "__react__component")
 
         return super.visitProperty(declaration)
     }
