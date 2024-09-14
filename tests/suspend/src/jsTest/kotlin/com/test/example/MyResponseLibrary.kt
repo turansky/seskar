@@ -1,4 +1,4 @@
-@file:JsModule("./my-response-library.mjs")
+@file:JsModule("/kotlin/my-response-library.mjs")
 
 package com.test.example
 

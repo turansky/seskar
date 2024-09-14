@@ -1,4 +1,4 @@
-@file:JsModule("./my-cancellable-response-library.mjs")
+@file:JsModule("/kotlin/my-cancellable-response-library.mjs")
 
 package com.test.example
 

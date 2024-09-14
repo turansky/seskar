@@ -1,4 +1,4 @@
-@file:JsModule("./my-parameters-library.mjs")
+@file:JsModule("/kotlin/my-parameters-library.mjs")
 
 package com.test.example
 

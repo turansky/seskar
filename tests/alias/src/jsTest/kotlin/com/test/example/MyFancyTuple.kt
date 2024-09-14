@@ -1,4 +1,4 @@
-@file:JsModule("./my-fancy-tuple.mjs")
+@file:JsModule("/kotlin/my-fancy-tuple.mjs")
 
 package com.test.example
 
