@@ -26,10 +26,10 @@ plugins {
 Steps:
 
 1. Configure Kotlin/JS
-   * target -
-     `es2015` ([example](https://github.com/JetBrains/kotlin-wrappers/blob/fdc8fb9b8ac2b13ba151449e13977a0327e7e3df/examples/buildSrc/src/main/kotlin/kotlin-conventions.gradle.kts#L35))
-   * granularity -
-     `per-file` ([example](https://github.com/JetBrains/kotlin-wrappers/blob/fdc8fb9b8ac2b13ba151449e13977a0327e7e3df/examples/gradle.properties#L7))
+    * target -`es2015`
+        * ([example](https://github.com/JetBrains/kotlin-wrappers/blob/fdc8fb9b8ac2b13ba151449e13977a0327e7e3df/examples/buildSrc/src/main/kotlin/kotlin-conventions.gradle.kts#L35))
+    * granularity - `per-file`
+        * ([example](https://github.com/JetBrains/kotlin-wrappers/blob/fdc8fb9b8ac2b13ba151449e13977a0327e7e3df/examples/gradle.properties#L7))
 2. Mark lazy components with `@Lazy` annotations
    * Important - component must be single imported runtime entity from file
 3. PROFIT
