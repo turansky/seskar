@@ -34,7 +34,7 @@ internal class ReactLazyComponentPlugin : Plugin<Project> {
                     from(compileTask) {
                         include("**/*$LAZY_COMPONENT_SUFFIX")
 
-                        filter(LazyComponentReader::class)
+                        filter(ReactLazyComponentReader::class)
 
                         includeEmptyDirs = false
                     }

@@ -6,7 +6,7 @@ import java.io.Reader
 import java.io.StringReader
 import java.io.StringWriter
 
-internal class LazyComponentReader(
+internal class ReactLazyComponentReader(
     input: Reader,
 ) : FilterReader(lazyComponentTransformer(input))
 
