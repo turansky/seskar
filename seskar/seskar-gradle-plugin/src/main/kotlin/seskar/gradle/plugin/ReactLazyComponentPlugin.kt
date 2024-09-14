@@ -12,7 +12,7 @@ import seskar.gradle.plugin.Components.ORIGINAL_COMPONENT_SUFFIX
 
 private const val SESKAR_TASK_GROUP = "seskar"
 
-internal class SeskarLazyPlugin : Plugin<Project> {
+internal class ReactLazyComponentPlugin : Plugin<Project> {
     override fun apply(project: Project): Unit = with(project) {
         afterEvaluate {
             for (configuration in LazyConfiguration.ALL) {
