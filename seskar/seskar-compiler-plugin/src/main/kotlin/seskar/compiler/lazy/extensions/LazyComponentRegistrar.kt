@@ -1,4 +1,4 @@
-package seskar.compiler.react.lazy.extensions
+package seskar.compiler.lazy.extensions
 
 import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
 import org.jetbrains.kotlin.config.CompilerConfiguration

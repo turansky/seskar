@@ -1,4 +1,4 @@
-package seskar.compiler.react.lazy.backend
+package seskar.compiler.lazy.backend
 
 import org.jetbrains.kotlin.ir.declarations.IrProperty
 import org.jetbrains.kotlin.ir.util.hasAnnotation
