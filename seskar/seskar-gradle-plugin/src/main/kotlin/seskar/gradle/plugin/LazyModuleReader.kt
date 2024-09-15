@@ -1,6 +1,6 @@
 package seskar.gradle.plugin
 
-import seskar.gradle.plugin.Components.ORIGINAL_COMPONENT_SUFFIX
+import seskar.gradle.plugin.Modules.ORIGINAL_MODULE_SUFFIX
 import java.io.FilterReader
 import java.io.Reader
 import java.io.StringReader
@@ -23,7 +23,7 @@ private fun lazyComponentTransformer(
         .removePrefix("get_")
         .substringBefore("__react__component")
 
-    val originalComponentPath = "./$componentName$ORIGINAL_COMPONENT_SUFFIX"
+    val originalComponentPath = "./$componentName$ORIGINAL_MODULE_SUFFIX"
 
     // language=javascript
     val proxyBody = """

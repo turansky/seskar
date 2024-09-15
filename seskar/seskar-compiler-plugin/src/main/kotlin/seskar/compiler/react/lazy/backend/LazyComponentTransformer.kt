@@ -16,7 +16,7 @@ internal class LazyComponentTransformer(
             return declaration
 
         val componentName = declaration.name.identifier
-        declaration.file.annotations += JsFileName(context, "${componentName}__lazy__component")
+        declaration.file.annotations += JsFileName(context, "${componentName}__lazy__module")
         declaration.annotations += JsName(context, componentName + "__react__component")
 
         return super.visitProperty(declaration)

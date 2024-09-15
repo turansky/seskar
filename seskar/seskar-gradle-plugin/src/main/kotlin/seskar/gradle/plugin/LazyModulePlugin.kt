@@ -7,8 +7,8 @@ import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.filter
 import org.gradle.kotlin.dsl.named
 import org.jetbrains.kotlin.gradle.tasks.IncrementalSyncTask
-import seskar.gradle.plugin.Components.LAZY_COMPONENT_SUFFIX
-import seskar.gradle.plugin.Components.ORIGINAL_COMPONENT_SUFFIX
+import seskar.gradle.plugin.Modules.LAZY_MODULE_SUFFIX
+import seskar.gradle.plugin.Modules.ORIGINAL_MODULE_SUFFIX
 
 private const val SESKAR_TASK_GROUP = "seskar"
 
@@ -25,14 +25,14 @@ internal class LazyModulePlugin : Plugin<Project> {
                     group = SESKAR_TASK_GROUP
 
                     from(compileTask) {
-                        include("**/*$LAZY_COMPONENT_SUFFIX")
-                        rename { it.removeSuffix(LAZY_COMPONENT_SUFFIX) + ORIGINAL_COMPONENT_SUFFIX }
+                        include("**/*$LAZY_MODULE_SUFFIX")
+                        rename { it.removeSuffix(LAZY_MODULE_SUFFIX) + ORIGINAL_MODULE_SUFFIX }
 
                         includeEmptyDirs = false
                     }
 
                     from(compileTask) {
-                        include("**/*$LAZY_COMPONENT_SUFFIX")
+                        include("**/*$LAZY_MODULE_SUFFIX")
 
                         filter(LazyModuleReader::class)
 
