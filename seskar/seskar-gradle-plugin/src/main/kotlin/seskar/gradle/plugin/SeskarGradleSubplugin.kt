@@ -15,7 +15,7 @@ class SeskarGradleSubplugin : KotlinCompilerPluginSupportPlugin {
         super.apply(target)
 
         target.plugins.apply(SeskarDependenciesPlugin::class)
-        target.plugins.apply(ReactLazyComponentPlugin::class)
+        target.plugins.apply(LazyModulePlugin::class)
     }
 
     override fun isApplicable(

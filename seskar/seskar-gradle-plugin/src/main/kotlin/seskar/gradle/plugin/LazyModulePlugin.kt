@@ -12,7 +12,7 @@ import seskar.gradle.plugin.Components.ORIGINAL_COMPONENT_SUFFIX
 
 private const val SESKAR_TASK_GROUP = "seskar"
 
-internal class ReactLazyComponentPlugin : Plugin<Project> {
+internal class LazyModulePlugin : Plugin<Project> {
     override fun apply(project: Project): Unit = with(project) {
         afterEvaluate {
             for (configuration in LazyConfiguration.ALL) {
@@ -34,7 +34,7 @@ internal class ReactLazyComponentPlugin : Plugin<Project> {
                     from(compileTask) {
                         include("**/*$LAZY_COMPONENT_SUFFIX")
 
-                        filter(ReactLazyComponentReader::class)
+                        filter(LazyModuleReader::class)
 
                         includeEmptyDirs = false
                     }
