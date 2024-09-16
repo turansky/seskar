@@ -1,5 +1,6 @@
 package seskar.gradle.plugin
 
+import seskar.gradle.plugin.LazyItemType.LAZY_REACT_COMPONENT
 import java.io.FilterReader
 import java.io.Reader
 import java.io.StringReader
@@ -33,17 +34,17 @@ private fun lazyComponentTransformer(
     return StringReader(proxyBody)
 }
 
-private val LAZY_ITEM_FACTORIES = setOf(
-    ReactLazyComponentFactory(),
+private val LAZY_ITEM_FACTORY_MAP = mapOf(
+    LAZY_REACT_COMPONENT to ReactLazyComponentFactory(),
 )
 
 private fun createLazyItem(
     export: String,
-): LazyItem =
-    LAZY_ITEM_FACTORIES.asSequence()
-        .mapNotNull { it.create(export) }
-        .firstOrNull()
-        ?: error("Unable to transform export '$export' to lazy item.")
+): LazyItem {
+    val data = LazyItemData(export)
+    val factory = LAZY_ITEM_FACTORY_MAP.getValue(data.type)
+    return factory.create(data)
+}
 
 private fun getComponentProvider(
     content: String,

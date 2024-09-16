@@ -1,33 +1,30 @@
 package seskar.gradle.plugin
 
-import seskar.gradle.plugin.Modules.ORIGINAL_MODULE_SUFFIX
+// language=javascript
+private val IMPORTS = """
+import { lazy } from "react"
+""".trimIndent()
 
 class ReactLazyComponentFactory :
     LazyItemFactory {
     override fun create(
-        export: String,
+        data: LazyItemData,
     ): LazyItem {
-        val fileName = export
-            .removePrefix("get_")
-            .substringBefore("__react__component")
-
-        val originalComponentPath = "./$fileName$ORIGINAL_MODULE_SUFFIX"
-
-        val componentName = "$fileName\$\$__react__lazy__component"
+        val componentName = "${data.name}\$\$__react__lazy__component"
 
         // language=javascript
         val body = """
         const $componentName = lazy(() => 
-            import("$originalComponentPath")
-                .then(module => module.${export}())
+            import("${data.originalFilePath}")
+                .then(module => module.${data.export}())
                 .then(component => ({ default: component }))
         )
         
-        export const $export = () => $componentName
+        export const ${data.export} = () => $componentName
         """.trimIndent()
 
         return LazyItem(
-            imports = """import { lazy } from "react"""",
+            imports = IMPORTS,
             body = body,
         )
     }
