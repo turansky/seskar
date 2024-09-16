@@ -23,8 +23,8 @@ fun LazyItemData(
 
     val (_, fileName, name, typeId, _) = names
     val type = when (typeId) {
-        "lazy_function" -> LAZY_FUNCTION
-        "react_component" -> LAZY_REACT_COMPONENT
+        "lazy__function" -> LAZY_FUNCTION
+        "react__component" -> LAZY_REACT_COMPONENT
 
         else -> error("Invalid type id: '$typeId'")
     }
