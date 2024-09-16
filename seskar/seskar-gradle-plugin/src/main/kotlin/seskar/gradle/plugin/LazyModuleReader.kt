@@ -1,6 +1,5 @@
 package seskar.gradle.plugin
 
-import seskar.gradle.plugin.Modules.ORIGINAL_MODULE_SUFFIX
 import java.io.FilterReader
 import java.io.Reader
 import java.io.StringReader
@@ -19,31 +18,32 @@ private fun lazyComponentTransformer(
     val componentProvider = getComponentProvider(writer.toString())
         ?: return StringReader("export {}")
 
-    val componentName = componentProvider
-        .removePrefix("get_")
-        .substringBefore("__react__component")
+    val lazyItems = listOf(componentProvider)
+        .map(::createLazyItem)
 
-    val originalComponentPath = "./$componentName$ORIGINAL_MODULE_SUFFIX"
+    val imports = lazyItems.asSequence()
+        .mapNotNull { it.imports }
+        .distinct()
+        .joinToString("\n")
 
-    // language=javascript
-    val proxyBody = """
-    import { lazy } from "react"
-
-    const component = lazy(() => 
-        import("$originalComponentPath")
-            .then(module => module.${componentProvider}())
-            .then(component => ({ default: component }))
-    )
-    
-    const provider = () => component
-    
-    export {
-        provider as $componentProvider,
-    }
-    """.trimIndent()
+    val proxyBody = sequenceOf(imports)
+        .plus(lazyItems.map { it.body })
+        .joinToString("\n\n")
 
     return StringReader(proxyBody)
 }
+
+private val LAZY_ITEM_FACTORIES = setOf(
+    ReactLazyComponentFactory(),
+)
+
+private fun createLazyItem(
+    export: String,
+): LazyItem =
+    LAZY_ITEM_FACTORIES.asSequence()
+        .mapNotNull { it.create(export) }
+        .firstOrNull()
+        ?: error("Unable to transform export '$export' to lazy item.")
 
 private fun getComponentProvider(
     content: String,
