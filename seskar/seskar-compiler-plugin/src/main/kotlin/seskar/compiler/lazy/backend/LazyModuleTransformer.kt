@@ -8,7 +8,7 @@ import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 import seskar.compiler.common.backend.JsFileName
 import seskar.compiler.common.backend.JsName
 
-internal class LazyComponentTransformer(
+internal class LazyModuleTransformer(
     private val context: IrPluginContext,
 ) : IrElementTransformerVoid() {
     override fun visitProperty(declaration: IrProperty): IrStatement {

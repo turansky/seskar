@@ -4,9 +4,9 @@ import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.declarations.IrModuleFragment
 import org.jetbrains.kotlin.platform.isJs
-import seskar.compiler.lazy.backend.LazyComponentTransformer
+import seskar.compiler.lazy.backend.LazyModuleTransformer
 
-internal class LazyComponentExtension : IrGenerationExtension {
+internal class LazyModuleExtension : IrGenerationExtension {
     override fun generate(
         moduleFragment: IrModuleFragment,
         pluginContext: IrPluginContext,
@@ -15,6 +15,6 @@ internal class LazyComponentExtension : IrGenerationExtension {
             ?.takeIf { it.isJs() }
             ?: return
 
-        moduleFragment.transformChildren(LazyComponentTransformer(pluginContext), null)
+        moduleFragment.transformChildren(LazyModuleTransformer(pluginContext), null)
     }
 }
