@@ -10,8 +10,6 @@ import org.jetbrains.kotlin.gradle.tasks.IncrementalSyncTask
 import seskar.gradle.plugin.Modules.LAZY_MODULE_SUFFIX
 import seskar.gradle.plugin.Modules.ORIGINAL_MODULE_SUFFIX
 
-private const val SESKAR_TASK_GROUP = "seskar"
-
 internal class LazyModulePlugin : Plugin<Project> {
     override fun apply(project: Project): Unit = with(project) {
         afterEvaluate {
@@ -22,7 +20,7 @@ internal class LazyModulePlugin : Plugin<Project> {
                 val compileTask = tasks.named(configuration.compileTask)
 
                 val generateTask = tasks.create<Sync>(configuration.generateTask) {
-                    group = SESKAR_TASK_GROUP
+                    group = Seskar.TASK_GROUP
 
                     from(compileTask) {
                         include("**/*$LAZY_MODULE_SUFFIX")
