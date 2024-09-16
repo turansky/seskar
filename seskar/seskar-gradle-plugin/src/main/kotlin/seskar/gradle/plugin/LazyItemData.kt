@@ -1,5 +1,7 @@
 package seskar.gradle.plugin
 
+import seskar.gradle.plugin.LazyItemType.LAZY_FUNCTION
+import seskar.gradle.plugin.LazyItemType.LAZY_REACT_COMPONENT
 import seskar.gradle.plugin.Modules.ORIGINAL_MODULE_SUFFIX
 
 data class LazyItemData(
@@ -12,14 +14,25 @@ data class LazyItemData(
 fun LazyItemData(
     export: String,
 ): LazyItemData {
-    val fileName = export
-        .removePrefix("get_")
-        .substringBefore("__react__component")
+    val names = export
+        .split(LAZY_DELIMITER)
+
+    require(names.size == 5) {
+        "Unable to calculate lazy item from export '$export'"
+    }
+
+    val (_, fileName, name, typeId, _) = names
+    val type = when (typeId) {
+        "lazy_function" -> LAZY_FUNCTION
+        "react_component" -> LAZY_REACT_COMPONENT
+
+        else -> error("Invalid type id: '$typeId'")
+    }
 
     return LazyItemData(
-        name = fileName,
+        name = name,
         originalFilePath = "./$fileName$ORIGINAL_MODULE_SUFFIX",
-        type = LazyItemType.LAZY_REACT_COMPONENT,
+        type = type,
         export = export,
     )
 }
