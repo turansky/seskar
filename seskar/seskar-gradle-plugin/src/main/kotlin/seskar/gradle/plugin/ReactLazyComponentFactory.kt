@@ -10,7 +10,7 @@ class ReactLazyComponentFactory :
     override fun create(
         data: LazyItemData,
     ): LazyItem {
-        val componentName = "${data.name}${LAZY_DELIMITER}__react__lazy__component"
+        val componentName = "${data.name}\$\$__react__lazy__component"
 
         // language=javascript
         val body = """

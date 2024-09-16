@@ -17,7 +17,7 @@ internal class LazyModuleTransformer(
             return declaration
 
         val fileName = declaration.file.name.removeSuffix(".kt")
-        declaration.file.annotations += JsFileName(context, "$fileName${LAZY_DELIMITER}lazy__module")
+        declaration.file.annotations += JsFileName(context, "${fileName}__lazy__module")
 
         val jsName = sequenceOf(
             fileName,
