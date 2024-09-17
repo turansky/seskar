@@ -1,7 +1,5 @@
-package com.test.memo
+package com.test.env
 
-import com.test.env.BUILD_NUMBER
-import com.test.env.NUMBER
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
