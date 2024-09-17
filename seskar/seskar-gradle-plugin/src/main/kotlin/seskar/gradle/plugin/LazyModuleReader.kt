@@ -1,5 +1,6 @@
 package seskar.gradle.plugin
 
+import seskar.gradle.plugin.LazyItemType.LAZY_FUNCTION
 import seskar.gradle.plugin.LazyItemType.LAZY_REACT_COMPONENT
 import java.io.FilterReader
 import java.io.Reader
@@ -35,6 +36,7 @@ private fun lazyComponentTransformer(
 }
 
 private val LAZY_ITEM_FACTORY_MAP = mapOf(
+    LAZY_FUNCTION to LazyFunctionFactory(),
     LAZY_REACT_COMPONENT to ReactLazyComponentFactory(),
 )
 
