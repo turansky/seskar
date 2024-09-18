@@ -74,6 +74,11 @@ internal class ExternalSuspendTransformer(
             return declaration
         }
 
+        // anonymous
+        if (declaration.name.isSpecial) {
+            return declaration
+        }
+
         val useTransform = if (declaration.isTopLevel) {
             declaration.isExternal
         } else {
