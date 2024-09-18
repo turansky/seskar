@@ -5,14 +5,12 @@ class LazyFunctionFactory :
     override fun create(
         data: LazyItemData,
     ): LazyItem {
-        val lazyFunction = "${data.name}\$\$__lazy__function"
-
         // language=javascript
         val body = """
-        const $lazyFunction = import("${data.originalFilePath}")
-                .then(module => module.${data.export})
-        
-        export const ${data.export} = () => $lazyFunction
+        export const ${data.export} = () => {
+            return import("${data.originalFilePath}")
+                .then(module => module.${data.export}())
+        }
         """.trimIndent()
 
         return LazyItem(

@@ -1,13 +1,15 @@
 package com.test.lazy
 
 import kotlinx.coroutines.test.runTest
+import kotlin.js.Promise
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertIs
 
 class LazyFunctionTest {
     @Test
     fun lazyFunction1() = runTest {
-        // assertIs<Promise<*>>(lazyFunction1)
+        assertIs<Promise<*>>(lazyFunction1)
 
         val data = lazyFunction1.invoke()
 
@@ -16,7 +18,7 @@ class LazyFunctionTest {
 
     @Test
     fun lazyFunction2() = runTest {
-        // assertIs<Promise<*>>(lazyFunction2)
+        assertIs<Promise<*>>(lazyFunction2)
 
         val data = lazyFunction2.invoke()
 
