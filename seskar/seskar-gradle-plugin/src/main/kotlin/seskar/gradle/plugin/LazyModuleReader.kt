@@ -69,7 +69,7 @@ private fun getComponentProvider(
         return provider
 
     error(
-        "Unable to create lazy component wrapper from following content:" +
+        "Unable to create lazy module wrapper from following content:" +
                 "\n-----------------\n" +
                 content +
                 "\n-----------------\n",
