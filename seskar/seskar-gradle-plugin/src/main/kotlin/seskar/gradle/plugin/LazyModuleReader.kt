@@ -17,11 +17,12 @@ private fun lazyComponentTransformer(
     val writer = StringWriter()
     input.transferTo(writer)
 
-    val componentProvider = getComponentProvider(writer.toString())
-        ?: return StringReader("export {}")
-
-    val lazyItems = listOf(componentProvider)
+    val lazyItems = getExports(writer.toString())
         .map(::createLazyItem)
+
+    if (lazyItems.isEmpty()) {
+        return StringReader("export {}")
+    }
 
     val imports = lazyItems.asSequence()
         .mapNotNull { it.imports }
@@ -48,10 +49,10 @@ private fun createLazyItem(
     return factory.create(data)
 }
 
-private fun getComponentProvider(
+private fun getExports(
     content: String,
-): String? {
-    val exports = content
+): List<String> =
+    content
         .substringAfter("\nexport {", "")
         .substringBefore("\n};", "")
         .splitToSequence("\n")
@@ -60,18 +61,3 @@ private fun getComponentProvider(
         .filter { it.isNotEmpty() }
         .map { it.substringAfter(" as ") }
         .toList()
-
-    if (exports.isEmpty())
-        return null
-
-    val provider = exports.singleOrNull()
-    if (provider != null)
-        return provider
-
-    error(
-        "Unable to create lazy module wrapper from following content:" +
-                "\n-----------------\n" +
-                content +
-                "\n-----------------\n",
-    )
-}
