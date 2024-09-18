@@ -8,5 +8,7 @@ import react.dom.html.ReactHTML.div
 val Header = FC {
     div {
         +"Header"
+
+        HeaderContent()
     }
 }
