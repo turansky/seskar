@@ -18,9 +18,24 @@ class LazyConfiguration(
             generateTask = "jsDevelopmentGenerateLazyModules",
         )
 
+        private val TEST_PRODUCTION = LazyConfiguration(
+            compileTask = "compileTestProductionExecutableKotlinJs",
+            syncTask = "jsTestTestProductionExecutableCompileSync",
+            generateTask = "jsTestProductionGenerateLazyModules",
+        )
+
+        private val TEST_DEVELOPMENT = LazyConfiguration(
+            compileTask = "compileTestDevelopmentExecutableKotlinJs",
+            syncTask = "jsTestTestDevelopmentExecutableCompileSync",
+            generateTask = "jsTestDevelopmentGenerateLazyModules",
+        )
+
         val ALL: List<LazyConfiguration> = listOf(
             PRODUCTION,
             DEVELOPMENT,
+
+            TEST_PRODUCTION,
+            TEST_DEVELOPMENT,
         )
     }
 }
