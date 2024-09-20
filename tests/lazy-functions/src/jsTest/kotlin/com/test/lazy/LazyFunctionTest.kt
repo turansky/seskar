@@ -12,7 +12,7 @@ class LazyFunctionTest {
     fun lazyFunction1() = runTest {
         assertIs<Promise<*>>(lazyFunction1)
 
-        val data = lazyFunction1()
+        val data = lazyFunction1.invoke()
 
         assertEquals("42", data)
     }
@@ -21,7 +21,7 @@ class LazyFunctionTest {
     fun lazyFunction2() = runTest {
         assertIs<Promise<*>>(lazyFunction2)
 
-        val data = lazyFunction2()
+        val data = lazyFunction2.invoke()
 
         assertEquals("13", data)
     }
