@@ -5,13 +5,14 @@ import kotlin.js.Promise
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertIs
+import js.lazy.invoke
 
 class LazyFunctionTest {
     @Test
     fun lazyFunction1() = runTest {
         assertIs<Promise<*>>(lazyFunction1)
 
-        val data = lazyFunction1.invoke()
+        val data = lazyFunction1()
 
         assertEquals("42", data)
     }
@@ -20,7 +21,7 @@ class LazyFunctionTest {
     fun lazyFunction2() = runTest {
         assertIs<Promise<*>>(lazyFunction2)
 
-        val data = lazyFunction2.invoke()
+        val data = lazyFunction2()
 
         assertEquals("13", data)
     }
