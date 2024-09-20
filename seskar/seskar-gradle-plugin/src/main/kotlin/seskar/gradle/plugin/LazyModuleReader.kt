@@ -1,5 +1,7 @@
 package seskar.gradle.plugin
 
+import seskar.gradle.plugin.Exports.EMPTY_EXPORTS
+import seskar.gradle.plugin.Exports.getExports
 import seskar.gradle.plugin.LazyItemType.LAZY_FUNCTION
 import seskar.gradle.plugin.LazyItemType.LAZY_REACT_COMPONENT
 import java.io.FilterReader
@@ -21,7 +23,7 @@ private fun lazyComponentTransformer(
         .map(::createLazyItem)
 
     if (lazyItems.isEmpty()) {
-        return StringReader("export {}")
+        return StringReader(EMPTY_EXPORTS)
     }
 
     val imports = lazyItems.asSequence()
@@ -48,16 +50,3 @@ private fun createLazyItem(
     val factory = LAZY_ITEM_FACTORY_MAP.getValue(data.type)
     return factory.create(data)
 }
-
-private fun getExports(
-    content: String,
-): List<String> =
-    content
-        .substringAfter("\nexport {", "")
-        .substringBefore("\n};", "")
-        .splitToSequence("\n")
-        .map { it.trim() }
-        .map { it.removeSuffix(",") }
-        .filter { it.isNotEmpty() }
-        .map { it.substringAfter(" as ") }
-        .toList()
