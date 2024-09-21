@@ -4,38 +4,36 @@ import seskar.gradle.plugin.Exports.EMPTY_EXPORTS
 import seskar.gradle.plugin.Exports.getExports
 import seskar.gradle.plugin.LazyItemType.LAZY_FUNCTION
 import seskar.gradle.plugin.LazyItemType.LAZY_REACT_COMPONENT
-import java.io.FilterReader
 import java.io.Reader
-import java.io.StringReader
-import java.io.StringWriter
 
 internal class LazyModuleReader(
     input: Reader,
-) : FilterReader(lazyComponentTransformer(input))
+) : FileTransformReader(
+    input = input,
+    transformer = LazyModuleTransformer(),
+)
 
-private fun lazyComponentTransformer(
-    input: Reader,
-): Reader {
-    val writer = StringWriter()
-    input.transferTo(writer)
+private class LazyModuleTransformer :
+    FileTransformer {
+    override fun transform(
+        content: String,
+    ): String {
+        val lazyItems = getExports(content)
+            .map(::createLazyItem)
 
-    val lazyItems = getExports(writer.toString())
-        .map(::createLazyItem)
+        if (lazyItems.isEmpty()) {
+            return EMPTY_EXPORTS
+        }
 
-    if (lazyItems.isEmpty()) {
-        return StringReader(EMPTY_EXPORTS)
+        val imports = lazyItems.asSequence()
+            .mapNotNull { it.imports }
+            .distinct()
+            .joinToString("\n")
+
+        return sequenceOf(imports)
+            .plus(lazyItems.map { it.body })
+            .joinToString("\n\n")
     }
-
-    val imports = lazyItems.asSequence()
-        .mapNotNull { it.imports }
-        .distinct()
-        .joinToString("\n")
-
-    val proxyBody = sequenceOf(imports)
-        .plus(lazyItems.map { it.body })
-        .joinToString("\n\n")
-
-    return StringReader(proxyBody)
 }
 
 private val LAZY_ITEM_FACTORY_MAP = mapOf(
