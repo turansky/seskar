@@ -22,7 +22,6 @@ internal class WorkerFactoryTransformer(
         val jsName = sequenceOf(
             fileName,
             declaration.name.identifier,
-            "worker",
         ).joinToString(
             separator = WORKER_DELIMITER,
             prefix = WORKER_DELIMITER,
