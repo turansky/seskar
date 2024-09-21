@@ -1,7 +1,8 @@
 package com.test.workers
 
 import web.console.console
-import web.events.iterator
+import web.events.subscribe
+import web.workers.errorEvent
 import web.workers.messageEvent
 
 suspend fun main() {
@@ -9,7 +10,11 @@ suspend fun main() {
 
     console.log("App started!")
 
-    for (event in worker.messageEvent) {
-        console.log("Message:" + event.data)
+    worker.errorEvent.subscribe { event ->
+        console.log("Error:", event)
+    }
+
+    worker.messageEvent.subscribe { event ->
+        console.log("Message:", event.data)
     }
 }
