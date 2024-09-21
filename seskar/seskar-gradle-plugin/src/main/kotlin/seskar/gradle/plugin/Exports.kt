@@ -6,16 +6,23 @@ internal object Exports {
     const val EXPORTS_SECTION_END = "\n};"
 
     fun getExports(
-        content: String,
+        fileContent: String,
     ): List<String> {
-        return content
+        val exports = fileContent
             .substringAfter(EXPORTS_SECTION_START, "")
             .substringBefore(EXPORTS_SECTION_END, "")
+
+        return parseExports(exports)
+    }
+
+    fun parseExports(
+        exports: String,
+    ): List<String> =
+        exports
             .splitToSequence("\n")
             .map { it.trim() }
             .map { it.removeSuffix(",") }
             .filter { it.isNotEmpty() }
             .map { it.substringAfter(" as ") }
             .toList()
-    }
 }
