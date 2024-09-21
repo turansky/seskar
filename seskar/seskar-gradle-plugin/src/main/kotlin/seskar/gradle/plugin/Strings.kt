@@ -13,12 +13,8 @@ fun replaceBlock(
     if (blockContent.isEmpty())
         return content
 
-    val newBlockContent = transform(blockContent)
-    if (newBlockContent == blockContent)
-        return content
-
     return content.replaceFirst(
         oldValue = blockStart + blockContent + blockEnd,
-        newValue = blockStart + newBlockContent + blockEnd,
+        newValue = transform(blockContent),
     )
 }
