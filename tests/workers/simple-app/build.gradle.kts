@@ -1,5 +1,5 @@
 plugins {
-    alias(kfc.plugins.library)
+    alias(kfc.plugins.application)
     alias(libs.plugins.seskar)
 }
 
