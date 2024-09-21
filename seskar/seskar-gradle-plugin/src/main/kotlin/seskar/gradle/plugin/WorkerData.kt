@@ -20,7 +20,7 @@ fun WorkerData(
     val (_, fileName, _, _) = names
 
     return WorkerData(
-        workerPath = "./$fileName$GENERATED_WORKER_SUFFIX",
+        workerPath = "$fileName$GENERATED_WORKER_SUFFIX",
         export = export,
     )
 }

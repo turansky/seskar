@@ -28,7 +28,7 @@ private class WorkerFactoryTransformer :
         // language=javascript
         return """
         export const ${data.export} = () => {
-            return () => new Worker("${data.workerPath}", { type: "module" })
+            return () => new Worker(new URL("${data.workerPath}", import.meta.url), { type: "module" })
         }
         """.trimIndent()
     }
