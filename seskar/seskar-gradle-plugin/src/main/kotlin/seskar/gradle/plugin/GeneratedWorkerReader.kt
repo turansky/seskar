@@ -22,7 +22,7 @@ private class GeneratedWorkerTransformer :
         // TODO: create JS error instead
             ?: error("Unable to find worker call!")
 
-        return "$workerCall()()"
+        return "\n\n$workerCall()()\n"
     }
 
     override fun transform(
