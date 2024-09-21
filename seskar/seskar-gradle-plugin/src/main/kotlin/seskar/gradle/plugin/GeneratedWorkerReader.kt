@@ -19,7 +19,7 @@ private class GeneratedWorkerTransformer :
     ): String {
         val workerCall = parseExports(exports)
             .singleOrNull()
-            // TODO: create JS error instead
+        // TODO: create JS error instead
             ?: error("Unable to find worker call!")
 
         return "$workerCall()()"
