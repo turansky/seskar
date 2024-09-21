@@ -17,12 +17,12 @@ private class GeneratedWorkerTransformer :
     private fun transformExportToCall(
         exports: String,
     ): String {
-        val workerCall = parseExports(exports)
+        val factoryExport = parseExports(exports)
             .singleOrNull()
         // TODO: create JS error instead
             ?: error("Unable to find worker call!")
 
-        return "\n\n$workerCall()\n"
+        return "\n\n${factoryExport.localName}()\n"
     }
 
     override fun transform(

@@ -13,16 +13,27 @@ internal object Exports {
             .substringBefore(EXPORTS_SECTION_END, "")
 
         return parseExports(exports)
+            .map { it.exportedName }
     }
 
     fun parseExports(
         exports: String,
-    ): List<String> =
+    ): List<ExportData> =
         exports
             .splitToSequence("\n")
             .map { it.trim() }
             .map { it.removeSuffix(",") }
             .filter { it.isNotEmpty() }
-            .map { it.substringAfter(" as ") }
+            .map { parseExport(it) }
             .toList()
+
+    private fun parseExport(
+        export: String,
+    ): ExportData {
+        val (localName, exportedName) = export.split(" as ")
+        return ExportData(
+            localName = localName,
+            exportedName = exportedName,
+        )
+    }
 }
