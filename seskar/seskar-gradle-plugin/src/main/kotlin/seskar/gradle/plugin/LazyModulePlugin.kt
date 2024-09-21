@@ -45,7 +45,7 @@ internal class LazyModulePlugin : Plugin<Project> {
                         include("**/*$WORKER_FACTORY_SUFFIX")
                         rename { it.removeSuffix(WORKER_FACTORY_SUFFIX) + GENERATED_WORKER_SUFFIX }
 
-                        // TODO: add transformation
+                        filter(GeneratedWorkerReader::class)
 
                         includeEmptyDirs = false
                     }
@@ -53,8 +53,7 @@ internal class LazyModulePlugin : Plugin<Project> {
                     from(compileTask) {
                         include("**/*$WORKER_FACTORY_SUFFIX")
 
-                        // TODO: add transformation
-                        // filter(LazyModuleReader::class)
+                        filter(WorkerFactoryReader::class)
 
                         includeEmptyDirs = false
                     }
