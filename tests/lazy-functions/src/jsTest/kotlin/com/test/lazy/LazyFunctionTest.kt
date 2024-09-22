@@ -5,7 +5,6 @@ import kotlin.js.Promise
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertIs
-import js.lazy.invoke
 
 class LazyFunctionTest {
     @Test
