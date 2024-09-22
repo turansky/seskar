@@ -2,11 +2,9 @@ package seskar.compiler.value.backend
 
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.descriptors.ClassKind
+import org.jetbrains.kotlin.descriptors.Modality
 import org.jetbrains.kotlin.ir.IrStatement
-import org.jetbrains.kotlin.ir.declarations.IrClass
-import org.jetbrains.kotlin.ir.declarations.IrDeclarationWithName
-import org.jetbrains.kotlin.ir.declarations.IrProperty
-import org.jetbrains.kotlin.ir.declarations.createBlockBody
+import org.jetbrains.kotlin.ir.declarations.*
 import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
 import org.jetbrains.kotlin.ir.util.isTopLevelDeclaration
@@ -49,6 +47,17 @@ internal class ValueTransformer(
         return declaration
     }
 
+    override fun visitFunction(
+        declaration: IrFunction,
+    ): IrStatement {
+        val value = declaration.value()
+            ?: return declaration
+
+        addFunctionBody(declaration, value)
+
+        return declaration
+    }
+
     private fun addPropertyGetter(
         declaration: IrProperty,
         value: Value,
@@ -64,6 +73,28 @@ internal class ValueTransformer(
                 irReturn(
                     type = context.irBuiltIns.nothingNType,
                     returnTargetSymbol = getter.symbol,
+                    value = valueConstant(declaration, value),
+                )
+            )
+        )
+    }
+
+    private fun addFunctionBody(
+        declaration: IrFunction,
+        value: Value,
+    ) {
+        declaration.isInline = true
+        declaration.isExternal = false
+        if (declaration is IrOverridableMember) {
+            declaration.modality = Modality.FINAL
+        }
+        declaration.body = context.irFactory.createBlockBody(
+            startOffset = declaration.startOffset,
+            endOffset = declaration.endOffset,
+            statements = listOf(
+                irReturn(
+                    type = declaration.returnType,
+                    returnTargetSymbol = declaration.symbol,
                     value = valueConstant(declaration, value),
                 )
             )
