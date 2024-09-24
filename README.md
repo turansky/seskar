@@ -27,6 +27,34 @@ plugins {
 * Granularity - `per-file`
   * [example](https://github.com/JetBrains/kotlin-wrappers/blob/fdc8fb9b8ac2b13ba151449e13977a0327e7e3df/examples/gradle.properties#L7)
 
+#### Lazy functions
+
+```kotlin
+// App.kt
+suspend fun main() {
+    console.log("App start!")
+  
+    val value = if (Random.nextDouble() > 0.5) {
+        createCalculationWithHeavyLibrary()
+    } else {
+        42
+    }
+
+    console.log("Value: $value")
+}
+
+// createCalculationWithHeavyLibrary.kt
+/**
+ * - Function will be located in separate JS chunk
+ * - Chunk will be loaded when function will be called first time
+ */ 
+@Lazy
+val createCalculationWithHeavyLibrary = LazyFunction<Int> {
+    val calculator = HeavyCalculator()
+    calculator.calculate()
+}
+```
+
 ## React
 
 #### Lazy components
