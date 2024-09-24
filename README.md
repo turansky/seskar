@@ -7,7 +7,7 @@
 
 # Seskar
 
-Seskar is a Gradle plugin that provides useful additions for Kotlin/JS projects. 
+Seskar is a Gradle plugin that provides useful additions for Kotlin/JS projects.
 
 ## Setup
 
@@ -16,43 +16,38 @@ To add Seskar to your project, you need to add the following configuration to yo
 ```kotlin
 plugins {
     kotlin("multiplatform") version "2.0.20"
-   id("io.github.turansky.seskar") version "3.41.0"
+    id("io.github.turansky.seskar") version "3.41.0"
 }
 ```
+
+### Kotlin/JS requirements
+
+* Target -`es2015`
+  * [example](https://github.com/JetBrains/kotlin-wrappers/blob/fdc8fb9b8ac2b13ba151449e13977a0327e7e3df/examples/buildSrc/src/main/kotlin/kotlin-conventions.gradle.kts#L35)
+* Granularity - `per-file`
+  * [example](https://github.com/JetBrains/kotlin-wrappers/blob/fdc8fb9b8ac2b13ba151449e13977a0327e7e3df/examples/gradle.properties#L7)
 
 ## React
 
 #### Lazy components
 
-Steps:
-
-0. Apply Seskar plugin
-1. Configure Kotlin/JS
-    * target -`es2015`
-       * [example](https://github.com/JetBrains/kotlin-wrappers/blob/fdc8fb9b8ac2b13ba151449e13977a0327e7e3df/examples/buildSrc/src/main/kotlin/kotlin-conventions.gradle.kts#L35)
-    * granularity - `per-file`
-       * [example](https://github.com/JetBrains/kotlin-wrappers/blob/fdc8fb9b8ac2b13ba151449e13977a0327e7e3df/examples/gradle.properties#L7)
-2. Mark lazy components with `@Lazy` annotations
-   * Important - component must be single imported runtime entity from file
-3. PROFIT
-
 ```kotlin
 // Content.kt
 @Lazy
 val Content = FC {
-   MyHeavyComponent1()
-   MyHeavyComponent2()
+    MyHeavyComponent1()
+    MyHeavyComponent2()
 }
 
 // App.kt
 val App = FC {
-   Header()
+    Header()
 
-   Suspense {
-      Content()
-   }
+    Suspense {
+        Content()
+    }
 
-   Footer()
+    Footer()
 }
 ```
 
@@ -69,10 +64,10 @@ As a result, in the following example `Content` child state won't be reset after
 ```kotlin
 val App = FC {
     val showHeader = useShowHeader()
-    
-    if (showHeader) 
+
+    if (showHeader)
         Header() // generated: key = "@rdk/5"
-        
+
     Content()    // generated: key = "@rdk/7"
     Footer()     // generated: key = "@rdk/8"
 }
@@ -98,7 +93,7 @@ value class Count(
 
 val Counter = FC {
     val count: Count = useCount()
-    
+
     useEffect(count) {
         println("Count changed: $count")
     }
@@ -108,15 +103,15 @@ val Counter = FC {
 ##### Without plugin
 
 ```javascript
-function Counter() { 
+function Counter() {
     var count = useCount()
-    
+
     useEffect(
         () => {
             println(`Count changed: $count`)
         },
         // AUTOBOXING
-        [ new Count(count) ],
+        [new Count(count)],
     )
 }
 ```
@@ -124,15 +119,15 @@ function Counter() {
 ##### With plugin
 
 ```javascript
-function Counter() { 
+function Counter() {
     var count = useCount()
-    
+
     useEffect(
         () => {
             println(`Count changed: $count`)
         },
         // NO AUTOBOXING
-        [ count ],
+        [count],
     )
 }
 ```
@@ -175,7 +170,7 @@ println(Align.LEFT) // 'LEFT'
 
 ```typescript
 // TypeScript
-type LayoutOrientation = 'top-to-bottom' 
+type LayoutOrientation = 'top-to-bottom'
     | 'left-to-right'
     | 'bottom-to-top'
     | 'right-to-left'
@@ -206,7 +201,7 @@ sealed external interface LayoutOrientation {
 
 ```typescript
 // TypeScript
-type LayoutOrientation = 'top_to_bottom' 
+type LayoutOrientation = 'top_to_bottom'
     | 'left_to_right'
     | 'bottom_to_top'
     | 'right_to_left'
