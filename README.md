@@ -27,7 +27,7 @@ plugins {
 * Granularity - `per-file`
   * [example](https://github.com/JetBrains/kotlin-wrappers/blob/fdc8fb9b8ac2b13ba151449e13977a0327e7e3df/examples/gradle.properties#L7)
 
-#### Lazy functions
+## Lazy functions
 
 ```kotlin
 // App.kt
