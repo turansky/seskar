@@ -1,10 +1,10 @@
 package com.test.example
 
-import js.objects.jso
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import web.abort.AbortController
+import web.abort.Abortable
 import web.timers.test.awaitTimeout
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -53,7 +53,7 @@ class MyCancellationResponseLibraryTest {
 
         assertNotNull(data)
 
-        val rejectException = data?.exceptionOrNull()
+        val rejectException = data.exceptionOrNull()
         assertNotNull(rejectException)
         assertEquals(
             "REQUEST TIMEOUT ERROR",
@@ -76,30 +76,26 @@ class MyCancellationResponseLibraryTest {
     @Test
     fun testGetCancellableResponseOnlyWithOptions_emptyOptions() =
         runCancellationTest {
-            getCancellableResponseOnlyWithOptions(jso())
+            getCancellableResponseOnlyWithOptions(Abortable())
         }
 
     @Test
     fun testGetCancellableResponseOnlyWithOptions_emptyOptions_lateCancellation() =
         runLateCancellationTest {
-            getCancellableResponseOnlyWithOptions(jso())
+            getCancellableResponseOnlyWithOptions(Abortable())
         }
 
     @Test
     fun testGetCancellableResponseOnlyWithOptions_customSignal() =
         runCancellationTest {
             val controller = AbortController()
-            getCancellableResponseOnlyWithOptions(jso {
-                signal = controller.signal
-            })
+            getCancellableResponseOnlyWithOptions(Abortable(signal = controller.signal))
         }
 
     @Test
     fun testGetCancellableResponseOnlyWithOptions_customSignal_lateCancellation() =
         runLateCancellationTest {
             val controller = AbortController()
-            getCancellableResponseOnlyWithOptions(jso {
-                signal = controller.signal
-            })
+            getCancellableResponseOnlyWithOptions(Abortable(signal = controller.signal))
         }
 }
