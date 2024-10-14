@@ -16,4 +16,4 @@ jobs:
           java-version: '21'
       - name: Build
         run: |
-          ./gradlew build -Pkotlin.version=2.1.0-Beta1
+          ./gradlew build -Pkotlin.version=2.1.0-Beta2
