@@ -1,21 +1,15 @@
 package seskar.compiler.specialname.backend
 
 import org.jetbrains.kotlin.ir.declarations.IrDeclarationBase
-import org.jetbrains.kotlin.ir.expressions.IrConst
-import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
 import org.jetbrains.kotlin.ir.util.getAnnotation
 import org.jetbrains.kotlin.name.FqName
+import seskar.compiler.common.backend.value
 
 private val JS_SPECIAL_NAME = FqName("seskar.js.JsSpecialName")
-
-private fun IrConstructorCall.value(): String {
-    val argument = getValueArgument(0) as IrConst<*>
-    return argument.value as String
-}
 
 internal fun IrDeclarationBase.specialName(): String? {
     val name = getAnnotation(JS_SPECIAL_NAME)
         ?: return null
 
-    return name.value()
+    return name.value<String>()
 }

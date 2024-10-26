@@ -1,10 +1,9 @@
 package seskar.compiler.alias.backend
 
 import org.jetbrains.kotlin.ir.declarations.IrDeclarationBase
-import org.jetbrains.kotlin.ir.expressions.IrConst
-import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
 import org.jetbrains.kotlin.ir.util.getAnnotation
 import org.jetbrains.kotlin.name.FqName
+import seskar.compiler.common.backend.value
 
 private val JS_ALIAS = FqName("seskar.js.JsAlias")
 
@@ -18,11 +17,6 @@ class IndexedAccessAlias(
 class PropertyAlias(
     val name: String,
 ) : Alias()
-
-private fun IrConstructorCall.value(): String {
-    val argument = getValueArgument(0) as IrConst<*>
-    return argument.value as String
-}
 
 private fun parseAlias(
     value: String,
@@ -48,7 +42,7 @@ internal fun IrDeclarationBase.alias(): Alias? {
     val annotation = getAnnotation(JS_ALIAS)
         ?: return null
 
-    val value = annotation.value()
+    val value = annotation.value<String>()
     return parseAlias(value)
         ?: error("Invalid alias value: '$value'")
 }
