@@ -3,7 +3,6 @@ package seskar.compiler.common.backend
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.UNDEFINED_OFFSET
 import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
-import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
 import org.jetbrains.kotlin.ir.expressions.impl.IrConstructorCallImpl
 import org.jetbrains.kotlin.ir.types.defaultType
 import org.jetbrains.kotlin.name.ClassId
@@ -74,14 +73,7 @@ internal fun annotation(
     )
 
     for ((index, value) in parameters.withIndex()) {
-        val valueParameter = IrConstImpl.string(
-            startOffset = UNDEFINED_OFFSET,
-            endOffset = UNDEFINED_OFFSET,
-            type = context.irBuiltIns.stringType,
-            value = value,
-        )
-
-        annotation.putValueArgument(index, valueParameter)
+        annotation.putValueArgument(index, stringConst(context, value))
     }
 
     return annotation

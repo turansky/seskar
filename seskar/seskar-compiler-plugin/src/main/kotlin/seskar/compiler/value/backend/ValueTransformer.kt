@@ -6,13 +6,9 @@ import org.jetbrains.kotlin.descriptors.Modality
 import org.jetbrains.kotlin.ir.IrStatement
 import org.jetbrains.kotlin.ir.declarations.*
 import org.jetbrains.kotlin.ir.expressions.IrExpression
-import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
 import org.jetbrains.kotlin.ir.util.isTopLevelDeclaration
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
-import seskar.compiler.common.backend.JsName
-import seskar.compiler.common.backend.addInlineGetter
-import seskar.compiler.common.backend.irReturn
-import seskar.compiler.common.backend.isReallyExternal
+import seskar.compiler.common.backend.*
 
 internal class ValueTransformer(
     private val context: IrPluginContext,
@@ -42,10 +38,7 @@ internal class ValueTransformer(
         if (declaration.isTopLevelDeclaration) {
             declaration.annotations += JsName(context, value.toJsName())
         } else {
-            declaration.addInlineGetter(
-                context = context,
-                value = valueConstant(declaration, value),
-            )
+            declaration.addInlineGetter(context, valueConstant(value))
         }
 
         return declaration
@@ -78,32 +71,17 @@ internal class ValueTransformer(
                 irReturn(
                     type = declaration.returnType,
                     returnTargetSymbol = declaration.symbol,
-                    value = valueConstant(declaration, value),
+                    value = valueConstant(value),
                 )
             )
         )
     }
 
     private fun valueConstant(
-        declaration: IrDeclarationWithName,
         value: Value,
-    ): IrExpression {
-        return when (value) {
-            is IntValue ->
-                IrConstImpl.int(
-                    startOffset = declaration.startOffset,
-                    endOffset = declaration.endOffset,
-                    type = context.irBuiltIns.intType,
-                    value = value.value,
-                )
-
-            is StringValue ->
-                IrConstImpl.string(
-                    startOffset = declaration.startOffset,
-                    endOffset = declaration.endOffset,
-                    type = context.irBuiltIns.stringType,
-                    value = value.value,
-                )
+    ): IrExpression =
+        when (value) {
+            is IntValue -> intConst(context, value.value)
+            is StringValue -> stringConst(context, value.value)
         }
-    }
 }

@@ -2,12 +2,11 @@ package seskar.compiler.react.displayname.backend
 
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.expressions.IrExpression
-import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
-import org.jetbrains.kotlin.ir.types.defaultType
 import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
 import seskar.compiler.common.backend.irCall
+import seskar.compiler.common.backend.stringConst
 
 private val WITH_DISPLAY_NAME = CallableId(
     packageName = FqName("seskar.react"),
@@ -23,15 +22,8 @@ internal fun withDisplayName(
 
     val call = irCall(withDisplayName)
 
-    val displayNameConst = IrConstImpl.string(
-        startOffset = componentFactory.startOffset,
-        endOffset = componentFactory.endOffset,
-        type = context.symbols.string.defaultType,
-        value = displayName,
-    )
-
     call.putValueArgument(0, componentFactory)
-    call.putValueArgument(1, displayNameConst)
+    call.putValueArgument(1, stringConst(context, displayName))
 
     return call
 }

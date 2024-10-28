@@ -6,14 +6,13 @@ import org.jetbrains.kotlin.ir.IrStatement
 import org.jetbrains.kotlin.ir.declarations.IrFile
 import org.jetbrains.kotlin.ir.expressions.IrCall
 import org.jetbrains.kotlin.ir.expressions.impl.IrCompositeImpl
-import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
-import org.jetbrains.kotlin.ir.types.defaultType
 import org.jetbrains.kotlin.ir.util.hasAnnotation
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformer
 import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
 import seskar.compiler.common.backend.irCall
+import seskar.compiler.common.backend.stringConst
 
 private val ELEMENT_BUILDER = FqName("react.ElementBuilder")
 
@@ -76,15 +75,8 @@ internal class DefaultKeyTransformer(
 
         val call = irCall(setDefaultKey)
 
-        val defaultKey = IrConstImpl.string(
-            startOffset = expression.startOffset,
-            endOffset = expression.endOffset,
-            type = context.symbols.string.defaultType,
-            value = "@rdk/$key",
-        )
-
         call.putValueArgument(0, dispatchReceiver)
-        call.putValueArgument(1, defaultKey)
+        call.putValueArgument(1, stringConst(context, "@rdk/$key"))
 
         return call
     }

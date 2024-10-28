@@ -1,15 +1,13 @@
 package seskar.compiler.common.backend
 
+import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.UNDEFINED_OFFSET
 import org.jetbrains.kotlin.ir.declarations.IrDeclarationOrigin
 import org.jetbrains.kotlin.ir.declarations.IrValueParameter
 import org.jetbrains.kotlin.ir.declarations.IrVariable
 import org.jetbrains.kotlin.ir.declarations.impl.IrVariableImpl
 import org.jetbrains.kotlin.ir.expressions.*
-import org.jetbrains.kotlin.ir.expressions.impl.IrCallImpl
-import org.jetbrains.kotlin.ir.expressions.impl.IrConstructorCallImpl
-import org.jetbrains.kotlin.ir.expressions.impl.IrGetValueImpl
-import org.jetbrains.kotlin.ir.expressions.impl.IrReturnImpl
+import org.jetbrains.kotlin.ir.expressions.impl.*
 import org.jetbrains.kotlin.ir.symbols.IrConstructorSymbol
 import org.jetbrains.kotlin.ir.symbols.IrPropertySymbol
 import org.jetbrains.kotlin.ir.symbols.IrReturnTargetSymbol
@@ -95,3 +93,25 @@ internal inline fun <reified T> IrConstructorCall.value(
     val argument = getValueArgument(index) as IrConst<*>
     return argument.value as T
 }
+
+internal fun intConst(
+    context: IrPluginContext,
+    value: Int,
+): IrExpression =
+    IrConstImpl.int(
+        startOffset = UNDEFINED_OFFSET,
+        endOffset = UNDEFINED_OFFSET,
+        type = context.irBuiltIns.intType,
+        value = value,
+    )
+
+internal fun stringConst(
+    context: IrPluginContext,
+    value: String,
+): IrExpression =
+    IrConstImpl.string(
+        startOffset = UNDEFINED_OFFSET,
+        endOffset = UNDEFINED_OFFSET,
+        type = context.irBuiltIns.stringType,
+        value = value,
+    )

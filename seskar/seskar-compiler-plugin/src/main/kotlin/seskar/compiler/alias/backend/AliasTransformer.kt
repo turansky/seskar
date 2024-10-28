@@ -6,17 +6,13 @@ import org.jetbrains.kotlin.ir.IrStatement
 import org.jetbrains.kotlin.ir.UNDEFINED_OFFSET
 import org.jetbrains.kotlin.ir.declarations.*
 import org.jetbrains.kotlin.ir.expressions.IrExpression
-import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
 import org.jetbrains.kotlin.ir.util.isTopLevel
 import org.jetbrains.kotlin.ir.util.kotlinFqName
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
-import seskar.compiler.common.backend.irCall
-import seskar.compiler.common.backend.irGet
-import seskar.compiler.common.backend.irReturn
-import seskar.compiler.common.backend.isReallyExternal
+import seskar.compiler.common.backend.*
 
 private val GET_INDEXED_VALUE = CallableId(
     packageName = FqName("seskar.js.internal"),
@@ -91,15 +87,9 @@ internal class AliasTransformer(
         index: Int,
     ): IrExpression {
         val getValue = irCall(context.referenceFunctions(GET_INDEXED_VALUE).single())
-        val indexConst = IrConstImpl.int(
-            startOffset = UNDEFINED_OFFSET,
-            endOffset = UNDEFINED_OFFSET,
-            type = context.irBuiltIns.intType,
-            value = index,
-        )
 
         getValue.putValueArgument(0, irGet(target))
-        getValue.putValueArgument(1, indexConst)
+        getValue.putValueArgument(1, intConst(context, index))
 
         return getValue
     }

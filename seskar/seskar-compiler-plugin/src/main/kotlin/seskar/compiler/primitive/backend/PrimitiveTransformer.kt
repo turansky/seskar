@@ -5,12 +5,12 @@ import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.IrTypeOperator
 import org.jetbrains.kotlin.ir.expressions.IrTypeOperator.*
 import org.jetbrains.kotlin.ir.expressions.IrTypeOperatorCall
-import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
 import seskar.compiler.common.backend.irCall
+import seskar.compiler.common.backend.stringConst
 
 private val HAS_TYPE = CallableId(
     packageName = FqName("seskar.js.internal"),
@@ -50,22 +50,8 @@ internal class PrimitiveTransformer(
         val hasType = context.referenceFunctions(HAS_TYPE).single()
 
         val call = irCall(hasType)
-
-        call.putValueArgument(
-            index = 0,
-            valueArgument = argument,
-        )
-
-        call.putValueArgument(
-            index = 1,
-            valueArgument = IrConstImpl.string(
-                startOffset = argument.startOffset,
-                endOffset = argument.endOffset,
-                type = context.irBuiltIns.stringType,
-                value = typeName,
-            )
-        )
-
+        call.putValueArgument(0, argument)
+        call.putValueArgument(1, stringConst(context, typeName))
         return call
     }
 }
