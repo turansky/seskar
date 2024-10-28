@@ -8,10 +8,7 @@ import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.types.getClass
 import org.jetbrains.kotlin.ir.util.constructors
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
-import seskar.compiler.common.backend.addInlineGetter
-import seskar.compiler.common.backend.irConstructorCall
-import seskar.compiler.common.backend.irGet
-import seskar.compiler.common.backend.isReallyExternal
+import seskar.compiler.common.backend.*
 
 internal class EventTransformer(
     private val context: IrPluginContext,
@@ -53,7 +50,7 @@ internal class EventTransformer(
 
         val call = irConstructorCall(constructor.symbol)
         call.putValueArgument(0, irGet(getter.dispatchReceiverParameter!!))
-        // call.putValueArgument(1, irString(type))
+        call.putValueArgument(1, stringConst(context, type))
 
         return call
     }
