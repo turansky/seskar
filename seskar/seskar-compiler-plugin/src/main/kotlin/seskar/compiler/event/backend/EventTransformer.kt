@@ -4,7 +4,13 @@ import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.IrStatement
 import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.declarations.IrProperty
+import org.jetbrains.kotlin.ir.expressions.IrExpression
+import org.jetbrains.kotlin.ir.types.getClass
+import org.jetbrains.kotlin.ir.util.constructors
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
+import seskar.compiler.common.backend.addInlineGetter
+import seskar.compiler.common.backend.irConstructorCall
+import seskar.compiler.common.backend.irGet
 import seskar.compiler.common.backend.isReallyExternal
 
 internal class EventTransformer(
@@ -25,8 +31,30 @@ internal class EventTransformer(
         val type = declaration.eventType()
             ?: return declaration
 
-        // TODO: implement
+        declaration.addInlineGetter(
+            context = context,
+            value = eventInstance(declaration, type),
+        )
 
         return declaration
+    }
+
+    private fun eventInstance(
+        declaration: IrProperty,
+        type: String,
+    ): IrExpression {
+        val getter = declaration.getter!!
+
+        val constructor = getter
+            .returnType
+            .getClass()!!
+            .constructors
+            .single()
+
+        val call = irConstructorCall(constructor.symbol)
+        call.putValueArgument(0, irGet(getter.dispatchReceiverParameter!!))
+        // call.putValueArgument(1, irString(type))
+
+        return call
     }
 }
