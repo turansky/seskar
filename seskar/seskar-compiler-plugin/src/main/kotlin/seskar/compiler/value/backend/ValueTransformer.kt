@@ -10,6 +10,7 @@ import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
 import org.jetbrains.kotlin.ir.util.isTopLevelDeclaration
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 import seskar.compiler.common.backend.JsName
+import seskar.compiler.common.backend.addInlineGetter
 import seskar.compiler.common.backend.irReturn
 import seskar.compiler.common.backend.isReallyExternal
 
@@ -41,7 +42,10 @@ internal class ValueTransformer(
         if (declaration.isTopLevelDeclaration) {
             declaration.annotations += JsName(context, value.toJsName())
         } else {
-            addPropertyGetter(declaration, value)
+            declaration.addInlineGetter(
+                context = context,
+                value = valueConstant(declaration, value),
+            )
         }
 
         return declaration
@@ -56,27 +60,6 @@ internal class ValueTransformer(
         addFunctionBody(declaration, value)
 
         return declaration
-    }
-
-    private fun addPropertyGetter(
-        declaration: IrProperty,
-        value: Value,
-    ) {
-        val getter = declaration.getter
-            ?: error("No default getter!")
-
-        getter.isInline = true
-        getter.body = context.irFactory.createBlockBody(
-            startOffset = declaration.startOffset,
-            endOffset = declaration.endOffset,
-            statements = listOf(
-                irReturn(
-                    type = context.irBuiltIns.nothingNType,
-                    returnTargetSymbol = getter.symbol,
-                    value = valueConstant(declaration, value),
-                )
-            )
-        )
     }
 
     private fun addFunctionBody(
