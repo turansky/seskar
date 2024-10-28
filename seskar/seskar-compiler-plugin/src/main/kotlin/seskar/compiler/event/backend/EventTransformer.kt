@@ -22,6 +22,9 @@ internal class EventTransformer(
     override fun visitProperty(
         declaration: IrProperty,
     ): IrStatement {
+        val type = declaration.eventType()
+            ?: return declaration
+
         // TODO: implement
 
         return declaration
