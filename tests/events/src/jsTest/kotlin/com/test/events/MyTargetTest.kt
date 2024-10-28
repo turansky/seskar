@@ -1,14 +1,14 @@
 package com.test.events
 
-import web.events.EventTarget
 import kotlin.test.Test
-import kotlin.test.assertIs
+import kotlin.test.assertNotNull
 
 class MyTargetTest {
     @Test
     fun checkDataEvent() {
         val target = MyTarget()
+        val dataEvent = target.dataEvent
 
-        assertIs<EventTarget>(target)
+        assertNotNull(dataEvent)
     }
 }
