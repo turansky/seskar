@@ -7,5 +7,3 @@ build/
 !.idea/codeInsightSettings.xml
 !.idea/icon.png
 *.iml
-
-webpack.config.d/
