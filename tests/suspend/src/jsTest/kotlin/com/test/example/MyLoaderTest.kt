@@ -11,7 +11,7 @@ import kotlin.test.assertEquals
 class MyLoaderTest {
     @BeforeTest
     fun setUp() {
-        globalThis.getResponse = { url: String ->
+        globalThis["getResponse"] = { url: String ->
             Promise.resolve("$url?42")
         }
     }

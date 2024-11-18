@@ -10,7 +10,7 @@ import kotlin.test.assertEquals
 class MyGlobalThisTest {
     @BeforeTest
     fun setUp() {
-        globalThis.getResponse = { url: String ->
+        globalThis["getResponse"] = { url: String ->
             Promise.resolve("$url?42")
         }
     }
