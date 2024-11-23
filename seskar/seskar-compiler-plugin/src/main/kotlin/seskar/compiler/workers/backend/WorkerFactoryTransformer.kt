@@ -1,4 +1,4 @@
-package seskar.compiler.module.backend
+package seskar.compiler.workers.backend
 
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.IrStatement
@@ -9,7 +9,7 @@ import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 import seskar.compiler.common.backend.JsFileName
 import seskar.compiler.common.backend.JsName
 
-internal class ModuleHandleTransformer(
+internal class WorkerFactoryTransformer(
     private val context: IrPluginContext,
 ) : IrElementTransformerVoid() {
     override fun visitProperty(declaration: IrProperty): IrStatement {
