@@ -13,4 +13,4 @@ seskar.compiler.suspend.extensions.ExternalSuspendRegistrar
 seskar.compiler.typeguard.extensions.TypeGuardRegistrar
 seskar.compiler.value.extensions.ValueRegistrar
 seskar.compiler.value.extensions.ValueRegistrar
-seskar.compiler.workers.extensions.WorkerFactoryRegistrar
+seskar.compiler.module.extensions.ModuleHandleRegistrar

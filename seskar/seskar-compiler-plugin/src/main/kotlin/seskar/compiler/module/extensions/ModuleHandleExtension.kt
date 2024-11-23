@@ -1,12 +1,12 @@
-package seskar.compiler.workers.extensions
+package seskar.compiler.module.extensions
 
 import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.declarations.IrModuleFragment
 import org.jetbrains.kotlin.platform.isJs
-import seskar.compiler.workers.backend.WorkerFactoryTransformer
+import seskar.compiler.module.backend.ModuleHandleTransformer
 
-internal class WorkerFactoryExtension : IrGenerationExtension {
+internal class ModuleHandleExtension : IrGenerationExtension {
     override fun generate(
         moduleFragment: IrModuleFragment,
         pluginContext: IrPluginContext,
@@ -15,6 +15,6 @@ internal class WorkerFactoryExtension : IrGenerationExtension {
             ?.takeIf { it.isJs() }
             ?: return
 
-        moduleFragment.transformChildren(WorkerFactoryTransformer(pluginContext), null)
+        moduleFragment.transformChildren(ModuleHandleTransformer(pluginContext), null)
     }
 }

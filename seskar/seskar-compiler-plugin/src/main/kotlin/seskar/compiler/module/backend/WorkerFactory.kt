@@ -1,4 +1,4 @@
-package seskar.compiler.workers.backend
+package seskar.compiler.module.backend
 
 import org.jetbrains.kotlin.ir.declarations.IrProperty
 import org.jetbrains.kotlin.ir.types.classFqName
