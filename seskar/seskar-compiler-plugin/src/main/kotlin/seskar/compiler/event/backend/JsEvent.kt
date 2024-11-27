@@ -14,6 +14,6 @@ internal fun IrProperty.eventType(): String? {
     val event = getAnnotation(JS_EVENT)
         ?: return null
 
-    val type = event.getValueArgument(TYPE) as IrConst<*>
+    val type = event.getValueArgument(TYPE) as IrConst
     return type.value as String
 }

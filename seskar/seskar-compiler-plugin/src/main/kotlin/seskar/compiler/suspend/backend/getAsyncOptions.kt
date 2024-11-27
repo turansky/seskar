@@ -16,7 +16,7 @@ private fun IrConstructorCall.value(
     name: Name,
     defaultValue: Boolean = false,
 ): Boolean {
-    val argument = getValueArgument(name) as IrConst<*>?
+    val argument = getValueArgument(name) as IrConst?
         ?: return defaultValue
 
     return argument.value as Boolean?
