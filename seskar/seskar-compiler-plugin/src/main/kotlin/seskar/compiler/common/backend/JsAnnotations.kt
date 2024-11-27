@@ -68,7 +68,6 @@ internal fun annotation(
         symbol = symbol,
         typeArgumentsCount = 0,
         constructorTypeArgumentsCount = 0,
-        valueArgumentsCount = parameters.size,
         origin = null,
     )
 
