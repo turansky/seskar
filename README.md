@@ -3,7 +3,7 @@
 [![CI Status](https://github.com/turansky/seskar/workflows/gradle%20plugin/badge.svg)](https://github.com/turansky/seskar/actions)
 [![Gradle Plugin Portal](https://img.shields.io/gradle-plugin-portal/v/io.github.turansky.seskar?logo=gradle)](https://plugins.gradle.org/plugin/io.github.turansky.seskar)
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.turansky.seskar/seskar-core?logo=apache-maven)](https://mvnrepository.com/artifact/io.github.turansky.seskar/seskar-core)
-[![Kotlin](https://img.shields.io/badge/kotlin-2.0.21-blue.svg?logo=kotlin)](http://kotlinlang.org)
+[![Kotlin](https://img.shields.io/badge/kotlin-2.1.0-blue.svg?logo=kotlin)](http://kotlinlang.org)
 
 # Seskar
 
@@ -15,7 +15,7 @@ To add Seskar to your project, you need to add the following configuration to yo
 
 ```kotlin
 plugins {
-  kotlin("multiplatform") version "2.0.21"
+  kotlin("multiplatform") version "2.1.0"
   id("io.github.turansky.seskar") version "3.60.0"
 }
 ```
