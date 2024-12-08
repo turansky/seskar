@@ -2,8 +2,6 @@ package com.test.memo
 
 import react.FC
 import react.Props
-import react.dom.html.ReactHTML.div
-import react.dom.onChange
 import react.use.useRenderCount
 import react.use.useUpdate
 
@@ -17,13 +15,10 @@ val CounterContainer = FC<CounterContainerProps> {
     val renderCount = useRenderCount()
     val update = useUpdate()
 
-    div {
+    Box {
         id = COUNTER_CONTAINER_ID
         dataCount = renderCount
-
-        onChange = {
-            update()
-        }
+        onChange = update
 
         Counter {
             title = "Counter"
