@@ -1,15 +1,18 @@
 package react.dom.test
 
+import react.act
+import web.events.Event
 import web.html.HTMLElement
+import web.uievents.MouseEvent
 
 suspend fun HTMLElement.simulateChange() {
     act {
-        Simulate.change(this)
+        dispatchEvent(Event(Event.CHANGE))
     }
 }
 
 suspend fun HTMLElement.simulateClick() {
     act {
-        Simulate.click(this)
+        dispatchEvent(MouseEvent(MouseEvent.CLICK))
     }
 }

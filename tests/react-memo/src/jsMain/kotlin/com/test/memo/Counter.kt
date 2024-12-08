@@ -3,7 +3,6 @@ package com.test.memo
 import react.FC
 import react.Props
 import react.dom.html.ReactHTML.br
-import react.dom.html.ReactHTML.button
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.span
 import react.use.useRenderCount
@@ -19,14 +18,11 @@ val Counter = FC<CounterProps> { props ->
     val renderCount = useRenderCount()
     val update = useUpdate()
 
-    button {
+    Button {
         id = COUNTER_ID
         title = props.title
         dataCount = renderCount
-
-        onClick = {
-            update()
-        }
+        onClick = update
     }
 
     // move in separate test project

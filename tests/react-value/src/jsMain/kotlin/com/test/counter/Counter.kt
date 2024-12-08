@@ -3,8 +3,6 @@ package com.test.counter
 import react.FC
 import react.Props
 import react.dom.html.ReactHTML.button
-import react.dom.html.ReactHTML.div
-import react.dom.onChange
 import react.use.useUpdateEffect
 import react.useState
 
@@ -20,12 +18,9 @@ val Counter = FC<CounterProps> { props ->
         setUpdateCount { it + 1 }
     }
 
-    div {
+    Box {
         dataCount = updateCount
-
-        onChange = {
-            update()
-        }
+        onChange = update
 
         button {
             title = "First button"

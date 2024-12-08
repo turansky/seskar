@@ -3,8 +3,6 @@ package com.test.counter
 import react.FC
 import react.Props
 import react.dom.html.ReactHTML.button
-import react.dom.html.ReactHTML.div
-import react.dom.onChange
 import react.use.useUpdate
 import react.use.useUpdateEffect
 import react.useRefValue
@@ -28,7 +26,7 @@ val CounterWithDelegate = FC<CounterWithDelegateProps> { props ->
         setUpdateCount { it + 1 }
     }
 
-    div {
+    Box {
         id = COUNTER_WITH_DELEGATE_CONTAINER_ID
         dataCount = updateCount
 

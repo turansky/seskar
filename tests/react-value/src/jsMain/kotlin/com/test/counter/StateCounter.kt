@@ -3,8 +3,6 @@ package com.test.counter
 import react.FC
 import react.Props
 import react.dom.html.ReactHTML.button
-import react.dom.html.ReactHTML.div
-import react.dom.onChange
 import react.use.useRenderCount
 import react.useState
 
@@ -17,7 +15,7 @@ val StateCounter = FC<StateCounterProps> { props ->
 
     val renderCount = useRenderCount()
 
-    div {
+    Box {
         dataCount = renderCount
 
         onChange = {
