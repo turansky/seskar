@@ -1,7 +1,7 @@
 plugins {
     kotlin("jvm") version "2.1.0"
     id("org.jetbrains.intellij") version "1.17.3"
-    id("io.github.turansky.kfc.version") version "13.2.0"
+    id("io.github.turansky.kfc.version") version "13.3.0"
 }
 
 repositories {
