@@ -12,9 +12,15 @@ internal fun IrAnnotationContainer.value(): Value? {
     val jsRaw = getAnnotation(JS_RAW_VALUE)
     if (jsRaw != null) {
         val value = jsRaw.value<String>()
-        val intValue = value.toIntOrNull()
-        if (intValue != null)
-            return IntValue(intValue)
+
+        value.toBooleanStrictOrNull()
+            ?.let { return BooleanValue(it) }
+
+        value.toIntOrNull()
+            ?.let { return IntValue(it) }
+
+        value.toDoubleOrNull()
+            ?.let { return DoubleValue(it) }
 
         error("Unable to parse raw value: '$value'")
     }

@@ -48,7 +48,9 @@ internal class ValueTransformer(
         value: Value,
     ): IrExpression =
         when (value) {
+            is BooleanValue -> booleanConst(context, value.value)
             is IntValue -> intConst(context, value.value)
+            is DoubleValue -> doubleConst(context, value.value)
             is StringValue -> stringConst(context, value.value)
         }
 }

@@ -94,6 +94,17 @@ internal inline fun <reified T> IrConstructorCall.value(
     return argument.value as T
 }
 
+internal fun booleanConst(
+    context: IrPluginContext,
+    value: Boolean,
+): IrExpression =
+    IrConstImpl.boolean(
+        startOffset = UNDEFINED_OFFSET,
+        endOffset = UNDEFINED_OFFSET,
+        type = context.irBuiltIns.booleanType,
+        value = value,
+    )
+
 internal fun intConst(
     context: IrPluginContext,
     value: Int,
@@ -102,6 +113,17 @@ internal fun intConst(
         startOffset = UNDEFINED_OFFSET,
         endOffset = UNDEFINED_OFFSET,
         type = context.irBuiltIns.intType,
+        value = value,
+    )
+
+internal fun doubleConst(
+    context: IrPluginContext,
+    value: Double,
+): IrExpression =
+    IrConstImpl.double(
+        startOffset = UNDEFINED_OFFSET,
+        endOffset = UNDEFINED_OFFSET,
+        type = context.irBuiltIns.doubleType,
         value = value,
     )
 
