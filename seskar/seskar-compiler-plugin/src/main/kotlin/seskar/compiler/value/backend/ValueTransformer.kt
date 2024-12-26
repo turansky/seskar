@@ -50,6 +50,7 @@ internal class ValueTransformer(
         when (value) {
             is BooleanValue -> booleanConst(context, value.value)
             is IntValue -> intConst(context, value.value)
+            is BigIntValue -> bigIntConst(context, value.value)
             is DoubleValue -> doubleConst(context, value.value)
             is StringValue -> stringConst(context, value.value)
         }

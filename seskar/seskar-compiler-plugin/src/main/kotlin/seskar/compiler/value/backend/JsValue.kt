@@ -19,6 +19,12 @@ internal fun IrAnnotationContainer.value(): Value? {
         value.toIntOrNull()
             ?.let { return IntValue(it) }
 
+        if (value.endsWith("n")) {
+            value.removeSuffix("n")
+                .toIntOrNull()
+                ?.let { return BigIntValue(it) }
+        }
+
         value.toDoubleOrNull()
             ?.let { return DoubleValue(it) }
 

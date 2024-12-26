@@ -13,6 +13,11 @@ internal value class IntValue(
 ) : Value
 
 @JvmInline
+internal value class BigIntValue(
+    val value: Int,
+) : Value
+
+@JvmInline
 internal value class DoubleValue(
     val value: Double,
 ) : Value
@@ -26,6 +31,7 @@ internal fun Value.toJsName(): String =
     when (this) {
         is BooleanValue -> "$value"
         is IntValue -> "$value"
+        is BigIntValue -> "${value}n"
         is DoubleValue -> "$value"
 
         is StringValue -> "'$value'"
