@@ -8,7 +8,7 @@ fun assertEquals(
 }
 
 fun assertEquals(
-    expected: Int,
+    expected: Number,
     actual: Any,
 ) {
     kotlin.test.assertEquals<Any>(expected = expected, actual = actual)
