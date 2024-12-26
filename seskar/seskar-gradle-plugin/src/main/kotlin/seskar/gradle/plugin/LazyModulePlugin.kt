@@ -4,9 +4,9 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.file.DuplicatesStrategy
 import org.gradle.api.tasks.Sync
-import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.filter
 import org.gradle.kotlin.dsl.named
+import org.gradle.kotlin.dsl.register
 import org.jetbrains.kotlin.gradle.tasks.IncrementalSyncTask
 import seskar.gradle.plugin.Modules.LAZY_MODULE_SUFFIX
 import seskar.gradle.plugin.Modules.ORIGINAL_MODULE_SUFFIX
@@ -22,7 +22,7 @@ internal class LazyModulePlugin : Plugin<Project> {
 
                 val compileTask = tasks.named(configuration.compileTask)
 
-                val generateTask = tasks.create<Sync>(configuration.generateTask) {
+                val generateTask = tasks.register<Sync>(configuration.generateTask) {
                     group = Seskar.TASK_GROUP
 
                     // lazy
@@ -63,7 +63,7 @@ internal class LazyModulePlugin : Plugin<Project> {
                 }
 
                 tasks.named<IncrementalSyncTask>(configuration.syncTask) {
-                    from.from(generateTask.destinationDir)
+                    from.from(generateTask.get().destinationDir)
 
                     duplicatesStrategy = DuplicatesStrategy.INCLUDE
 
