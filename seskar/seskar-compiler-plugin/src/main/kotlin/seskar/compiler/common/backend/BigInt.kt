@@ -11,7 +11,7 @@ private val BIG_INT = CallableId(
     callableName = Name.identifier("BigInt"),
 )
 
-private val BIG_INT_REGEX = Regex("""(\d+)n""")
+private val BIG_INT_REGEX = Regex("""(-*\d+)n""")
 
 @JvmInline
 value class BigInt(
