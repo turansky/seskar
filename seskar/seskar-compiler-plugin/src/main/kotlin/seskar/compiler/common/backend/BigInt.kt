@@ -11,13 +11,27 @@ private val BIG_INT = CallableId(
     callableName = Name.identifier("BigInt"),
 )
 
+private val BIG_INT_REGEX = Regex("""(\d+)n""")
+
+@JvmInline
+value class BigInt(
+    val value: String,
+) {
+    override fun toString(): String =
+        "${value}n"
+}
+
+fun String.toBigIntOrNull(): BigInt? =
+    BIG_INT_REGEX.matchEntire(this)
+        ?.let { BigInt(it.groupValues[1]) }
+
 internal fun bigIntConst(
     context: IrPluginContext,
-    value: Int,
+    value: BigInt,
 ): IrExpression {
-    val create = irCall(context.referenceFunctions(BIG_INT).first())
+    val create = irCall(context.referenceFunctions(BIG_INT).last())
 
-    create.putValueArgument(0, intConst(context, value))
+    create.putValueArgument(0, stringConst(context, value.value))
 
     return create
 }

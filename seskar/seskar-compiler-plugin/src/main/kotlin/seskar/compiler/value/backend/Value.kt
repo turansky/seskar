@@ -1,5 +1,7 @@
 package seskar.compiler.value.backend
 
+import seskar.compiler.common.backend.BigInt
+
 internal sealed interface Value
 
 @JvmInline
@@ -14,7 +16,7 @@ internal value class IntValue(
 
 @JvmInline
 internal value class BigIntValue(
-    val value: Int,
+    val value: BigInt,
 ) : Value
 
 @JvmInline
@@ -31,7 +33,7 @@ internal fun Value.toJsName(): String =
     when (this) {
         is BooleanValue -> "$value"
         is IntValue -> "$value"
-        is BigIntValue -> "${value}n"
+        is BigIntValue -> toString()
         is DoubleValue -> "$value"
 
         is StringValue -> "'$value'"

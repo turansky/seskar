@@ -3,6 +3,7 @@ package seskar.compiler.value.backend
 import org.jetbrains.kotlin.ir.declarations.IrAnnotationContainer
 import org.jetbrains.kotlin.ir.util.getAnnotation
 import org.jetbrains.kotlin.name.FqName
+import seskar.compiler.common.backend.toBigIntOrNull
 import seskar.compiler.common.backend.value
 
 private val JS_RAW_VALUE = FqName("seskar.js.JsRawValue")
@@ -19,11 +20,8 @@ internal fun IrAnnotationContainer.value(): Value? {
         value.toIntOrNull()
             ?.let { return IntValue(it) }
 
-        if (value.endsWith("n")) {
-            value.removeSuffix("n")
-                .toIntOrNull()
-                ?.let { return BigIntValue(it) }
-        }
+        value.toBigIntOrNull()
+            ?.let { return BigIntValue(it) }
 
         value.toDoubleOrNull()
             ?.let { return DoubleValue(it) }
