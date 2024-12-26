@@ -4,6 +4,6 @@ package seskar.js
     AnnotationTarget.PROPERTY,
 )
 @Retention(AnnotationRetention.BINARY)
-annotation class JsIntValue(
-    val value: Int,
+annotation class JsRawValue(
+    val value: String,
 )

@@ -5,13 +5,13 @@ import org.jetbrains.kotlin.ir.util.getAnnotation
 import org.jetbrains.kotlin.name.FqName
 import seskar.compiler.common.backend.value
 
-private val JS_INT_VALUE = FqName("seskar.js.JsIntValue")
+private val JS_RAW_VALUE = FqName("seskar.js.JsRawValue")
 private val JS_VALUE = FqName("seskar.js.JsValue")
 
 internal fun IrAnnotationContainer.value(): Value? {
-    val jsInt = getAnnotation(JS_INT_VALUE)
+    val jsInt = getAnnotation(JS_RAW_VALUE)
     if (jsInt != null) {
-        return IntValue(jsInt.value<Int>())
+        return IntValue(jsInt.value<String>().toInt())
     }
 
     val jsString = getAnnotation(JS_VALUE)
