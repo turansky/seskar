@@ -1,19 +1,19 @@
 package com.test.example
 
-import seskar.js.JsIntValue
+import seskar.js.JsRawValue
 
 sealed external interface GraphItemType {
     companion object {
-        @JsIntValue(1)
+        @JsRawValue("1")
         val NODE: GraphItemType
 
-        @JsIntValue(2)
+        @JsRawValue("2")
         val EDGE: GraphItemType
 
-        @JsIntValue(4)
+        @JsRawValue("4")
         val PORT: GraphItemType
 
-        @JsIntValue(8)
+        @JsRawValue("8")
         val LABEL: GraphItemType
     }
 }
