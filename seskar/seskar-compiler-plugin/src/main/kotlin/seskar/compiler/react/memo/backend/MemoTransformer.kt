@@ -27,10 +27,6 @@ private val FC_FACTORIES = setOf(
     FqName("react.FC"),
 )
 
-private val FORWARD_REF_FACTORIES = setOf(
-    FqName("react.ForwardRef"),
-)
-
 private val CONTEXT_FACTORIES = setOf(
     FqName("react.createContext"),
     FqName("react.createRequiredContext"),
@@ -100,7 +96,6 @@ internal class MemoTransformer(
             ?: return false
 
         return functionName in FC_FACTORIES
-                || functionName in FORWARD_REF_FACTORIES
     }
 
     private fun displayNameRequired(
@@ -110,7 +105,6 @@ internal class MemoTransformer(
             ?: return false
 
         return functionName in FC_FACTORIES
-                || functionName in FORWARD_REF_FACTORIES
                 || functionName in CONTEXT_FACTORIES
     }
 
