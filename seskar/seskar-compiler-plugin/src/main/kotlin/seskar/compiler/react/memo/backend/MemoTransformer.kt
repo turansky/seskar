@@ -17,7 +17,6 @@ import seskar.compiler.common.backend.irCall
 import seskar.compiler.react.displayname.backend.withDisplayName
 
 private val FC = FqName("react.FC")
-private val FORWARD_REF_EXOTIC_COMPONENT = FqName("react.ForwardRefExoticComponent")
 
 private val CONTEXT_TYPES = setOf(
     FqName("react.Context"),
@@ -66,7 +65,7 @@ internal class MemoTransformer(
         val typeName = backingField.type.classFqName
             ?: return null
 
-        if (typeName != FC && typeName != FORWARD_REF_EXOTIC_COMPONENT && typeName !in CONTEXT_TYPES)
+        if (typeName != FC && typeName !in CONTEXT_TYPES)
             return null
 
         val initializer = backingField.initializer
