@@ -4,7 +4,6 @@ seskar.compiler.event.extensions.EventRegistrar
 seskar.compiler.lazy.extensions.LazyModuleRegistrar
 seskar.compiler.mixin.extensions.MixinRegistrar
 seskar.compiler.native.extensions.NativeRegistrar
-seskar.compiler.primitive.extensions.PrimitiveRegistrar
 seskar.compiler.react.key.extensions.DefaultKeyRegistrar
 seskar.compiler.react.memo.extensions.MemoRegistrar
 seskar.compiler.react.value.extensions.ValueRegistrar
