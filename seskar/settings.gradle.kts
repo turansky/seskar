@@ -24,7 +24,6 @@ dependencyResolutionManagement {
 }
 
 include(":seskar-core")
-include(":seskar-react")
 
 include(":seskar-compiler-plugin")
 include(":seskar-gradle-plugin")
