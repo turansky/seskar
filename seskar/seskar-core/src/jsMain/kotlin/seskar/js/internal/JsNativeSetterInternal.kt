@@ -4,4 +4,4 @@
 
 package seskar.js.internal
 
-actual typealias JsNativeSetterInternal = nativeSetter
+internal actual typealias JsNativeSetterInternal = nativeSetter

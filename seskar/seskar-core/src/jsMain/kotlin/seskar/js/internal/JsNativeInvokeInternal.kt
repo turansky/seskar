@@ -4,4 +4,4 @@
 
 package seskar.js.internal
 
-actual typealias JsNativeInvokeInternal = nativeInvoke
+internal actual typealias JsNativeInvokeInternal = nativeInvoke

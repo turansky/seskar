@@ -1,4 +1,4 @@
 package seskar.js.internal
 
 @Target(AnnotationTarget.FUNCTION)
-actual annotation class JsNativeInvokeInternal
+internal actual annotation class JsNativeInvokeInternal
