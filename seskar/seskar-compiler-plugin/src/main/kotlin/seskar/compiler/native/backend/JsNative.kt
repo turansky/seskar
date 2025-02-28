@@ -6,17 +6,25 @@ import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
 
-private val ANNOTATION_MAP = mapOf(
-    FqName("seskar.js.JsNativeGetter") to ClassId(FqName("kotlin.js"), Name.identifier("nativeGetter")),
-    FqName("seskar.js.JsNativeSetter") to ClassId(FqName("kotlin.js"), Name.identifier("nativeSetter")),
-    FqName("seskar.js.JsNativeInvoke") to ClassId(FqName("kotlin.js"), Name.identifier("nativeInvoke")),
+private class Mapper(
+    className: String
+) {
+    val marker = FqName("seskar.js.$className")
+
+    val annotation = ClassId(
+        FqName("seskar.js.internal"),
+        Name.identifier("${className}Internal"),
+    )
+}
+
+private val MAPPERS = listOf(
+    Mapper("JsNativeGetter"),
+    Mapper("JsNativeSetter"),
+    Mapper("JsNativeInvoke"),
 )
 
-internal fun IrFunction.nativeAnnotation(): ClassId? {
-    for ((marker, annotation) in ANNOTATION_MAP) {
-        if (hasAnnotation(marker))
-            return annotation
-    }
-
-    return null
-}
+internal fun IrFunction.nativeAnnotation(): ClassId? =
+    MAPPERS.asSequence()
+        .filter { hasAnnotation(it.marker) }
+        .map { it.annotation }
+        .firstOrNull()
