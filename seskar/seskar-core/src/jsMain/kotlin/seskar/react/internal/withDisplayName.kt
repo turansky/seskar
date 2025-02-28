@@ -1,6 +1,6 @@
 package seskar.react.internal
 
-private external val process: dynamic
+internal external val process: dynamic
 
 internal inline fun <T : Any> withDisplayName(
     target: T,
