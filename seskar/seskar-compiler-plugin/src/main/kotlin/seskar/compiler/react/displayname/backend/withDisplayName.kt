@@ -9,7 +9,7 @@ import seskar.compiler.common.backend.irCall
 import seskar.compiler.common.backend.stringConst
 
 private val WITH_DISPLAY_NAME = CallableId(
-    packageName = FqName("seskar.react"),
+    packageName = FqName("seskar.react.internal"),
     callableName = Name.identifier("withDisplayName"),
 )
 

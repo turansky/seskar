@@ -1,4 +1,4 @@
-package seskar.react
+package seskar.react.internal
 
 private external val process: dynamic
 
