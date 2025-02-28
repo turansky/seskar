@@ -1,8 +1,8 @@
 package com.test.example
 
-import seskar.js.JsNative
+import seskar.js.JsNativeInvoke
 
 sealed external interface MyHandler {
-    @JsNative
+    @JsNativeInvoke
     operator fun invoke(x: Int, y: Int): Int
 }

@@ -1,14 +1,15 @@
 package com.test.example
 
-import seskar.js.JsNative
+import seskar.js.JsNativeGetter
+import seskar.js.JsNativeSetter
 
 sealed external interface MyRecord {
-    @JsNative
+    @JsNativeGetter
     operator fun get(
         key: String,
     ): Int
 
-    @JsNative
+    @JsNativeSetter
     operator fun set(
         key: String,
         value: Int,
