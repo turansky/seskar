@@ -13,7 +13,6 @@ import org.jetbrains.kotlin.gradle.targets.js.ir.KotlinJsIrTarget
 
 private val SESKAR_GROUP = KOTLIN_PLUGIN_ARTIFACT.groupId
 private val SESKAR_CORE = "seskar-core"
-private val SESKAR_REACT = "seskar-react"
 private val SESKAR_VERSION = KOTLIN_PLUGIN_ARTIFACT.version
 
 private val SESKAR_IMPLEMENTATION = "seskarImplementation"
@@ -32,7 +31,6 @@ internal class SeskarDependenciesPlugin : Plugin<Project> {
             declarable()
             withDependencies {
                 add(project.dependencies.create(group = SESKAR_GROUP, name = SESKAR_CORE, version = SESKAR_VERSION))
-                add(project.dependencies.create(group = SESKAR_GROUP, name = SESKAR_REACT, version = SESKAR_VERSION))
             }
         }
     }
