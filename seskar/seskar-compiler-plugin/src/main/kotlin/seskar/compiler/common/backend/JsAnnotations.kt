@@ -4,7 +4,6 @@ import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.UNDEFINED_OFFSET
 import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
 import org.jetbrains.kotlin.ir.expressions.impl.IrConstructorCallImpl
-import org.jetbrains.kotlin.ir.types.defaultType
 import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
@@ -59,12 +58,11 @@ internal fun annotation(
     classId: ClassId,
     vararg parameters: String,
 ): IrConstructorCall {
-    val type = context.referenceClass(classId)!!.defaultType
     val symbol = context.referenceConstructors(classId).single()
     val annotation = IrConstructorCallImpl(
         startOffset = UNDEFINED_OFFSET,
         endOffset = UNDEFINED_OFFSET,
-        type = type,
+        type = symbol.owner.returnType,
         symbol = symbol,
         typeArgumentsCount = 0,
         constructorTypeArgumentsCount = 0,
