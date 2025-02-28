@@ -1,5 +1,7 @@
 package seskar.react
 
+private external val process: dynamic
+
 internal inline fun <T : Any> withDisplayName(
     target: T,
     displayName: String,
