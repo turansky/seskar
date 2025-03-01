@@ -16,7 +16,7 @@ import seskar.compiler.common.backend.*
 
 private val GET_INDEXED_VALUE = CallableId(
     packageName = FqName("seskar.js.internal"),
-    callableName = Name.identifier("getIndexedValue"),
+    callableName = Name.identifier("getValueByIndex"),
 )
 
 internal class AliasTransformer(
