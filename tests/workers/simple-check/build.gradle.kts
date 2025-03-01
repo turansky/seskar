@@ -7,6 +7,6 @@ dependencies {
     jsMainImplementation(kotlinWrappers.browser)
     jsMainImplementation(libs.coroutines.core)
 
-    jsTestImplementation(libs.kotlin.testJs)
+    commonTestImplementation(libs.kotlin.test)
     jsTestImplementation(libs.coroutines.test)
 }

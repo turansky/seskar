@@ -14,7 +14,7 @@ dependencyResolutionManagement {
             val seskarVersion = extra["seskar.version"] as String
             plugin("seskar", "io.github.turansky.seskar").version(seskarVersion)
 
-            library("kotlin-testJs", "org.jetbrains.kotlin", "kotlin-test-js").version(kotlinVersion)
+            library("kotlin-test", "org.jetbrains.kotlin", "kotlin-test").version(kotlinVersion)
         }
 
         create("kfc") {
