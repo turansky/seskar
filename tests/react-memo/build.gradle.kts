@@ -9,8 +9,8 @@ dependencies {
     jsMainImplementation(kotlinWrappers.reactUse)
 
     commonTestImplementation(libs.kotlin.test)
-    jsTestImplementation(libs.coroutines.core)
-    jsTestImplementation(libs.coroutines.test)
+    commonTestImplementation(libs.coroutines.core)
+    commonTestImplementation(libs.coroutines.test)
     jsTestImplementation(projects.tests.reactTest)
     jsTestImplementation(kotlinWrappers.reactDomTestUtils)
 }

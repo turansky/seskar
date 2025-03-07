@@ -8,5 +8,5 @@ dependencies {
     jsMainImplementation(libs.coroutines.core)
 
     commonTestImplementation(libs.kotlin.test)
-    jsTestImplementation(libs.coroutines.test)
+    commonTestImplementation(libs.coroutines.test)
 }
