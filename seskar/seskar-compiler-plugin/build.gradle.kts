@@ -5,14 +5,6 @@ plugins {
     id("io.github.turansky.kfc.maven-central-publish")
 }
 
-kotlin {
-    sourceSets {
-        val main by getting {
-            kotlin.srcDirs("../../idea-plugin/src/main/kotlin")
-        }
-    }
-}
-
 dependencies {
     compileOnly(kotlin("compiler-embeddable"))
 }
