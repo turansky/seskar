@@ -11,7 +11,7 @@ import org.jetbrains.kotlin.fir.types.isAny
 import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
-import org.jetbrains.kotlin.platform.isJs
+import org.jetbrains.kotlin.platform.JsPlatform
 
 private val JS_ANY_MARKER = ClassId(FqName("js.core"), Name.identifier("JsAnyMarker"))
 
@@ -23,8 +23,9 @@ internal class JsAnySupertypeGenerationExtension(session: FirSession) :
         if (!declaration.isExternal)
             return false
 
-        return declaration.moduleData.isCommon
-                || declaration.moduleData.platform.isJs()
+        val moduleData = declaration.moduleData
+        return moduleData.isCommon
+                && moduleData.platform.any { it is JsPlatform }
     }
 
     override fun computeAdditionalSupertypes(
