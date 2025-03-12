@@ -13,7 +13,10 @@ import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
 import org.jetbrains.kotlin.platform.JsPlatform
 
-private val JS_ANY_MARKER = ClassId(FqName("js.core"), Name.identifier("JsAnyMarker"))
+private val JS_ANY_MARKER = ClassId(
+    FqName("js.core"),
+    Name.identifier("JsAnyMarker"),
+)
 
 internal class JsAnySupertypeGenerationExtension(session: FirSession) :
     FirSupertypeGenerationExtension(session) {
