@@ -15,10 +15,8 @@ import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
 import org.jetbrains.kotlin.platform.WasmPlatform
 
-private val JS_CORE = FqName("js.core")
-
 private val JS_ANY = ClassId(
-    JS_CORE,
+    FqName("js.core"),
     Name.identifier("JsAny"),
 )
 
