@@ -17,9 +17,9 @@ import org.jetbrains.kotlin.platform.WasmPlatform
 
 private val JS_CORE = FqName("js.core")
 
-private val JS_ANY_MARKER = ClassId(
+private val JS_ANY = ClassId(
     JS_CORE,
-    Name.identifier("JsAnyMarker"),
+    Name.identifier("JsAny"),
 )
 
 internal class JsAnySupertypeGenerationExtension(session: FirSession) :
@@ -45,11 +45,11 @@ internal class JsAnySupertypeGenerationExtension(session: FirSession) :
         resolvedSupertypes: List<FirResolvedTypeRef>,
         typeResolver: TypeResolveService,
     ): List<ConeKotlinType> =
-        if (isMarkerRequired(resolvedSupertypes)) {
-            listOf(JS_ANY_MARKER.constructClassLikeType())
+        if (isJsMarkerRequired(resolvedSupertypes)) {
+            listOf(JS_ANY.constructClassLikeType())
         } else emptyList()
 
-    private fun isMarkerRequired(
+    private fun isJsMarkerRequired(
         resolvedSupertypes: List<FirResolvedTypeRef>,
     ): Boolean {
         if (resolvedSupertypes.isEmpty())
