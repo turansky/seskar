@@ -31,16 +31,20 @@ internal class JsAnySupertypeGenerationExtension(session: FirSession) :
         classLikeDeclaration: FirClassLikeDeclaration,
         resolvedSupertypes: List<FirResolvedTypeRef>,
         typeResolver: TypeResolveService,
-    ): List<ConeKotlinType> {
-        if (resolvedSupertypes.isNotEmpty()) {
-            val parent = resolvedSupertypes.singleOrNull()
-            if (parent == null || !parent.coneType.isAny) {
-                return emptyList()
-            }
-        }
+    ): List<ConeKotlinType> =
+        if (isMarkerRequired(resolvedSupertypes)) {
+            listOf(JS_ANY_MARKER.constructClassLikeType())
+        } else emptyList()
 
-        return listOf(
-            JS_ANY_MARKER.constructClassLikeType(),
-        )
+    private fun isMarkerRequired(
+        resolvedSupertypes: List<FirResolvedTypeRef>,
+    ): Boolean {
+        if (resolvedSupertypes.isEmpty())
+            true
+
+        val parent = resolvedSupertypes.singleOrNull()
+            ?: return false
+
+        return parent.coneType.isAny
     }
 }
