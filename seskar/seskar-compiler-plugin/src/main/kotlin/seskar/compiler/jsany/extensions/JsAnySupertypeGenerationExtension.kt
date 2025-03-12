@@ -9,6 +9,7 @@ import org.jetbrains.kotlin.fir.extensions.FirSupertypeGenerationExtension
 import org.jetbrains.kotlin.fir.types.ConeKotlinType
 import org.jetbrains.kotlin.fir.types.FirResolvedTypeRef
 import org.jetbrains.kotlin.fir.types.constructClassLikeType
+import org.jetbrains.kotlin.fir.types.isAny
 import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
@@ -41,8 +42,12 @@ internal class JsAnySupertypeGenerationExtension(session: FirSession) :
         resolvedSupertypes: List<FirResolvedTypeRef>,
         typeResolver: TypeResolveService,
     ): List<ConeKotlinType> {
-        if (resolvedSupertypes.isNotEmpty())
-            return emptyList()
+        if (resolvedSupertypes.isNotEmpty()) {
+            val parent = resolvedSupertypes.singleOrNull()
+            if (parent == null || !parent.coneType.isAny) {
+                return emptyList()
+            }
+        }
 
         return listOf(
             JS_ANY_MARKER.constructClassLikeType(),
