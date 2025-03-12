@@ -13,6 +13,7 @@ import org.jetbrains.kotlin.fir.types.isAny
 import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
+import org.jetbrains.kotlin.platform.WasmPlatform
 
 private val JS_CORE = FqName("js.core")
 
@@ -36,6 +37,7 @@ internal class JsAnySupertypeGenerationExtension(session: FirSession) :
             return false
 
         return declaration.moduleData.isCommon
+                && declaration.moduleData.platform.any { it is WasmPlatform }
     }
 
     override fun computeAdditionalSupertypes(
