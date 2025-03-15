@@ -52,20 +52,10 @@ internal class JsAnySupertypeGenerationExtension(session: FirSession) :
     override fun computeAdditionalSupertypesForGeneratedNestedClass(
         klass: FirRegularClass,
         typeResolver: TypeResolveService
-    ): List<FirResolvedTypeRef> {
-        if (!isJsMarkerRequired(klass.superTypeRefs))
-            return emptyList()
-
-        val symbol = session.typeContext.symbolProvider.getClassLikeSymbolByClassId(JS_ANY)!!
-        val typeRef = FirUserTypeRefImpl(
-            source = symbol.source,
-            isMarkedNullable = false,
-            qualifier = mutableListOf(),
-            annotations = MutableOrEmptyList.empty(),
-        )
-
-        return listOf(typeResolver.resolveUserType(typeRef))
-    }
+    ): List<FirResolvedTypeRef> =
+        if (isJsMarkerRequired(klass.superTypeRefs)) {
+            listOf(jsAny(typeResolver))
+        } else emptyList()
 
     @JvmName("isJsMarkerRequiredFirResolvedTypeRef")
     private fun isJsMarkerRequired(
@@ -91,5 +81,19 @@ internal class JsAnySupertypeGenerationExtension(session: FirSession) :
             ?: return false
 
         return parent.isAny
+    }
+
+    private fun jsAny(
+        typeResolver: TypeResolveService
+    ): FirResolvedTypeRef {
+        val symbol = session.typeContext.symbolProvider.getClassLikeSymbolByClassId(JS_ANY)!!
+        val typeRef = FirUserTypeRefImpl(
+            source = symbol.source,
+            isMarkedNullable = false,
+            qualifier = mutableListOf(),
+            annotations = MutableOrEmptyList.empty(),
+        )
+
+        return typeResolver.resolveUserType(typeRef)
     }
 }
