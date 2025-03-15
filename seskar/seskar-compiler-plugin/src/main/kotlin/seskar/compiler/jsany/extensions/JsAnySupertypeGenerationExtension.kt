@@ -1,19 +1,20 @@
 package seskar.compiler.jsany.extensions
 
 import org.jetbrains.kotlin.fir.FirSession
+import org.jetbrains.kotlin.fir.MutableOrEmptyList
 import org.jetbrains.kotlin.fir.declarations.FirClassLikeDeclaration
+import org.jetbrains.kotlin.fir.declarations.FirRegularClass
 import org.jetbrains.kotlin.fir.declarations.utils.isActual
 import org.jetbrains.kotlin.fir.declarations.utils.isExpect
-import org.jetbrains.kotlin.fir.declarations.utils.isExternal
+import org.jetbrains.kotlin.fir.extensions.ExperimentalSupertypesGenerationApi
 import org.jetbrains.kotlin.fir.extensions.FirSupertypeGenerationExtension
-import org.jetbrains.kotlin.fir.types.ConeKotlinType
-import org.jetbrains.kotlin.fir.types.FirResolvedTypeRef
-import org.jetbrains.kotlin.fir.types.constructClassLikeType
-import org.jetbrains.kotlin.fir.types.isAny
+import org.jetbrains.kotlin.fir.types.*
+import org.jetbrains.kotlin.fir.types.impl.FirUserTypeRefImpl
 import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
 import org.jetbrains.kotlin.platform.WasmPlatform
+import seskar.compiler.common.backend.isReallyExternal
 
 private val JS_ANY = ClassId(
     FqName("js.core"),
@@ -25,7 +26,7 @@ internal class JsAnySupertypeGenerationExtension(session: FirSession) :
     override fun needTransformSupertypes(
         declaration: FirClassLikeDeclaration,
     ): Boolean {
-        if (!declaration.isExternal)
+        if (!isReallyExternal(declaration, session))
             return false
 
         if (declaration.isExpect)
@@ -47,15 +48,48 @@ internal class JsAnySupertypeGenerationExtension(session: FirSession) :
             listOf(JS_ANY.constructClassLikeType())
         } else emptyList()
 
+    @ExperimentalSupertypesGenerationApi
+    override fun computeAdditionalSupertypesForGeneratedNestedClass(
+        klass: FirRegularClass,
+        typeResolver: TypeResolveService
+    ): List<FirResolvedTypeRef> {
+        if (!isJsMarkerRequired(klass.superTypeRefs))
+            return emptyList()
+
+        val symbol = session.typeContext.symbolProvider.getClassLikeSymbolByClassId(JS_ANY)!!
+        val typeRef = FirUserTypeRefImpl(
+            source = symbol.source,
+            isMarkedNullable = false,
+            qualifier = mutableListOf(),
+            annotations = MutableOrEmptyList.empty(),
+        )
+
+        return listOf(typeResolver.resolveUserType(typeRef))
+    }
+
+    @JvmName("isJsMarkerRequiredFirResolvedTypeRef")
     private fun isJsMarkerRequired(
-        resolvedSupertypes: List<FirResolvedTypeRef>,
+        supertypes: List<FirResolvedTypeRef>,
+    ): Boolean =
+        isJsMarkerRequired(supertypes) { it.coneType }
+
+    @JvmName("isJsMarkerRequiredFirTypeRef")
+    private fun isJsMarkerRequired(
+        supertypes: List<FirTypeRef>,
+    ): Boolean =
+        isJsMarkerRequired(supertypes) { it.coneTypeOrNull }
+
+    private fun <T : Any> isJsMarkerRequired(
+        supertypes: List<T>,
+        getConeType: (T) -> ConeKotlinType?,
     ): Boolean {
-        if (resolvedSupertypes.isEmpty())
+        if (supertypes.isEmpty())
             true
 
-        val parent = resolvedSupertypes.singleOrNull()
+        val parent = supertypes.singleOrNull()
+            ?.let { getConeType(it) }
             ?: return false
 
-        return parent.coneType.isAny
+        return parent.isAny
     }
 }
