@@ -71,7 +71,7 @@ internal class ValueTransformer(
 
         return when (getter.returnType) {
             context.irBuiltIns.longType,
-            -> toString(call, element.type.isNullable())
+                -> toString(call, element.type.isNullable())
 
             else -> call
         }
