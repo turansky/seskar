@@ -15,7 +15,6 @@ dependencyResolutionManagement {
 
             val seskarVersion = "--predefined--"
             plugin("seskar", "io.github.turansky.seskar").version(seskarVersion)
-            library("seskar-core", "io.github.turansky.seskar", "seskar-core").version(seskarVersion)
 
             library("kotlin-test", "org.jetbrains.kotlin", "kotlin-test").version(kotlinVersion)
 

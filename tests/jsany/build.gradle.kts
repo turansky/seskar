@@ -4,8 +4,6 @@ plugins {
 }
 
 dependencies {
-    commonMainImplementation(libs.seskar.core)
-
     commonMainImplementation(kotlinWrappers.js)
 
     commonTestImplementation(libs.kotlin.test)
