@@ -7,7 +7,7 @@ dependencies {
     commonMainImplementation(libs.seskar.core)
 
     commonMainImplementation(kotlinWrappers.js)
-    jsMainImplementation(kotlinWrappers.web)
+    commonMainImplementation(kotlinWrappers.web)
 
     commonTestImplementation(libs.kotlin.test)
     commonTestImplementation(libs.coroutines.core)

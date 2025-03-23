@@ -6,7 +6,7 @@ plugins {
 dependencies {
     jsMainImplementation(projects.tests.unionData)
 
-    jsMainImplementation(kotlinWrappers.web)
+    commonMainImplementation(kotlinWrappers.web)
 
     commonTestImplementation(libs.kotlin.test)
 }

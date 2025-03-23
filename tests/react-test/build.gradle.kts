@@ -6,7 +6,7 @@ plugins {
 dependencies {
     jsMainImplementation(kotlinWrappers.react)
     jsMainImplementation(kotlinWrappers.reactDom)
-    jsMainImplementation(libs.coroutines.core)
-    jsMainImplementation(libs.coroutines.test)
+    commonMainImplementation(libs.coroutines.core)
+    commonMainImplementation(libs.coroutines.test)
     jsMainImplementation(kotlinWrappers.reactDomTestUtils)
 }
