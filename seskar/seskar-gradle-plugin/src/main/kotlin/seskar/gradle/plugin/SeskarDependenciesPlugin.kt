@@ -50,18 +50,20 @@ internal class SeskarDependenciesPlugin : Plugin<Project> {
     ) {
         project.pluginManager.withPlugin("org.jetbrains.kotlin.multiplatform") {
             project.extensions.configure<KotlinMultiplatformExtension> {
-                val isCommon = targets.names.size > 1
-                        && SESKAR_SUPPORTED_TARGETS.containsAll(targets.names)
+                project.afterEvaluate {
+                    val isCommon = targets.names.size > 1
+                            && SESKAR_SUPPORTED_TARGETS.containsAll(targets.names)
 
-                if (isCommon) {
-                    project.configurations.named("commonMainImplementation") {
-                        extendsFrom(seskarImplementation)
-                    }
-                } else {
-                    targets.withType<KotlinJsIrTarget>().configureEach {
-                        compilations.named(KotlinCompilation.MAIN_COMPILATION_NAME) {
-                            project.configurations.named(implementationConfigurationName) {
-                                extendsFrom(seskarImplementation)
+                    if (isCommon) {
+                        project.configurations.named("commonMainImplementation") {
+                            extendsFrom(seskarImplementation)
+                        }
+                    } else {
+                        targets.withType<KotlinJsIrTarget>().configureEach {
+                            compilations.named(KotlinCompilation.MAIN_COMPILATION_NAME) {
+                                project.configurations.named(implementationConfigurationName) {
+                                    extendsFrom(seskarImplementation)
+                                }
                             }
                         }
                     }
