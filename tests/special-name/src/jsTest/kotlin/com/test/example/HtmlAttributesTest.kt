@@ -1,13 +1,13 @@
 package com.test.example
 
-import js.objects.jso
+import js.objects.unsafeJso
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class HtmlAttributesTest {
     @Test
     fun testGet() {
-        val attributes: HtmlAttributes = jso {
+        val attributes: HtmlAttributes = unsafeJso {
             asDynamic()["aria-label"] = "13"
         }
 
@@ -16,7 +16,7 @@ class HtmlAttributesTest {
 
     @Test
     fun testSet() {
-        val attributes: HtmlAttributes = jso {
+        val attributes: HtmlAttributes = unsafeJso {
             ariaLabel = "42"
         }
 
@@ -25,7 +25,7 @@ class HtmlAttributesTest {
 
     @Test
     fun testFunctionCall() {
-        val attributes: HtmlAttributes = jso {
+        val attributes: HtmlAttributes = unsafeJso {
             asDynamic()["get-data"] = { "42" }
         }
 

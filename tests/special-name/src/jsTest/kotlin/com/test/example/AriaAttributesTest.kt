@@ -1,13 +1,13 @@
 package com.test.example
 
-import js.objects.jso
+import js.objects.unsafeJso
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class AriaAttributesTest {
     @Test
     fun testGet() {
-        val attributes: AriaAttributes = jso {
+        val attributes: AriaAttributes = unsafeJso {
             asDynamic()["aria-label"] = "13"
         }
 
@@ -16,7 +16,7 @@ class AriaAttributesTest {
 
     @Test
     fun testSet() {
-        val attributes: AriaAttributes = jso {
+        val attributes: AriaAttributes = unsafeJso {
             ariaLabel = "42"
         }
 

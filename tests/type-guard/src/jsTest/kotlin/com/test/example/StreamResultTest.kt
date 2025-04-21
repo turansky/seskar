@@ -1,6 +1,6 @@
 package com.test.example
 
-import js.objects.jso
+import js.objects.unsafeJso
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertIs
@@ -9,7 +9,7 @@ import kotlin.test.assertIsNot
 class StreamResultTest {
     @Test
     fun testValue() {
-        val result: StreamResult = jso<dynamic> {
+        val result: StreamResult = unsafeJso<dynamic> {
             done = false
         }
 
@@ -19,7 +19,7 @@ class StreamResultTest {
 
     @Test
     fun testDone() {
-        val result: StreamResult = jso<dynamic> {
+        val result: StreamResult = unsafeJso<dynamic> {
             done = true
         }
 

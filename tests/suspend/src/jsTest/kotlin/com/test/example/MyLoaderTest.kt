@@ -1,7 +1,7 @@
 package com.test.example
 
 import js.globals.globalThis
-import js.objects.jso
+import js.objects.unsafeJso
 import js.promise.Promise
 import kotlinx.coroutines.test.runTest
 import kotlin.test.BeforeTest
@@ -18,7 +18,7 @@ class MyLoaderTest {
 
     @Test
     fun testGetResources() = runTest {
-        val loader: MyLoader<String> = jso<dynamic> {
+        val loader: MyLoader<String> = unsafeJso<dynamic> {
             getResponse = { url: String ->
                 Promise.resolve("$url?42")
             }
