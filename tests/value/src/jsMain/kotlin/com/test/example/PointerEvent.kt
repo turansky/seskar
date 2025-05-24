@@ -4,9 +4,9 @@ import seskar.js.JsValue
 import web.events.Event
 import web.events.EventType
 
-external class MouseEvent : Event {
+external class PointerEvent : Event {
     companion object {
         @JsValue("click")
-        val CLICK: EventType<MouseEvent>
+        val CLICK: EventType<PointerEvent>
     }
 }

@@ -6,7 +6,7 @@ import react.dom.html.ReactHTML.button
 import react.use.useEventListener
 import react.useRefState
 import web.html.HTMLButtonElement
-import web.uievents.MouseEvent
+import web.uievents.PointerEvent
 
 external interface ButtonProps : Props {
     var id: String?
@@ -20,7 +20,7 @@ external interface ButtonProps : Props {
 val Button = FC<ButtonProps> { props ->
     val (element, elementRef) = useRefState<HTMLButtonElement>()
 
-    useEventListener(element, MouseEvent.CLICK) {
+    useEventListener(element, PointerEvent.CLICK) {
         props.onClick?.invoke()
     }
 

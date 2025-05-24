@@ -3,7 +3,7 @@ package react.dom.test
 import react.act
 import web.events.Event
 import web.html.HTMLElement
-import web.uievents.MouseEvent
+import web.uievents.PointerEvent
 
 suspend fun HTMLElement.simulateChange() {
     act {
@@ -13,6 +13,6 @@ suspend fun HTMLElement.simulateChange() {
 
 suspend fun HTMLElement.simulateClick() {
     act {
-        dispatchEvent(MouseEvent(MouseEvent.CLICK))
+        dispatchEvent(PointerEvent(PointerEvent.CLICK))
     }
 }
