@@ -7,8 +7,9 @@ import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.span
 import react.use.useRenderCount
 import react.use.useUpdate
+import web.dom.ElementId
 
-const val COUNTER_ID = "counter"
+val COUNTER_ID: ElementId = ElementId("counter")
 
 external interface CounterProps : Props {
     var title: String

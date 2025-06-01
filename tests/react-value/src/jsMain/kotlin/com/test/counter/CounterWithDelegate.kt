@@ -7,8 +7,9 @@ import react.use.useUpdate
 import react.use.useUpdateEffect
 import react.useRefValue
 import react.useState
+import web.dom.ElementId
 
-const val COUNTER_WITH_DELEGATE_CONTAINER_ID = "container"
+val COUNTER_WITH_DELEGATE_CONTAINER_ID: ElementId = ElementId("container")
 
 external interface CounterWithDelegateProps : Props {
     var active: Boolean

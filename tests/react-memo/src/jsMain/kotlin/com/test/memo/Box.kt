@@ -5,12 +5,13 @@ import react.PropsWithChildren
 import react.dom.html.ReactHTML.div
 import react.use.useEventListener
 import react.useRefState
+import web.dom.ElementId
 import web.events.Event
 import web.html.HTMLDivElement
 
 external interface BoxProps :
     PropsWithChildren {
-    var id: String?
+    var id: ElementId?
     var dataCount: Int?
     var onChange: (() -> Unit)?
 }
