@@ -28,6 +28,41 @@ plugins {
 
 ## Lazy functions
 
+Puts a function in a separate JS chunk. The chunk will be loaded when the function is called the first time.
+
+#### Setup
+
+Add the dependency `kotlin-js` of [Kotlin Wrappers](https://github.com/JetBrains/kotlin-wrappers) to your project.
+
+```kotlin
+// root settings.gradle.kts
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+    }
+
+    versionCatalogs {
+        create("kotlinWrappers") {
+            val wrappersVersion = "2025.6.0"
+            from("org.jetbrains.kotlin-wrappers:kotlin-wrappers-catalog:$wrappersVersion")
+        }
+    }
+}
+```
+
+```kotlin
+// build.gradle.kts
+sourceSets {
+    jsMain {
+        dependencies {
+            implementation(kotlinWrappers.js)
+        }
+    }
+}
+```
+
+#### Usage
+
 ```kotlin
 // App.kt
 suspend fun main() {
@@ -43,9 +78,11 @@ suspend fun main() {
 }
 
 // createCalculationWithHeavyLibrary.kt
+import js.lazy.Lazy
+import js.lazy.LazyFunction
+
 /**
- * - Function will be located in separate JS chunk
- * - Chunk will be loaded when function will be called first time
+ * Function will be located in separate JS chunk
  */ 
 @Lazy
 val createCalculationWithHeavyLibrary = LazyFunction<Int> {
