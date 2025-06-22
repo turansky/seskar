@@ -1,11 +1,14 @@
 package com.test.counter
 
+import js.array.component1
+import js.array.component2
 import react.FC
 import react.PropsWithChildren
 import react.dom.html.ReactHTML.div
 import react.use.useEventListener
 import react.useRefState
 import web.dom.ElementId
+import web.events.CHANGE
 import web.events.Event
 import web.html.HTMLDivElement
 
