@@ -88,8 +88,8 @@ internal class AliasTransformer(
     ): IrExpression {
         val getValue = irCall(context.referenceFunctions(GET_INDEXED_VALUE).single())
 
-        getValue.putValueArgument(0, irGet(target))
-        getValue.putValueArgument(1, intConst(context, index))
+        getValue.arguments[0] = irGet(target)
+        getValue.arguments[1] = intConst(context, index)
 
         return getValue
     }

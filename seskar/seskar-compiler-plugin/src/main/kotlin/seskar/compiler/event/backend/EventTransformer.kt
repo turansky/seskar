@@ -49,8 +49,8 @@ internal class EventTransformer(
             .single()
 
         val call = irConstructorCall(constructor.symbol)
-        call.putValueArgument(0, irGet(getter.dispatchReceiverParameter!!))
-        call.putValueArgument(1, stringConst(context, type))
+        call.arguments[0] = irGet(getter.dispatchReceiverParameter!!)
+        call.arguments[1] = stringConst(context, type)
 
         return call
     }

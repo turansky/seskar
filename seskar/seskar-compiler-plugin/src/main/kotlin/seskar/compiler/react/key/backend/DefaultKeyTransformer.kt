@@ -7,7 +7,7 @@ import org.jetbrains.kotlin.ir.declarations.IrFile
 import org.jetbrains.kotlin.ir.expressions.IrCall
 import org.jetbrains.kotlin.ir.expressions.impl.IrCompositeImpl
 import org.jetbrains.kotlin.ir.util.hasAnnotation
-import org.jetbrains.kotlin.ir.visitors.IrElementTransformer
+import org.jetbrains.kotlin.ir.visitors.IrTransformer
 import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
@@ -23,7 +23,7 @@ private val SET_DEFAULT_KEY = CallableId(
 
 internal class DefaultKeyTransformer(
     private val context: IrPluginContext,
-) : IrElementTransformer<KeyProvider?> {
+) : IrTransformer<KeyProvider?>() {
     override fun visitFile(
         declaration: IrFile,
         data: KeyProvider?,
@@ -75,8 +75,8 @@ internal class DefaultKeyTransformer(
 
         val call = irCall(setDefaultKey)
 
-        call.putValueArgument(0, dispatchReceiver)
-        call.putValueArgument(1, stringConst(context, "@rdk/$key"))
+        call.arguments[0] = dispatchReceiver
+        call.arguments[1] = stringConst(context, "@rdk/$key")
 
         return call
     }

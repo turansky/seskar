@@ -31,7 +31,7 @@ internal fun bigIntConst(
 ): IrExpression {
     val create = irCall(context.referenceFunctions(BIG_INT).last())
 
-    create.putValueArgument(0, stringConst(context, value.value))
+    create.arguments[0] = stringConst(context, value.value)
 
     return create
 }

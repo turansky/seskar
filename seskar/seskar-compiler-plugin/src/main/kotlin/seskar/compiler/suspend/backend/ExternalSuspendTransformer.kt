@@ -96,7 +96,7 @@ internal class ExternalSuspendTransformer(
     private fun patchFunction(
         declaration: IrFunction,
     ) {
-        for (parameter in declaration.valueParameters) {
+        for (parameter in declaration.getValueParameters()) {
             if (parameter.defaultValue != null) {
                 parameter.defaultValue = undefined()
             }
@@ -139,7 +139,7 @@ internal class ExternalSuspendTransformer(
             return null
 
         val constructor = context.referenceConstructors(ABORT_CONTROLLER)
-            .first { it.owner.valueParameters.isEmpty() }
+            .first { it.owner.getValueParameters().isEmpty() }
 
         return irVariable(
             Name.identifier("controller"),
@@ -152,7 +152,7 @@ internal class ExternalSuspendTransformer(
     private fun hasAbortableOptions(
         declaration: IrFunction,
     ): Boolean {
-        val options = declaration.valueParameters.lastOrNull()
+        val options = declaration.getValueParameters().lastOrNull()
             ?: return false
 
         val classSymbol = options.type.classOrNull
@@ -184,18 +184,18 @@ internal class ExternalSuspendTransformer(
             promiseCall.dispatchReceiver = irGet(dispatchReceiverParameter)
         }
 
-        val valueParameters = declaration.valueParameters
+        val valueParameters = declaration.getValueParameters()
         val patchIndex = if (controller != null) valueParameters.lastIndex else -1
         valueParameters.forEachIndexed { index, parameter ->
             var value: IrExpression = irGet(parameter)
             if (index == patchIndex) {
                 val patch = irCall(context.referenceFunctions(PATCH_ABORT_OPTIONS).single())
-                patch.putValueArgument(0, value)
-                patch.putValueArgument(1, irGet(controller!!))
+                patch.arguments[0] = value
+                patch.arguments[1] = irGet(controller!!)
                 value = patch
             }
 
-            promiseCall.putValueArgument(index, value)
+            promiseCall.arguments[index] = value
         }
 
         val asyncOptions = declaration.getAsyncOptions()
@@ -214,7 +214,7 @@ internal class ExternalSuspendTransformer(
         val await = context.referenceFunctions(awaitFunctionId).single()
 
         val call = irCall(await)
-        call.putValueArgument(0, promiseCall)
+        call.arguments[0] = promiseCall
         return call
     }
 
@@ -225,8 +225,8 @@ internal class ExternalSuspendTransformer(
         val await = context.referenceFunctions(AWAIT_PROMISE_LIKE_WITH_CANCELLATION).single()
 
         val call = irCall(await)
-        call.putValueArgument(0, promiseCall)
-        call.putValueArgument(1, irGet(controller))
+        call.arguments[0] = promiseCall
+        call.arguments[1] = irGet(controller)
         return call
     }
 

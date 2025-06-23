@@ -22,8 +22,8 @@ internal fun withDisplayName(
 
     val call = irCall(withDisplayName)
 
-    call.putValueArgument(0, componentFactory)
-    call.putValueArgument(1, stringConst(context, displayName))
+    call.arguments[0] = componentFactory
+    call.arguments[1] = stringConst(context, displayName)
 
     return call
 }

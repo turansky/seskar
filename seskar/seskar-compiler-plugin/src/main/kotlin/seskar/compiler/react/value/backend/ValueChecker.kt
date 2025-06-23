@@ -3,6 +3,7 @@ package seskar.compiler.react.value.backend
 import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.types.*
 import org.jetbrains.kotlin.ir.util.constructors
+import seskar.compiler.common.backend.getValueParameters
 
 internal fun checkValue(
     klass: IrClass,
@@ -10,7 +11,7 @@ internal fun checkValue(
     val constructor = klass.constructors.singleOrNull()
         ?: return // TODO: throw error
 
-    val value = constructor.valueParameters.singleOrNull()
+    val value = constructor.getValueParameters().singleOrNull()
         ?: return // TODO: throw error
 
     val type = value.type

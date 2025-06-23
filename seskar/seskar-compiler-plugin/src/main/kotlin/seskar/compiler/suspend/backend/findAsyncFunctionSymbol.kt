@@ -9,6 +9,7 @@ import org.jetbrains.kotlin.ir.util.fqNameWhenAvailable
 import org.jetbrains.kotlin.ir.util.functions
 import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.name.Name
+import seskar.compiler.common.backend.getValueParameters
 
 internal fun findAsyncFunctionSymbol(
     context: IrPluginContext,
@@ -16,7 +17,7 @@ internal fun findAsyncFunctionSymbol(
 ): IrSimpleFunctionSymbol {
     val parent = function.parent
     val asyncName = Name.identifier(function.name.identifier + "Async")
-    val parameterCount = function.valueParameters.size
+    val parameterCount = function.getValueParameters().size
 
     return when (parent) {
         is IrFile -> {
@@ -29,8 +30,8 @@ internal fun findAsyncFunctionSymbol(
                 .asSequence()
                 .filter { it.owner.isExternal }
                 .filter { !it.owner.isSuspend }
-                .filter { it.owner.valueParameters.size >= parameterCount }
-                .sortedBy { it.owner.valueParameters.size }
+                .filter { it.owner.getValueParameters().size >= parameterCount }
+                .sortedBy { it.owner.getValueParameters().size }
                 .firstOrNull()
                 ?: error("Unable to find async companion for function ${function.fqNameWhenAvailable}")
         }
@@ -39,8 +40,8 @@ internal fun findAsyncFunctionSymbol(
             val asyncFunction = parent.functions
                 .filter { !it.isSuspend }
                 .filter { it.name == asyncName }
-                .filter { it.valueParameters.size >= parameterCount }
-                .sortedBy { it.valueParameters.size }
+                .filter { it.getValueParameters().size >= parameterCount }
+                .sortedBy { it.getValueParameters().size }
                 .firstOrNull()
                 ?: error("Unable to find async companion for function ${function.fqNameWhenAvailable}")
 

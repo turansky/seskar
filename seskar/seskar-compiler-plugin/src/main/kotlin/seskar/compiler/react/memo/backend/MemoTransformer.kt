@@ -114,7 +114,7 @@ internal class MemoTransformer(
         val memo = context.referenceFunctions(MEMO).single()
 
         val call = irCall(memo)
-        call.putValueArgument(0, componentFactory)
+        call.arguments[0] = componentFactory
 
         return call
     }

@@ -90,7 +90,7 @@ internal fun irReturn(
 internal inline fun <reified T> IrConstructorCall.value(
     index: Int = 0,
 ): T {
-    val argument = getValueArgument(index) as IrConst
+    val argument = arguments[index] as IrConst
     return argument.value as T
 }
 

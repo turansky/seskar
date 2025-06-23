@@ -70,7 +70,7 @@ internal fun annotation(
     )
 
     for ((index, value) in parameters.withIndex()) {
-        annotation.putValueArgument(index, stringConst(context, value))
+        annotation.arguments[index] = stringConst(context, value)
     }
 
     return annotation
