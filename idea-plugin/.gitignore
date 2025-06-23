@@ -1,6 +1,0 @@
-.gradle/
-build/
-
-# IDEA ignore list
-.idea/
-*.iml
