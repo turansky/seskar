@@ -1,7 +1,6 @@
 package seskar.compiler.jsany.extensions
 
 import org.jetbrains.kotlin.fir.FirSession
-import org.jetbrains.kotlin.fir.MutableOrEmptyList
 import org.jetbrains.kotlin.fir.declarations.FirClassLikeDeclaration
 import org.jetbrains.kotlin.fir.declarations.FirRegularClass
 import org.jetbrains.kotlin.fir.declarations.utils.isActual
@@ -9,7 +8,6 @@ import org.jetbrains.kotlin.fir.declarations.utils.isExpect
 import org.jetbrains.kotlin.fir.extensions.ExperimentalSupertypesGenerationApi
 import org.jetbrains.kotlin.fir.extensions.FirSupertypeGenerationExtension
 import org.jetbrains.kotlin.fir.types.*
-import org.jetbrains.kotlin.fir.types.impl.FirUserTypeRefImpl
 import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
@@ -51,10 +49,10 @@ internal class JsAnySupertypeGenerationExtension(session: FirSession) :
     @ExperimentalSupertypesGenerationApi
     override fun computeAdditionalSupertypesForGeneratedNestedClass(
         klass: FirRegularClass,
-        typeResolver: TypeResolveService
-    ): List<FirResolvedTypeRef> =
+        typeResolver: TypeResolveService,
+    ): List<ConeKotlinType> =
         if (isJsMarkerRequired(klass.superTypeRefs)) {
-            listOf(jsAny(typeResolver))
+            listOf(JS_ANY.constructClassLikeType())
         } else emptyList()
 
     @JvmName("isJsMarkerRequiredFirResolvedTypeRef")
@@ -81,19 +79,5 @@ internal class JsAnySupertypeGenerationExtension(session: FirSession) :
             ?: return false
 
         return parent.isAny
-    }
-
-    private fun jsAny(
-        typeResolver: TypeResolveService
-    ): FirResolvedTypeRef {
-        val symbol = session.typeContext.symbolProvider.getClassLikeSymbolByClassId(JS_ANY)!!
-        val typeRef = FirUserTypeRefImpl(
-            source = symbol.source,
-            isMarkedNullable = false,
-            qualifier = mutableListOf(),
-            annotations = MutableOrEmptyList.empty(),
-        )
-
-        return typeResolver.resolveUserType(typeRef)
     }
 }
