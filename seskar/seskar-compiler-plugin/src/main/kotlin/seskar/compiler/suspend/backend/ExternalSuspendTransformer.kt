@@ -195,7 +195,8 @@ internal class ExternalSuspendTransformer(
                 value = patch
             }
 
-            promiseCall.arguments[index] = value
+            val startIndex = if (promiseCall.dispatchReceiver != null) 1 else 0
+            promiseCall.arguments[startIndex + index] = value
         }
 
         val asyncOptions = declaration.getAsyncOptions()
