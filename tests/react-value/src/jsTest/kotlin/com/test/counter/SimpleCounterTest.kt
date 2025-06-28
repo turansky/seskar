@@ -4,7 +4,7 @@ import kotlinx.coroutines.test.TestResult
 import react.dom.test.createRoot
 import react.dom.test.runReactTest
 import react.dom.test.unmount
-import web.html.HTML.button
+import web.html.HtmlTagName.button
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

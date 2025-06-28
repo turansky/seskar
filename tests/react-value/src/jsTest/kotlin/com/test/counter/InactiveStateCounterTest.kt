@@ -3,7 +3,7 @@ package com.test.counter
 import kotlinx.coroutines.test.TestResult
 import react.dom.test.runReactTest
 import react.dom.test.simulateChange
-import web.html.HTML.div
+import web.html.HtmlTagName.div
 import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals

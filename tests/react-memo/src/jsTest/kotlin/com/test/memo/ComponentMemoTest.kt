@@ -4,8 +4,8 @@ import kotlinx.coroutines.test.TestResult
 import react.dom.test.runReactTest
 import react.dom.test.simulateChange
 import react.dom.test.simulateClick
-import web.html.HTML.button
-import web.html.HTML.div
+import web.html.HtmlTagName.button
+import web.html.HtmlTagName.div
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
