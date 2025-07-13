@@ -2,6 +2,7 @@ package com.test.example
 
 import js.core.BigInt
 import js.core.n
+import js.core.unaryMinus
 import kotlin.test.Test
 
 class BigIntItemTypeTest {
