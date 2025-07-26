@@ -9,8 +9,8 @@ import react.use.useEventListener
 import react.useRefState
 import web.dom.ElementId
 import web.html.HTMLButtonElement
-import web.uievents.CLICK
-import web.uievents.PointerEvent
+import web.pointer.CLICK
+import web.pointer.PointerEvent
 
 external interface ButtonProps : Props {
     var id: ElementId?

@@ -4,8 +4,8 @@ import react.act
 import web.events.CHANGE
 import web.events.Event
 import web.html.HTMLElement
-import web.uievents.CLICK
-import web.uievents.PointerEvent
+import web.pointer.CLICK
+import web.pointer.PointerEvent
 
 suspend fun HTMLElement.simulateChange() {
     act {
