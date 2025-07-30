@@ -1,5 +1,6 @@
 package seskar.compiler.native.backend
 
+import org.jetbrains.kotlin.ir.backend.js.utils.isDispatchReceiver
 import org.jetbrains.kotlin.ir.declarations.IrFunction
 import org.jetbrains.kotlin.ir.declarations.IrSimpleFunction
 import org.jetbrains.kotlin.name.ClassId
@@ -33,5 +34,20 @@ internal fun IrFunction.nativeAnnotation(): ClassId? {
     if (!isOperator)
         return null
 
+    if (!parametersValid())
+        return null
+
     return ANNOTATION_MAP[name]
+}
+
+private fun IrFunction.parametersValid(): Boolean {
+    val size = parameters
+        .filterNot { it.isDispatchReceiver }
+        .size
+
+    return when (name) {
+        GET -> size == 1
+        SET -> size == 2
+        else -> true
+    }
 }
