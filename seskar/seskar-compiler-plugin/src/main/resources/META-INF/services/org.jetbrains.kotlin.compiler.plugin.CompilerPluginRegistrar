@@ -1,5 +1,4 @@
 seskar.compiler.alias.extensions.AliasRegistrar
-seskar.compiler.env.extensions.EnvRegistrar
 seskar.compiler.event.extensions.EventRegistrar
 seskar.compiler.jsany.extensions.JsAnyPluginRegistrar
 seskar.compiler.lazy.extensions.LazyModuleRegistrar

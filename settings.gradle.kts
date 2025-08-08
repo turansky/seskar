@@ -40,7 +40,6 @@ includeBuild("seskar")
 
 include("tests:alias")
 include("tests:data")
-include("tests:env")
 include("tests:events")
 include("tests:jsany")
 include("tests:lazy-functions")
