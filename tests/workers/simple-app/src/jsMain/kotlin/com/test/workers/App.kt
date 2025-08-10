@@ -3,6 +3,7 @@ package com.test.workers
 import web.console.console
 import web.events.subscribe
 import web.workers.errorEvent
+import web.workers.invoke
 import web.workers.messageEvent
 
 suspend fun main() {
