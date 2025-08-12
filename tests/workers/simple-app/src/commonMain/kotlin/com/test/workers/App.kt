@@ -12,10 +12,12 @@ suspend fun main() {
     console.log("App started!")
 
     worker.errorEvent.subscribe { event ->
-        console.log("Error:", event)
+        console.log("Error:")
+        console.log(event)
     }
 
     worker.messageEvent.subscribe { event ->
-        console.log("Message:", event.data)
+        console.log("Message:")
+        console.log(event.data)
     }
 }
