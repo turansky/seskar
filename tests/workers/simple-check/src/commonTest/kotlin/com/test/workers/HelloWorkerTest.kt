@@ -1,5 +1,6 @@
 package com.test.workers
 
+import js.core.JsPrimitives.toJsString
 import kotlinx.coroutines.test.runTest
 import web.events.once
 import web.workers.Worker
@@ -18,6 +19,6 @@ class HelloWorkerTest {
 
         val data = worker.messageEvent.once().data
 
-        assertEquals("Hello!", data)
+        assertEquals("Hello!".toJsString(), data)
     }
 }
