@@ -28,7 +28,7 @@ private data class Platform(
     companion object {
         val ALL: List<Platform> = listOf(
             Platform("js"),
-            Platform("wasmJs"),
+            // Platform("wasmJs"),
         )
     }
 }
