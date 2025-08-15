@@ -13,7 +13,7 @@ import seskar.gradle.plugin.Modules.ORIGINAL_MODULE_SUFFIX
 import seskar.gradle.plugin.Workers.GENERATED_WORKER_SUFFIX
 import seskar.gradle.plugin.Workers.WORKER_FACTORY_SUFFIX
 
-internal class LazyModulePlugin : Plugin<Project> {
+internal class ModulePlugin : Plugin<Project> {
     override fun apply(project: Project): Unit = with(project) {
         afterEvaluate {
             for (configuration in LazyConfiguration.ALL) {
