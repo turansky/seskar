@@ -8,7 +8,6 @@ seskar.compiler.react.key.extensions.DefaultKeyRegistrar
 seskar.compiler.react.memo.extensions.MemoRegistrar
 seskar.compiler.react.value.extensions.ValueRegistrar
 seskar.compiler.suspend.extensions.ExternalSuspendRegistrar
-seskar.compiler.typeguard.extensions.TypeGuardRegistrar
 seskar.compiler.value.extensions.ValueRegistrar
 seskar.compiler.value.extensions.ValueRegistrar
 seskar.compiler.workers.extensions.WorkerFactoryRegistrar
