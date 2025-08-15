@@ -1,6 +1,7 @@
 package mdn.audioworklet.example
 
 import web.audio.*
+import web.console.console
 import web.dom.ElementId
 import web.dom.clickEvent
 import web.dom.document
@@ -50,7 +51,7 @@ suspend fun createHissProcessor(): AudioWorkletNode? {
     if (_audioContext == null) {
         try {
             _audioContext = AudioContext()
-        } catch (_: Exception) {
+        } catch (_: Throwable) {
             console.log("** Error: Unable to create audio context")
             return null
         }
@@ -60,12 +61,12 @@ suspend fun createHissProcessor(): AudioWorkletNode? {
 
     try {
         processorNode = AudioWorkletNode(audioContext, "hiss-generator")
-    } catch (_: Exception) {
+    } catch (_: Throwable) {
         try {
             console.log("adding...")
             audioContext.audioWorklet.addModule(HissGeneratorWorkletModule)
             processorNode = AudioWorkletNode(audioContext, "hiss-generator")
-        } catch (e: Exception) {
+        } catch (e: Throwable) {
             console.log("** Error: Unable to create worklet node: $e")
             return null
         }
