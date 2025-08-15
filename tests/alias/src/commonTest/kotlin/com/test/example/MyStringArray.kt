@@ -1,6 +1,7 @@
 package com.test.example
 
 import seskar.js.JsAlias
+import kotlin.js.JsName
 
 @JsName("Array")
 external class MyStringArray {
