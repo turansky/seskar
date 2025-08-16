@@ -55,7 +55,7 @@ class HissGeneratorProcessor : AudioWorkletProcessor() {
         val gain = parameters[GAIN]!![0]
         val sourceLimit = minOf(inputs.size, outputs.size)
 
-        for (inputNum in 0..sourceLimit) {
+        for (inputNum in 0 until sourceLimit) {
             val input = inputs[inputNum]
             val output = outputs[inputNum]
             val channelCount = minOf(input.size, output.size)
@@ -64,10 +64,10 @@ class HissGeneratorProcessor : AudioWorkletProcessor() {
             // Float32Array objects, each of which contains the
             // samples for one channel.
 
-            for (channel in 0..channelCount) {
+            for (channel in 0 until channelCount) {
                 val sampleCount = input[channel].length
 
-                for (i in 0..sampleCount) {
+                for (i in 0 until sampleCount) {
                     var sample = input[channel][i]
                     val rnd = 2 * (Random.nextDouble() - 0.5) // Range: -1 to 1
 
