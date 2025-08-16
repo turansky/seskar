@@ -28,7 +28,7 @@ private class WorkletModuleTransformer :
         // language=javascript
         return """
         export const ${data.export} = () => {
-            return new URL("${data.modulePath}", import.meta.url).href
+            return new URL("${data.modulePath}", import.meta.url)
         }
         """.trimIndent()
     }
