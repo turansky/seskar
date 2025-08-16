@@ -12,6 +12,8 @@ import seskar.gradle.plugin.Modules.LAZY_MODULE_SUFFIX
 import seskar.gradle.plugin.Modules.ORIGINAL_MODULE_SUFFIX
 import seskar.gradle.plugin.Workers.GENERATED_WORKER_SUFFIX
 import seskar.gradle.plugin.Workers.WORKER_FACTORY_SUFFIX
+import seskar.gradle.plugin.Worklets.GENERATED_WORKLET_MODULE_SUFFIX
+import seskar.gradle.plugin.Worklets.WORKLET_MODULE_SUFFIX
 
 internal class ModulePlugin : Plugin<Project> {
     override fun apply(project: Project): Unit = with(project) {
@@ -55,6 +57,24 @@ internal class ModulePlugin : Plugin<Project> {
                         include("**/*$WORKER_FACTORY_SUFFIX")
 
                         filter(WorkerFactoryReader::class)
+
+                        includeEmptyDirs = false
+                    }
+
+                    // worklet modules
+                    from(compileTask) {
+                        include("**/*$WORKLET_MODULE_SUFFIX")
+                        rename { it.removeSuffix(WORKLET_MODULE_SUFFIX) + GENERATED_WORKLET_MODULE_SUFFIX }
+
+                        filter(GeneratedWorkerReader::class)
+
+                        includeEmptyDirs = false
+                    }
+
+                    from(compileTask) {
+                        include("**/*$WORKLET_MODULE_SUFFIX")
+
+                        filter(WorkletModuleReader::class)
 
                         includeEmptyDirs = false
                     }
