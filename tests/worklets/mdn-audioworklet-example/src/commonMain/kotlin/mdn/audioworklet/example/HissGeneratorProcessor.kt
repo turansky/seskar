@@ -6,6 +6,7 @@ import js.typedarrays.Float32Array
 import web.audio.AudioParamDescriptor
 import web.audio.AudioParamName
 import web.audio.AudioWorkletProcessor
+import web.audio.AudioWorkletProcessorCompanion
 import kotlin.random.Random
 
 /**
@@ -14,12 +15,9 @@ import kotlin.random.Random
  * @class HissGeneratorProcessor
  * @extends AudioWorkletProcessor
  **/
-class HissGeneratorProcessor : AudioWorkletProcessor() {
-    companion object /* : AudioWorkletProcessorCompanion */ {
-        @JsStatic
-        @OptIn(ExperimentalJsStatic::class)
-                /* override */
-        val parameterDescriptors: ReadonlyArray<AudioParamDescriptor> =
+private class HissGeneratorProcessor : AudioWorkletProcessor() {
+    companion object : AudioWorkletProcessorCompanion {
+        override val parameterDescriptors: ReadonlyArray<AudioParamDescriptor> =
             arrayOf(
                 AudioParamDescriptor(
                     name = GAIN,
@@ -92,3 +90,11 @@ class HissGeneratorProcessor : AudioWorkletProcessor() {
         return true
     }
 }
+
+// TODO: Remove when `@JsStatic` will work in development mode
+val HissGeneratorProcessorClass: JsClass<out AudioWorkletProcessor>
+    get() {
+        val klass = HissGeneratorProcessor::class.js
+        klass.asDynamic().parameterDescriptors = HissGeneratorProcessor.parameterDescriptors
+        return klass
+    }
