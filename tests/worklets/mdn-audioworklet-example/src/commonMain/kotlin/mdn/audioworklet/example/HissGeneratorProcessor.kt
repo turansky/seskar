@@ -78,7 +78,7 @@ class HissGeneratorProcessor : AudioWorkletProcessor() {
         return true
     }
 
-    companion object : AudioWorkletProcessorReference<HissGeneratorProcessor>(
+    companion object : AudioWorkletProcessorReference(
         value = HissGeneratorProcessor::class.js,
         parameterDescriptors = arrayOf(
             AudioParamDescriptor(
