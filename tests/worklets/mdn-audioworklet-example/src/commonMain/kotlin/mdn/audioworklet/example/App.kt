@@ -60,12 +60,12 @@ suspend fun createHissProcessor(): AudioWorkletNode? {
     var processorNode: AudioWorkletNode
 
     try {
-        processorNode = AudioWorkletNode(audioContext, "hiss-generator")
+        processorNode = AudioWorkletNode(audioContext, HISS_GENERATOR)
     } catch (_: Throwable) {
         try {
             console.log("adding...")
             audioContext.audioWorklet.addModule(HissGeneratorWorkletModule)
-            processorNode = AudioWorkletNode(audioContext, "hiss-generator")
+            processorNode = AudioWorkletNode(audioContext, HISS_GENERATOR)
         } catch (e: Throwable) {
             console.log("** Error: Unable to create worklet node: $e")
             return null
