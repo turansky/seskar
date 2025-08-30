@@ -1,9 +1,9 @@
 package com.test.serviceworker
 
-import js.objects.unsafeJso
 import web.console.console
 import web.events.subscribe
 import web.navigator.navigator
+import web.serviceworker.RegistrationOptions
 import web.serviceworker.errorEvent
 import web.serviceworker.register
 import web.serviceworker.showNotification
@@ -17,9 +17,7 @@ suspend fun main() {
 
     val registration = navigator.serviceWorker.register(
         module = MyServiceWorkerModule,
-        options = unsafeJso {
-            type = WorkerType.module
-        }
+        options = RegistrationOptions(type = WorkerType.module),
     )
 
     val serviceWorker = registration.active!!
