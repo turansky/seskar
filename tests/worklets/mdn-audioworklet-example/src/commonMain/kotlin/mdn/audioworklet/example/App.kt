@@ -1,5 +1,6 @@
 package mdn.audioworklet.example
 
+import js.function.unsafeAsync
 import web.audio.*
 import web.console.console
 import web.dom.ElementId
@@ -28,7 +29,7 @@ suspend fun main() {
 
     document.getElementById(ElementId("toggle"))
         .let { it as HTMLButtonElement }
-        .clickEvent.addHandler { suspendRun(::toggleSound) }
+        .clickEvent.addHandler { toggleSound() }
 
     hissGainRange = document.getElementById(ElementId("hiss-gain")) as HTMLInputElement
     oscGainRange = document.getElementById(ElementId("osc-gain")) as HTMLInputElement
@@ -108,7 +109,7 @@ suspend fun audioDemoStart() {
     hissGainParam.setValueAtTime(hissGainRange.valueAsNumber.toFloat(), audioContext.currentTime)
 }
 
-suspend fun toggleSound() {
+val toggleSound = unsafeAsync { ->
     if (_audioContext == null) {
         audioDemoStart()
 
