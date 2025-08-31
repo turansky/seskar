@@ -17,7 +17,7 @@ internal class ServiceWorkerTransformer(
             return declaration
 
         val fileName = declaration.file.name.removeSuffix(".kt")
-        declaration.file.annotations += JsFileName(context, "${fileName}__worklet__module")
+        declaration.file.annotations += JsFileName(context, "${fileName}__serviceworker__module")
 
         val jsName = sequenceOf(
             fileName,

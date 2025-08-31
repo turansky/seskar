@@ -10,6 +10,8 @@ import org.gradle.kotlin.dsl.register
 import org.jetbrains.kotlin.gradle.tasks.IncrementalSyncTask
 import seskar.gradle.plugin.Modules.LAZY_MODULE_SUFFIX
 import seskar.gradle.plugin.Modules.ORIGINAL_MODULE_SUFFIX
+import seskar.gradle.plugin.ServiceWorkers.GENERATED_SERVICE_WORKER_MODULE_SUFFIX
+import seskar.gradle.plugin.ServiceWorkers.SERVICE_WORKER_MODULE_SUFFIX
 import seskar.gradle.plugin.Workers.GENERATED_WORKER_SUFFIX
 import seskar.gradle.plugin.Workers.WORKER_FACTORY_SUFFIX
 import seskar.gradle.plugin.Worklets.GENERATED_WORKLET_MODULE_SUFFIX
@@ -57,6 +59,24 @@ internal class ModulePlugin : Plugin<Project> {
                         include("**/*$WORKER_FACTORY_SUFFIX")
 
                         filter(WorkerFactoryReader::class)
+
+                        includeEmptyDirs = false
+                    }
+
+                    // service worker
+                    from(compileTask) {
+                        include("**/*$SERVICE_WORKER_MODULE_SUFFIX")
+                        rename { it.removeSuffix(SERVICE_WORKER_MODULE_SUFFIX) + GENERATED_SERVICE_WORKER_MODULE_SUFFIX }
+
+                        filter(GeneratedWorkerReader::class)
+
+                        includeEmptyDirs = false
+                    }
+
+                    from(compileTask) {
+                        include("**/*$SERVICE_WORKER_MODULE_SUFFIX")
+
+                        filter(ServiceWorkerModuleReader::class)
 
                         includeEmptyDirs = false
                     }
