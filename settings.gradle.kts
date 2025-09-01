@@ -38,7 +38,6 @@ dependencyResolutionManagement {
 
 includeBuild("seskar")
 
-include("tests:alias")
 include("tests:data")
 include("tests:events")
 include("tests:jsany")

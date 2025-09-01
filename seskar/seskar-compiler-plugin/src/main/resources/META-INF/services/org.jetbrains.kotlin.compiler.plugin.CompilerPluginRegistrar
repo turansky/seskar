@@ -1,4 +1,3 @@
-seskar.compiler.alias.extensions.AliasRegistrar
 seskar.compiler.event.extensions.EventRegistrar
 seskar.compiler.jsany.extensions.JsAnyPluginRegistrar
 seskar.compiler.lazy.extensions.LazyModuleRegistrar
@@ -9,7 +8,6 @@ seskar.compiler.react.memo.extensions.MemoRegistrar
 seskar.compiler.react.value.extensions.ValueRegistrar
 seskar.compiler.serviceworker.extensions.ServiceWorkerRegistrar
 seskar.compiler.suspend.extensions.ExternalSuspendRegistrar
-seskar.compiler.value.extensions.ValueRegistrar
 seskar.compiler.value.extensions.ValueRegistrar
 seskar.compiler.workers.extensions.WorkerFactoryRegistrar
 seskar.compiler.worklets.extensions.WorkletRegistrar
