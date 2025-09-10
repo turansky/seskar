@@ -15,7 +15,7 @@ import org.jetbrains.kotlin.platform.WasmPlatform
 import seskar.compiler.common.backend.isReallyExternal
 
 private val JS_ANY = ClassId(
-    FqName("js.core"),
+    FqName("kotlin.js"),
     Name.identifier("JsAny"),
 )
 
