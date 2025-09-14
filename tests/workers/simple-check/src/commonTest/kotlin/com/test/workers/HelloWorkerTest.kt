@@ -1,8 +1,8 @@
 package com.test.workers
 
-import js.core.JsPrimitives.toJsString
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
-import web.events.once
+import web.events.invoke
 import web.workers.Worker
 import web.workers.invoke
 import web.workers.messageEvent
@@ -17,7 +17,7 @@ class HelloWorkerTest {
 
         assertIs<Worker>(worker)
 
-        val data = worker.messageEvent.once().data
+        val data = worker.messageEvent().first().data
 
         assertEquals("Hello!".toJsString(), data)
     }
