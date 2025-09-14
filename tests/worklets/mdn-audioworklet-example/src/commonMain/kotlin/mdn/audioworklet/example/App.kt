@@ -1,6 +1,7 @@
 package mdn.audioworklet.example
 
 import js.function.unsafeAsync
+import kotlinx.coroutines.flow.first
 import web.audio.*
 import web.console.console
 import web.dom.ElementId
@@ -8,7 +9,7 @@ import web.dom.clickEvent
 import web.dom.document
 import web.dom.inputEvent
 import web.events.addHandler
-import web.events.once
+import web.events.invoke
 import web.html.HTMLButtonElement
 import web.html.HTMLInputElement
 import web.window.loadEvent
@@ -25,7 +26,7 @@ lateinit var gainNode: GainNode
 lateinit var hissGainParam: AudioParam
 
 suspend fun main() {
-    window.loadEvent.once()
+    window.loadEvent().first()
 
     document.getElementById(ElementId("toggle"))
         .let { it as HTMLButtonElement }
