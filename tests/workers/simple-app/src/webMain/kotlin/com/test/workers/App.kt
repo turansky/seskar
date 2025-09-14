@@ -1,3 +1,6 @@
+// TEMP
+@file:OptIn(kotlin.js.ExperimentalWasmJsInterop::class)
+
 package com.test.workers
 
 import web.console.console
