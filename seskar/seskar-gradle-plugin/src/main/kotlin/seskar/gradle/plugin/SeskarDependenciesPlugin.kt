@@ -4,16 +4,12 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
 import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.withType
-import org.gradle.util.GradleVersion
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinCompilation
 import org.jetbrains.kotlin.gradle.targets.js.ir.KotlinJsIrTarget
 
-private val SESKAR_GROUP = KOTLIN_PLUGIN_ARTIFACT.groupId
-private val SESKAR_CORE = "seskar-core"
-private val SESKAR_VERSION = KOTLIN_PLUGIN_ARTIFACT.version
+private val SESKAR_CORE_DEPENDENCY = "${KOTLIN_PLUGIN_ARTIFACT.groupId}:seskar-core:${KOTLIN_PLUGIN_ARTIFACT.version}"
 
 private val SESKAR_IMPLEMENTATION = "seskarImplementation"
 
@@ -36,7 +32,7 @@ internal class SeskarDependenciesPlugin : Plugin<Project> {
             description = "Seskar dependencies required during compilation and runtime Kotlin/JS."
             declarable()
             withDependencies {
-                add(project.dependencies.create(group = SESKAR_GROUP, name = SESKAR_CORE, version = SESKAR_VERSION))
+                add(project.dependencies.create(SESKAR_CORE_DEPENDENCY))
             }
         }
     }
@@ -83,11 +79,8 @@ internal class SeskarDependenciesPlugin : Plugin<Project> {
         private fun Configuration.declarable() {
             isCanBeConsumed = false
             isCanBeConsumed = false
-            if (GradleVersion.current() >= GradleVersion.version("8.2")) {
-                @Suppress("UnstableApiUsage")
-                isCanBeDeclared = true
-            }
-            isVisible = false
+            @Suppress("UnstableApiUsage")
+            isCanBeDeclared = true
         }
     }
 }
