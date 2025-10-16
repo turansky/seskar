@@ -28,7 +28,14 @@ private class WorkletModuleTransformer :
         // language=javascript
         return """
         export const ${data.export} = () => {
-            return new URL("${data.modulePath}", import.meta.url)
+            // workaround for Vite/Webpack
+            class Worker {
+                constructor(url) { 
+                    this.url = url 
+                }
+            }
+
+            return new Worker(new URL("${data.modulePath}", import.meta.url), { type: "module"}).url
         }
         """.trimIndent()
     }
