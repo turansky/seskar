@@ -88,5 +88,10 @@ class HissGeneratorProcessor : AudioWorkletProcessor() {
                 maxValue = 1f,
             )
         )
-    )
+    ) {
+        init {
+            // WA to force Kotlin/JS don't remove class members (like `process`)  
+            requireNotNull(::HissGeneratorProcessor)
+        }
+    }
 }
