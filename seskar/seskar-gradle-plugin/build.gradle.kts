@@ -16,7 +16,7 @@ gradlePlugin {
     vcsUrl = REPO_URL
 
     plugins {
-        create("seskar") {
+        register("seskar") {
             id = "io.github.turansky.seskar"
             displayName = "Seskar"
             description = "Additions to Kotlin data classes"
