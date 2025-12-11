@@ -82,10 +82,10 @@ internal class ValueTransformer(
         nullable: Boolean,
     ): IrExpression =
         if (nullable) {
-            irCall(context.symbols.extensionToString)
+            irCall(context.irBuiltIns.extensionToString)
                 .also { it.arguments[0] = element }
         } else {
-            irCall(context.symbols.memberToString)
+            irCall(context.irBuiltIns.memberToString)
                 .also { it.dispatchReceiver = element }
         }
 }
