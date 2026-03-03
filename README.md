@@ -14,17 +14,17 @@ To add Seskar to your project, you need to add the following configuration to yo
 
 ```kotlin
 plugins {
-  kotlin("multiplatform") version "2.3.10"
-    id("io.github.turansky.seskar") version "4.32.0"
+    kotlin("multiplatform") version "2.3.10"
+    id("io.github.turansky.seskar") version "4.34.0"
 }
 ```
 
 ### Kotlin/JS requirements
 
 * Target -`es2015`
-  * [example](https://github.com/JetBrains/kotlin-wrappers/blob/fdc8fb9b8ac2b13ba151449e13977a0327e7e3df/examples/buildSrc/src/main/kotlin/kotlin-conventions.gradle.kts#L35)
+    * [example](https://github.com/JetBrains/kotlin-wrappers/blob/fdc8fb9b8ac2b13ba151449e13977a0327e7e3df/examples/buildSrc/src/main/kotlin/kotlin-conventions.gradle.kts#L35)
 * Granularity - `per-file`
-  * [example](https://github.com/JetBrains/kotlin-wrappers/blob/fdc8fb9b8ac2b13ba151449e13977a0327e7e3df/examples/gradle.properties#L7)
+    * [example](https://github.com/JetBrains/kotlin-wrappers/blob/fdc8fb9b8ac2b13ba151449e13977a0327e7e3df/examples/gradle.properties#L7)
 
 ## Lazy functions
 
@@ -67,7 +67,7 @@ sourceSets {
 // App.kt
 suspend fun main() {
     console.log("App start!")
-  
+
     val value = if (Random.nextDouble() > 0.5) {
         createCalculationWithHeavyLibrary()
     } else {
@@ -76,14 +76,16 @@ suspend fun main() {
 
     console.log("Value: $value")
 }
+```
 
+```kotlin
 // createCalculationWithHeavyLibrary.kt
 import js.lazy.Lazy
 import js.lazy.LazyFunction
 
 /**
  * Function will be located in separate JS chunk
- */ 
+ */
 @Lazy
 val createCalculationWithHeavyLibrary = LazyFunction<Int> {
     val calculator = HeavyCalculator()
@@ -102,7 +104,9 @@ val Content = FC {
     MyHeavyComponent1()
     MyHeavyComponent2()
 }
+```
 
+```kotlin
 // App.kt
 val App = FC {
     Header()
@@ -349,16 +353,16 @@ import seskar.js.JsRawValue
 ""
 sealed external interface GraphItemType {
     companion object {
-      @JsRawValue("1")
+        @JsRawValue("1")
         val NODE: GraphItemType
 
-      @JsRawValue("2")
+        @JsRawValue("2")
         val EDGE: GraphItemType
 
-      @JsRawValue("4")
+        @JsRawValue("4")
         val PORT: GraphItemType
 
-      @JsRawValue("8")
+        @JsRawValue("8")
         val LABEL: GraphItemType
     }
 }
