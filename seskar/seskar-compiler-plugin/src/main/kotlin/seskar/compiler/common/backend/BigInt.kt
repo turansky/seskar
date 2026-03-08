@@ -7,7 +7,7 @@ import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
 
 private val BIG_INT = CallableId(
-    packageName = FqName("js.core"),
+    packageName = FqName("js.numbers"),
     callableName = Name.identifier("BigInt"),
 )
 

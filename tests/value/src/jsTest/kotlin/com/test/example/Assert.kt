@@ -1,6 +1,6 @@
 package com.test.example
 
-import js.core.BigInt
+import js.numbers.BigInt
 
 fun assertEquals(
     expected: String,
