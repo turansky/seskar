@@ -1,15 +1,21 @@
 package com.test.counter
 
-import kotlinx.coroutines.test.TestResult
-import react.dom.test.runReactTest
 import react.dom.test.simulateChange
+import testing.library.react.cleanup
+import testing.library.react.runReactTest
 import web.html.HtmlTagName.div
+import kotlin.test.AfterTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class DependencyTest {
+    @AfterTest
+    fun afterTest() {
+        cleanup()
+    }
+
     @Test
-    fun initial(): TestResult = runReactTest(InactiveCounter) { container ->
+    fun initial() = runReactTest(InactiveCounter) { container ->
         val target = container.getElementsByTagName(div)[0]
 
         assertEquals(0, target.dataCount, "Count #0")
@@ -28,7 +34,7 @@ class DependencyTest {
     }
 
     @Test
-    fun initialWithDelegate(): TestResult = runReactTest(InactiveCounterWithDelegate) { container ->
+    fun initialWithDelegate() = runReactTest(InactiveCounterWithDelegate) { container ->
         val target = container.getElementsByTagName(div)[0]
 
         assertEquals(0, target.dataCount, "Count #0")

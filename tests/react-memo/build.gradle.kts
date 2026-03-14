@@ -10,7 +10,7 @@ dependencies {
 
     commonTestImplementation(libs.kotlin.test)
     commonTestImplementation(libs.coroutines.core)
-    commonTestImplementation(libs.coroutines.test)
     jsTestImplementation(projects.tests.reactTest)
-    jsTestImplementation(kotlinWrappers.reactDomTestUtils)
+    jsTestImplementation(kotlinWrappers.testingLibraryReact)
+    jsTestImplementation(kotlinWrappers.testingLibraryUserEvent)
 }
