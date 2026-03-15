@@ -1,9 +1,5 @@
-package react.dom.test
+package testing.library.dom
 
-import testing.library.dom.EventType
-import testing.library.dom.change
-import testing.library.dom.click
-import testing.library.dom.fireEvent
 import web.html.HTMLElement
 
 fun HTMLElement.simulateChange() {

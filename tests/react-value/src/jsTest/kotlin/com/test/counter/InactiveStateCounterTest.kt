@@ -1,6 +1,6 @@
 package com.test.counter
 
-import react.dom.test.simulateChange
+import testing.library.dom.simulateChange
 import testing.library.react.cleanup
 import testing.library.react.runReactTest
 import web.html.HtmlTagName.div
