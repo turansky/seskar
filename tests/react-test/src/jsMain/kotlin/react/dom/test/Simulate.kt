@@ -1,20 +1,15 @@
 package react.dom.test
 
-import react.act
-import web.events.CHANGE
-import web.events.Event
+import testing.library.dom.EventType
+import testing.library.dom.change
+import testing.library.dom.click
+import testing.library.dom.fireEvent
 import web.html.HTMLElement
-import web.pointer.CLICK
-import web.pointer.PointerEvent
 
-suspend fun HTMLElement.simulateChange() {
-    act {
-        dispatchEvent(Event(Event.CHANGE))
-    }
+fun HTMLElement.simulateChange() {
+    fireEvent[EventType.change]!!(this, undefined)
 }
 
-suspend fun HTMLElement.simulateClick() {
-    act {
-        dispatchEvent(PointerEvent(PointerEvent.CLICK))
-    }
+fun HTMLElement.simulateClick() {
+    fireEvent[EventType.click]!!(this, undefined)
 }
