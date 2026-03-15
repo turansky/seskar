@@ -1,7 +1,8 @@
 package com.test.memo
 
-import testing.library.dom.simulateChange
-import testing.library.dom.simulateClick
+import testing.library.dom.change
+import testing.library.dom.click
+import testing.library.dom.fireEvent
 import testing.library.react.cleanup
 import testing.library.react.runReactTest
 import web.html.HtmlTagName.button
@@ -24,19 +25,19 @@ class VoidComponentMemoTest {
         assertEquals(1, target.dataCount, "Count #1.1")
         assertEquals(1, button.dataCount, "Count #1.2")
 
-        target.simulateChange()
+        fireEvent.change(target)
         assertEquals(2, target.dataCount, "Count #2.1")
         assertEquals(1, button.dataCount, "Count #2.2")
 
-        target.simulateChange()
+        fireEvent.change(target)
         assertEquals(3, target.dataCount, "Count #3.1")
         assertEquals(1, button.dataCount, "Count #3.2")
 
-        button.simulateClick()
+        fireEvent.click(button)
         assertEquals(3, target.dataCount, "Count #4.1")
         assertEquals(2, button.dataCount, "Count #4.2")
 
-        button.simulateClick()
+        fireEvent.click(button)
         assertEquals(3, target.dataCount, "Count #5.1")
         assertEquals(3, button.dataCount, "Count #5.2")
     }

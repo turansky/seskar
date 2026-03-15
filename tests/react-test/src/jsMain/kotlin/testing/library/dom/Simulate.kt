@@ -1,11 +1,17 @@
+// TODO: common extensions?
+
 package testing.library.dom
 
 import web.html.HTMLElement
 
-fun HTMLElement.simulateChange() {
-    fireEvent[EventType.change]!!(this, undefined)
+fun FireEvent.change(
+    target: HTMLElement,
+) {
+    get(EventType.change)!!(target, undefined)
 }
 
-fun HTMLElement.simulateClick() {
-    fireEvent[EventType.click]!!(this, undefined)
+fun FireEvent.click(
+    target: HTMLElement,
+) {
+    get(EventType.click)!!(target, undefined)
 }
