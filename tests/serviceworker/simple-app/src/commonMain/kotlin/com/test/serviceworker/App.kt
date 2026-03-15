@@ -1,8 +1,9 @@
 package com.test.serviceworker
 
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 import web.console.console
 import web.events.invoke
-import web.events.subscribe
 import web.navigator.navigator
 import web.notifications.Notification
 import web.notifications.NotificationPermission
@@ -17,7 +18,7 @@ import web.window.window
 import web.workers.WorkerType
 import web.workers.module
 
-suspend fun main() {
+suspend fun main(): Unit = coroutineScope {
     console.log("App started!")
 
     val registration = navigator.serviceWorker.register(
@@ -28,14 +29,18 @@ suspend fun main() {
     val serviceWorker = registration.active
         ?: error("Service worker is not active!")
 
-    serviceWorker.errorEvent().subscribe { event ->
-        console.log("Error:")
-        console.log(event)
+    launch {
+        serviceWorker.errorEvent().collect { event ->
+            console.log("Error:")
+            console.log(event)
+        }
     }
 
-    window.messageEvent().subscribe { event ->
-        console.log("Message:")
-        console.log(event.data)
+    launch {
+        window.messageEvent().collect { event ->
+            console.log("Message:")
+            console.log(event.data)
+        }
     }
 
     if (Notification.requestPermission() == NotificationPermission.granted) {
