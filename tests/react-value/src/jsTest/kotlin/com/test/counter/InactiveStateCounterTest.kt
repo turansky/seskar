@@ -1,6 +1,6 @@
 package com.test.counter
 
-import testing.library.dom.fire
+import testing.library.dom.fireEvent
 import testing.library.react.cleanup
 import testing.library.react.runReactTest
 import web.dom.changeEvent
@@ -24,16 +24,16 @@ class InactiveStateCounterTest {
 
         assertEquals(1, target.dataCount, "Count #0")
 
-        target.changeEvent.fire()
+        fireEvent(target.changeEvent)
         assertEquals(1, target.dataCount, "Count #1")
 
-        target.changeEvent.fire()
+        fireEvent(target.changeEvent)
         assertEquals(1, target.dataCount, "Count #2")
 
-        target.changeEvent.fire()
+        fireEvent(target.changeEvent)
         assertEquals(1, target.dataCount, "Count #3")
 
-        target.changeEvent.fire()
+        fireEvent(target.changeEvent)
         assertEquals(1, target.dataCount, "Count #4")
     }
 }
