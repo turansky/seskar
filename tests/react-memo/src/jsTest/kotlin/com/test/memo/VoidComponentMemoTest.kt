@@ -1,22 +1,15 @@
 package com.test.memo
 
 import testing.library.dom.fireEvent
-import testing.library.react.cleanup
 import testing.library.react.runReactTest
 import web.dom.changeEvent
 import web.dom.clickEvent
 import web.html.HtmlTagName.button
 import web.html.HtmlTagName.div
-import kotlin.test.AfterTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class VoidComponentMemoTest {
-    @AfterTest
-    fun afterTest() {
-        cleanup()
-    }
-
     @Test
     fun initial() = runReactTest(VoidCounterApp) { container ->
         val target = container.getElementsByTagName(div)[0]

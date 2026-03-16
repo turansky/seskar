@@ -1,21 +1,14 @@
 package com.test.counter
 
 import testing.library.dom.fireEvent
-import testing.library.react.cleanup
 import testing.library.react.runReactTest
 import web.dom.changeEvent
 import web.html.HtmlTagName.div
-import kotlin.test.AfterTest
 import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class InactiveStateCounterTest {
-    @AfterTest
-    fun afterTest() {
-        cleanup()
-    }
-
     // TODO: fix
     @Ignore
     @Test

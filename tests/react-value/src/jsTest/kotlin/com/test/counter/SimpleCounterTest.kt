@@ -15,7 +15,7 @@ class SimpleCounterTest {
     fun afterTest() {
         cleanup()
     }
-    
+
     @Test
     fun initial() = runJsTest {
         val buttons = document.body.getElementsByTagName(button)
