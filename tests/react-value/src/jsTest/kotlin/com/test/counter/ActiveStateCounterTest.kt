@@ -1,9 +1,9 @@
 package com.test.counter
 
-import testing.library.dom.change
-import testing.library.dom.fireEvent
+import testing.library.dom.fire
 import testing.library.react.cleanup
 import testing.library.react.runReactTest
+import web.dom.changeEvent
 import web.html.HtmlTagName.div
 import kotlin.test.AfterTest
 import kotlin.test.Test
@@ -21,16 +21,16 @@ class ActiveStateCounterTest {
 
         assertEquals(1, target.dataCount, "Count #0")
 
-        fireEvent.change(target)
+        target.changeEvent.fire()
         assertEquals(2, target.dataCount, "Count #1")
 
-        fireEvent.change(target)
+        target.changeEvent.fire()
         assertEquals(3, target.dataCount, "Count #2")
 
-        fireEvent.change(target)
+        target.changeEvent.fire()
         assertEquals(4, target.dataCount, "Count #3")
 
-        fireEvent.change(target)
+        target.changeEvent.fire()
         assertEquals(5, target.dataCount, "Count #4")
     }
 }

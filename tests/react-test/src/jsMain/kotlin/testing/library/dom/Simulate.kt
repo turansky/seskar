@@ -2,16 +2,23 @@
 
 package testing.library.dom
 
+import js.internal.InternalApi
+import react.act
+import web.events.Event
+import web.events.EventInstance
 import web.html.HTMLElement
+import web.pointer.PointerEvent
 
-fun FireEvent.change(
-    target: HTMLElement,
-) {
-    get(EventType.change)!!(target, undefined)
+@OptIn(InternalApi::class)
+suspend fun EventInstance<Event, HTMLElement, *>.fire() {
+    act {
+        target.dispatchEvent(Event(type))
+    }
 }
 
-fun FireEvent.click(
-    target: HTMLElement,
-) {
-    get(EventType.click)!!(target, undefined)
+@OptIn(InternalApi::class)
+suspend fun EventInstance<PointerEvent, HTMLElement, *>.fire() {
+    act {
+        target.dispatchEvent(PointerEvent(type))
+    }
 }

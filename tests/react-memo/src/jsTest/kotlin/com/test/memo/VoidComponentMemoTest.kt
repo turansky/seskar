@@ -1,10 +1,10 @@
 package com.test.memo
 
-import testing.library.dom.change
-import testing.library.dom.click
-import testing.library.dom.fireEvent
+import testing.library.dom.fire
 import testing.library.react.cleanup
 import testing.library.react.runReactTest
+import web.dom.changeEvent
+import web.dom.clickEvent
 import web.html.HtmlTagName.button
 import web.html.HtmlTagName.div
 import kotlin.test.AfterTest
@@ -25,19 +25,19 @@ class VoidComponentMemoTest {
         assertEquals(1, target.dataCount, "Count #1.1")
         assertEquals(1, button.dataCount, "Count #1.2")
 
-        fireEvent.change(target)
+        target.changeEvent.fire()
         assertEquals(2, target.dataCount, "Count #2.1")
         assertEquals(1, button.dataCount, "Count #2.2")
 
-        fireEvent.change(target)
+        target.changeEvent.fire()
         assertEquals(3, target.dataCount, "Count #3.1")
         assertEquals(1, button.dataCount, "Count #3.2")
 
-        fireEvent.click(button)
+        button.clickEvent.fire()
         assertEquals(3, target.dataCount, "Count #4.1")
         assertEquals(2, button.dataCount, "Count #4.2")
 
-        fireEvent.click(button)
+        button.clickEvent.fire()
         assertEquals(3, target.dataCount, "Count #5.1")
         assertEquals(3, button.dataCount, "Count #5.2")
     }
