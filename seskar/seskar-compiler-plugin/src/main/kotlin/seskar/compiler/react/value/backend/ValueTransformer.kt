@@ -16,6 +16,9 @@ import seskar.compiler.common.backend.irCall
 internal class ValueTransformer(
     private val context: IrPluginContext,
 ) : IrElementTransformerVoid() {
+
+    private val symbols = Symbols(context)
+
     override fun visitCall(
         expression: IrCall,
     ): IrExpression {
@@ -82,10 +85,10 @@ internal class ValueTransformer(
         nullable: Boolean,
     ): IrExpression =
         if (nullable) {
-            irCall(context.irBuiltIns.extensionToString)
+            irCall(symbols.extensionToString)
                 .also { it.arguments[0] = element }
         } else {
-            irCall(context.irBuiltIns.memberToString)
+            irCall(symbols.memberToString)
                 .also { it.dispatchReceiver = element }
         }
 }
