@@ -14,7 +14,4 @@ tasks.withType<KotlinCompilationTask<*>>().configureEach {
         "-opt-in=org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi",
         "-opt-in=org.jetbrains.kotlin.ir.symbols.UnsafeDuringIrConstructionAPI",
     )
-
-    // TODO: remove
-    compilerOptions.allWarningsAsErrors = false
 }
