@@ -9,6 +9,14 @@ import org.jetbrains.kotlin.util.OperatorNameConventions.GET
 import org.jetbrains.kotlin.util.OperatorNameConventions.INVOKE
 import org.jetbrains.kotlin.util.OperatorNameConventions.SET
 
+private fun kotlinJsAnnotation(
+    className: String,
+): ClassId =
+    ClassId(
+        FqName("kotlin.js"),
+        Name.identifier(className),
+    )
+
 private fun nativeAnnotation(
     className: String,
 ): ClassId =
@@ -20,7 +28,7 @@ private fun nativeAnnotation(
 private val ANNOTATION_MAP = mapOf(
     GET to nativeAnnotation("JsNativeGetter"),
     SET to nativeAnnotation("JsNativeSetter"),
-    INVOKE to nativeAnnotation("JsNativeInvoke"),
+    INVOKE to kotlinJsAnnotation("nativeInvoke"),
 )
 
 internal fun IrFunction.nativeAnnotation(): ClassId? {
