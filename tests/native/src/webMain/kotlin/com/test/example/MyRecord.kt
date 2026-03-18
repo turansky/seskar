@@ -1,12 +1,14 @@
 package com.test.example
 
+import js.numbers.BigInt
+
 sealed external interface MyRecord {
     operator fun get(
         key: String,
-    ): Int
+    ): BigInt
 
     operator fun set(
         key: String,
-        value: Int,
+        value: BigInt,
     )
 }
