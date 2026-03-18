@@ -8,7 +8,6 @@ import kotlinx.coroutines.launch
 import web.console.console
 import web.events.invoke
 import web.workers.errorEvent
-import web.workers.invoke
 import web.workers.messageEvent
 
 suspend fun main(): Unit = coroutineScope {
