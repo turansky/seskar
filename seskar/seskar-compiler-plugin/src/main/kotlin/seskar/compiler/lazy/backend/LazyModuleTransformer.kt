@@ -1,6 +1,5 @@
 package seskar.compiler.lazy.backend
 
-import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.IrStatement
 import org.jetbrains.kotlin.ir.declarations.IrProperty
 import org.jetbrains.kotlin.ir.declarations.name
@@ -10,6 +9,7 @@ import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 import org.jetbrains.kotlin.name.FqName
 import seskar.compiler.common.backend.JsFileName
 import seskar.compiler.common.backend.JsName
+import seskar.compiler.common.backend.SeskarPluginContext
 
 private val TYPE_MAP = mapOf(
     FqName("js.lazy.LazyFunction") to "lazy__function",
@@ -17,7 +17,7 @@ private val TYPE_MAP = mapOf(
 )
 
 internal class LazyModuleTransformer(
-    private val context: IrPluginContext,
+    private val context: SeskarPluginContext,
 ) : IrElementTransformerVoid() {
     override fun visitProperty(declaration: IrProperty): IrStatement {
         if (!declaration.isLazy())

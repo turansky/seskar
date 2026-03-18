@@ -1,6 +1,5 @@
 package seskar.compiler.common.backend
 
-import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.UNDEFINED_OFFSET
 import org.jetbrains.kotlin.ir.declarations.IrDeclarationOrigin
 import org.jetbrains.kotlin.ir.declarations.IrValueParameter
@@ -95,7 +94,7 @@ internal inline fun <reified T> IrConstructorCall.value(
 }
 
 internal fun booleanConst(
-    context: IrPluginContext,
+    context: SeskarPluginContext,
     value: Boolean,
 ): IrExpression =
     IrConstImpl.boolean(
@@ -106,7 +105,7 @@ internal fun booleanConst(
     )
 
 internal fun intConst(
-    context: IrPluginContext,
+    context: SeskarPluginContext,
     value: Int,
 ): IrExpression =
     IrConstImpl.int(
@@ -117,7 +116,7 @@ internal fun intConst(
     )
 
 internal fun doubleConst(
-    context: IrPluginContext,
+    context: SeskarPluginContext,
     value: Double,
 ): IrExpression =
     IrConstImpl.double(
@@ -128,7 +127,7 @@ internal fun doubleConst(
     )
 
 internal fun stringConst(
-    context: IrPluginContext,
+    context: SeskarPluginContext,
     value: String,
 ): IrExpression =
     IrConstImpl.string(

@@ -1,6 +1,5 @@
 package seskar.compiler.suspend.backend
 
-import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.descriptors.Modality
 import org.jetbrains.kotlin.ir.IrStatement
 import org.jetbrains.kotlin.ir.UNDEFINED_OFFSET
@@ -56,7 +55,7 @@ private val AWAIT_PROMISE_LIKE_WITH_CANCELLATION = CallableId(
 )
 
 internal class ExternalSuspendTransformer(
-    private val context: IrPluginContext,
+    private val context: SeskarPluginContext,
 ) : IrElementTransformerVoid() {
     override fun visitClass(
         declaration: IrClass,
@@ -138,7 +137,7 @@ internal class ExternalSuspendTransformer(
         if (!hasAbortableOptions(declaration))
             return null
 
-        val constructor = context.referenceConstructors(ABORT_CONTROLLER)
+        val constructor = context.findConstructors(ABORT_CONTROLLER)
             .first { it.owner.getValueParameters().isEmpty() }
 
         return irVariable(
@@ -165,7 +164,7 @@ internal class ExternalSuspendTransformer(
         if (!klass.isExternal)
             return false
 
-        val abortable = context.referenceClass(ABORTABLE)
+        val abortable = context.findClass(ABORTABLE)
             ?: return false
 
         return classSymbol.isSubtypeOfClass(abortable)
@@ -189,7 +188,7 @@ internal class ExternalSuspendTransformer(
         valueParameters.forEachIndexed { index, parameter ->
             var value: IrExpression = irGet(parameter)
             if (index == patchIndex) {
-                val patch = irCall(context.referenceFunctions(PATCH_ABORT_OPTIONS).single())
+                val patch = irCall(context.findFunction(PATCH_ABORT_OPTIONS))
                 patch.arguments[0] = value
                 patch.arguments[1] = irGet(controller!!)
                 value = patch
@@ -212,7 +211,7 @@ internal class ExternalSuspendTransformer(
         options: AsyncOptions,
     ): IrExpression {
         val awaitFunctionId = if (options.optional) AWAIT_OPTIONAL_PROMISE_LIKE else AWAIT_PROMISE_LIKE
-        val await = context.referenceFunctions(awaitFunctionId).single()
+        val await = context.findFunction(awaitFunctionId)
 
         val call = irCall(await)
         call.arguments[0] = promiseCall
@@ -223,7 +222,7 @@ internal class ExternalSuspendTransformer(
         promiseCall: IrCall,
         controller: IrVariable,
     ): IrExpression {
-        val await = context.referenceFunctions(AWAIT_PROMISE_LIKE_WITH_CANCELLATION).single()
+        val await = context.findFunction(AWAIT_PROMISE_LIKE_WITH_CANCELLATION)
 
         val call = irCall(await)
         call.arguments[0] = promiseCall
@@ -232,7 +231,7 @@ internal class ExternalSuspendTransformer(
     }
 
     private fun undefined(): IrExpressionBody {
-        val property = context.referenceProperties(UNDEFINED).single()
+        val property = context.findProperty(UNDEFINED)
         return context.irFactory.createExpressionBody(irGet(property))
     }
 }

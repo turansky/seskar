@@ -1,6 +1,5 @@
 package seskar.compiler.react.key.backend
 
-import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.IrElement
 import org.jetbrains.kotlin.ir.IrStatement
 import org.jetbrains.kotlin.ir.declarations.IrFile
@@ -11,6 +10,7 @@ import org.jetbrains.kotlin.ir.visitors.IrTransformer
 import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
+import seskar.compiler.common.backend.SeskarPluginContext
 import seskar.compiler.common.backend.irCall
 import seskar.compiler.common.backend.stringConst
 
@@ -22,7 +22,7 @@ private val SET_DEFAULT_KEY = CallableId(
 )
 
 internal class DefaultKeyTransformer(
-    private val context: IrPluginContext,
+    private val context: SeskarPluginContext,
 ) : IrTransformer<KeyProvider?>() {
     override fun visitFile(
         declaration: IrFile,
@@ -69,7 +69,7 @@ internal class DefaultKeyTransformer(
         if (!expression.symbol.owner.hasAnnotation(ELEMENT_BUILDER))
             return null
 
-        val setDefaultKey = context.referenceFunctions(SET_DEFAULT_KEY).single()
+        val setDefaultKey = context.findFunction(SET_DEFAULT_KEY)
 
         val key = keyProvider.get(expression)
 

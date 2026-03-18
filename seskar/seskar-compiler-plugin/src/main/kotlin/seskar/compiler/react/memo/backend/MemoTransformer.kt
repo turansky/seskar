@@ -1,6 +1,5 @@
 package seskar.compiler.react.memo.backend
 
-import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.IrStatement
 import org.jetbrains.kotlin.ir.declarations.IrProperty
 import org.jetbrains.kotlin.ir.expressions.IrCall
@@ -13,6 +12,7 @@ import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
+import seskar.compiler.common.backend.SeskarPluginContext
 import seskar.compiler.common.backend.irCall
 import seskar.compiler.react.displayname.backend.withDisplayName
 
@@ -38,7 +38,7 @@ private val MEMO = CallableId(
 )
 
 internal class MemoTransformer(
-    private val context: IrPluginContext,
+    private val context: SeskarPluginContext,
 ) : IrElementTransformerVoid() {
     override fun visitProperty(
         declaration: IrProperty,
@@ -111,7 +111,7 @@ internal class MemoTransformer(
     private fun memo(
         componentFactory: IrCall,
     ): IrExpression {
-        val memo = context.referenceFunctions(MEMO).single()
+        val memo = context.findFunction(MEMO)
 
         val call = irCall(memo)
         call.arguments[0] = componentFactory

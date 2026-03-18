@@ -1,6 +1,5 @@
 package seskar.compiler.common.backend
 
-import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.UNDEFINED_OFFSET
 import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
 import org.jetbrains.kotlin.ir.expressions.impl.IrConstructorCallImpl
@@ -24,7 +23,7 @@ private val JS_NAME = ClassId(
 )
 
 internal fun JsFileName(
-    context: IrPluginContext,
+    context: SeskarPluginContext,
     value: String,
 ): IrConstructorCall =
     annotation(
@@ -34,7 +33,7 @@ internal fun JsFileName(
     )
 
 internal fun JsQualifier(
-    context: IrPluginContext,
+    context: SeskarPluginContext,
     value: String,
 ): IrConstructorCall =
     annotation(
@@ -44,7 +43,7 @@ internal fun JsQualifier(
     )
 
 internal fun JsName(
-    context: IrPluginContext,
+    context: SeskarPluginContext,
     value: String,
 ): IrConstructorCall =
     annotation(
@@ -54,11 +53,11 @@ internal fun JsName(
     )
 
 internal fun annotation(
-    context: IrPluginContext,
+    context: SeskarPluginContext,
     classId: ClassId,
     vararg parameters: String,
 ): IrConstructorCall {
-    val symbol = context.referenceConstructors(classId).single()
+    val symbol = context.findConstructor(classId)
     val annotation = IrConstructorCallImpl(
         startOffset = UNDEFINED_OFFSET,
         endOffset = UNDEFINED_OFFSET,

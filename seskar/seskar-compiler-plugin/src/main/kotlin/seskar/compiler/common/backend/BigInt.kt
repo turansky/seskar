@@ -1,6 +1,5 @@
 package seskar.compiler.common.backend
 
-import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.name.FqName
@@ -26,10 +25,10 @@ fun String.toBigIntOrNull(): BigInt? =
         ?.let { BigInt(it.groupValues[1]) }
 
 internal fun bigIntConst(
-    context: IrPluginContext,
+    context: SeskarPluginContext,
     value: BigInt,
 ): IrExpression {
-    val create = irCall(context.referenceFunctions(BIG_INT).last())
+    val create = irCall(context.findFunctions(BIG_INT).last())
 
     create.arguments[0] = stringConst(context, value.value)
 

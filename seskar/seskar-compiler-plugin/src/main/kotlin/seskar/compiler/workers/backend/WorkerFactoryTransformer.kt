@@ -1,6 +1,5 @@
 package seskar.compiler.workers.backend
 
-import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.IrStatement
 import org.jetbrains.kotlin.ir.declarations.IrProperty
 import org.jetbrains.kotlin.ir.declarations.name
@@ -8,9 +7,10 @@ import org.jetbrains.kotlin.ir.util.file
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 import seskar.compiler.common.backend.JsFileName
 import seskar.compiler.common.backend.JsName
+import seskar.compiler.common.backend.SeskarPluginContext
 
 internal class WorkerFactoryTransformer(
-    private val context: IrPluginContext,
+    private val context: SeskarPluginContext,
 ) : IrElementTransformerVoid() {
     override fun visitProperty(declaration: IrProperty): IrStatement {
         if (!declaration.isWorkerFactory())

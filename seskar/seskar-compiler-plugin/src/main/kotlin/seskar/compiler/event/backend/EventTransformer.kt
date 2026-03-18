@@ -1,6 +1,5 @@
 package seskar.compiler.event.backend
 
-import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.IrStatement
 import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.declarations.IrProperty
@@ -11,7 +10,7 @@ import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 import seskar.compiler.common.backend.*
 
 internal class EventTransformer(
-    private val context: IrPluginContext,
+    private val context: SeskarPluginContext,
 ) : IrElementTransformerVoid() {
     override fun visitClass(
         declaration: IrClass,

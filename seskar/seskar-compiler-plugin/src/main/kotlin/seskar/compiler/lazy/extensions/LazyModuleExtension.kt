@@ -1,20 +1,17 @@
 package seskar.compiler.lazy.extensions
 
-import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
-import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.declarations.IrModuleFragment
-import org.jetbrains.kotlin.platform.isJs
+import seskar.compiler.common.backend.SeskarPluginContext
+import seskar.compiler.common.extensions.SeskarGenerationExtension
 import seskar.compiler.lazy.backend.LazyModuleTransformer
 
-internal class LazyModuleExtension : IrGenerationExtension {
+internal class LazyModuleExtension :
+    SeskarGenerationExtension(jsOnly = true) {
+
     override fun generate(
         moduleFragment: IrModuleFragment,
-        pluginContext: IrPluginContext,
+        pluginContext: SeskarPluginContext,
     ) {
-        pluginContext.platform
-            ?.takeIf { it.isJs() }
-            ?: return
-
         moduleFragment.transformChildren(LazyModuleTransformer(pluginContext), null)
     }
 }

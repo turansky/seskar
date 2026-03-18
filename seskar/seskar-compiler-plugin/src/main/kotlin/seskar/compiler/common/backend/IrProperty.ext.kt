@@ -1,13 +1,12 @@
 package seskar.compiler.common.backend
 
-import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.UNDEFINED_OFFSET
 import org.jetbrains.kotlin.ir.declarations.IrProperty
 import org.jetbrains.kotlin.ir.declarations.createBlockBody
 import org.jetbrains.kotlin.ir.expressions.IrExpression
 
 internal fun IrProperty.addInlineGetter(
-    context: IrPluginContext,
+    context: SeskarPluginContext,
     value: IrExpression,
 ) {
     val getter = getter

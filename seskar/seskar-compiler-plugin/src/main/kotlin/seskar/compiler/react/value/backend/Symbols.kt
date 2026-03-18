@@ -1,10 +1,10 @@
 package seskar.compiler.react.value.backend
 
-import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.symbols.IrSimpleFunctionSymbol
 import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
+import seskar.compiler.common.backend.SeskarPluginContext
 
 private val MEMBER_TO_STRING = CallableId(
     packageName = FqName("kotlin"),
@@ -18,17 +18,13 @@ private val EXTENSION_TO_STRING = CallableId(
 )
 
 internal class Symbols(
-    private val context: IrPluginContext,
+    private val context: SeskarPluginContext,
 ) {
     val extensionToString: IrSimpleFunctionSymbol by lazy {
-        context.finderForBuiltins()
-            .findFunctions(EXTENSION_TO_STRING)
-            .single()
+        context.findFunction(EXTENSION_TO_STRING)
     }
 
     val memberToString: IrSimpleFunctionSymbol by lazy {
-        context.finderForBuiltins()
-            .findFunctions(MEMBER_TO_STRING)
-            .single()
+        context.findFunction(MEMBER_TO_STRING)
     }
 }

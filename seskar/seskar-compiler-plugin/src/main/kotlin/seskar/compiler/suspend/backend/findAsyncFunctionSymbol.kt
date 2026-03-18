@@ -1,6 +1,5 @@
 package seskar.compiler.suspend.backend
 
-import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.declarations.IrFile
 import org.jetbrains.kotlin.ir.declarations.IrFunction
@@ -9,10 +8,11 @@ import org.jetbrains.kotlin.ir.util.fqNameWhenAvailable
 import org.jetbrains.kotlin.ir.util.functions
 import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.name.Name
+import seskar.compiler.common.backend.SeskarPluginContext
 import seskar.compiler.common.backend.getValueParameters
 
 internal fun findAsyncFunctionSymbol(
-    context: IrPluginContext,
+    context: SeskarPluginContext,
     function: IrFunction,
 ): IrSimpleFunctionSymbol {
     val parent = function.parent
@@ -26,7 +26,7 @@ internal fun findAsyncFunctionSymbol(
                 callableName = asyncName,
             )
 
-            context.referenceFunctions(functionId)
+            context.findFunctions(functionId)
                 .asSequence()
                 .filter { it.owner.isExternal }
                 .filter { !it.owner.isSuspend }
