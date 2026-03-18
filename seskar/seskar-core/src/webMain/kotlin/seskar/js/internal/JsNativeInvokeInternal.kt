@@ -1,4 +1,16 @@
+// TODO: remove annotation
+
+@file:Suppress(
+    "DEPRECATION",
+)
+
+@file:OptIn(
+    ExperimentalWasmJsInterop::class,
+)
+
 package seskar.js.internal
 
-@Target(AnnotationTarget.FUNCTION)
-internal expect annotation class JsNativeInvokeInternal()
+import kotlin.js.ExperimentalWasmJsInterop
+import kotlin.js.nativeInvoke
+
+typealias JsNativeInvokeInternal = nativeInvoke
