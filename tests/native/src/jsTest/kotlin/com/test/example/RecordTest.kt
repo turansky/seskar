@@ -1,14 +1,15 @@
 package com.test.example
 
 import js.objects.unsafeJso
+import js.reflect.Reflect
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class RecordTest {
     @Test
     fun testRead() {
-        val record: MyRecord = unsafeJso<dynamic> {
-            data = 42
+        val record: MyRecord = unsafeJso {
+            Reflect.set(this, "data", 42)
         }
 
         assertEquals(42, record["data"])
@@ -19,6 +20,6 @@ class RecordTest {
         val record: MyRecord = unsafeJso()
         record["data"] = 42
 
-        assertEquals(42, record.asDynamic().data)
+        assertEquals(42, Reflect.get(record, "data"))
     }
 }
