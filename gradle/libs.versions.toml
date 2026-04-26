@@ -20,8 +20,9 @@ catalogs-kotlinWrappers = { module = "org.jetbrains.kotlin-wrappers:kotlin-wrapp
 [plugins]
 seskar = { id = "io.github.turansky.seskar", version.ref = "seskar" }
 
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlin-jsPlainObjects = { id = "org.jetbrains.kotlin.plugin.js-plain-objects", version.ref = "kotlin" }
 
-nexus-publish = { id = "io.github.gradle-nexus.publish-plugin", version.ref = "nexus-publish" }
+nexusPublish = { id = "io.github.gradle-nexus.publish-plugin", version.ref = "nexus-publish" }
 gradlePluginPublish = { id = "com.gradle.plugin-publish", version.ref = "gradle-plugin-publish" }

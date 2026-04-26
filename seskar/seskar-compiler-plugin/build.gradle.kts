@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 plugins {
-    kotlin("jvm")
+    alias(libs.plugins.kotlin.jvm)
     id("io.github.turansky.kfc.maven-central-publish")
 }
 

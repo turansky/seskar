@@ -1,12 +1,12 @@
 plugins {
     `kotlin-dsl`
 
-    id("com.gradle.plugin-publish")
+    alias(libs.plugins.gradlePluginPublish)
     id("io.github.turansky.kfc.plugin-publish")
 }
 
 dependencies {
-    compileOnly(kotlin("gradle-plugin"))
+    compileOnly(libs.gradlePlugins.kotlin)
 }
 
 val REPO_URL = "https://github.com/turansky/seskar"
