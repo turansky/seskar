@@ -10,7 +10,7 @@ dependencyResolutionManagement {
     }
 
     versionCatalogs {
-        register("kfc") {
+        create("kfc") {
             from(files("gradle/kfc.versions.toml"))
         }
 

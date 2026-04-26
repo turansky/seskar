@@ -6,11 +6,11 @@ dependencyResolutionManagement {
     }
 
     versionCatalogs {
-        register("libs") {
+        create("libs") {
             from(files("../gradle/libs.versions.toml"))
         }
 
-        register("kfc") {
+        create("kfc") {
             from(files("../gradle/kfc.versions.toml"))
         }
     }
