@@ -2,7 +2,7 @@ plugins {
     `kotlin-dsl`
 
     alias(libs.plugins.gradlePluginPublish)
-    id("io.github.turansky.kfc.plugin-publish")
+    alias(kfc.plugins.pluginPublish)
 }
 
 dependencies {

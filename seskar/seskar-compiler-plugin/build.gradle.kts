@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
-    id("io.github.turansky.kfc.maven-central-publish")
+    alias(kfc.plugins.mavenCentralPublish)
 }
 
 dependencies {

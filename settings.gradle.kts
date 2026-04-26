@@ -11,9 +11,7 @@ dependencyResolutionManagement {
 
     versionCatalogs {
         register("kfc") {
-            val kfcVersion = extra["kfc.version"] as String
-            plugin("application", "io.github.turansky.kfc.application").version(kfcVersion)
-            plugin("library", "io.github.turansky.kfc.library").version(kfcVersion)
+            from(files("gradle/kfc.versions.toml"))
         }
 
         register("kotlinWrappers") {

@@ -1,0 +1,8 @@
+[versions]
+kfc = "18.7.0"
+
+[plugins]
+application = { id = "io.github.turansky.kfc.application", version.ref = "kfc" }
+library = { id = "io.github.turansky.kfc.library", version.ref = "kfc" }
+mavenCentralPublish = { id = "io.github.turansky.kfc.maven-central-publish", version.ref = "kfc" }
+pluginPublish = { id = "io.github.turansky.kfc.plugin-publish", version.ref = "kfc" }

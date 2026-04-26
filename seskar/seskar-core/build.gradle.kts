@@ -1,4 +1,4 @@
 plugins {
-    id("io.github.turansky.kfc.library")
-    id("io.github.turansky.kfc.maven-central-publish")
+    alias(kfc.plugins.library)
+    alias(kfc.plugins.mavenCentralPublish)
 }
