@@ -1,3 +1,5 @@
+import org.gradle.api.internal.catalog.DefaultVersionCatalogBuilder
+
 rootProject.name = "seskar"
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
@@ -8,30 +10,21 @@ dependencyResolutionManagement {
     }
 
     versionCatalogs {
-        create("libs") {
-            val kotlinVersion = extra["kotlin.version"] as String
-            plugin("kotlin-multiplatform", "org.jetbrains.kotlin.multiplatform").version(kotlinVersion)
-            plugin("kotlin-jsPlainObjects", "org.jetbrains.kotlin.plugin.js-plain-objects").version(kotlinVersion)
-
-            val seskarVersion = "--predefined--"
-            plugin("seskar", "io.github.turansky.seskar").version(seskarVersion)
-
-            library("kotlin-test", "org.jetbrains.kotlin", "kotlin-test").version(kotlinVersion)
-
-            val coroutinesVersion = extra["kotlinx-coroutines.version"] as String
-            library("coroutines-core", "org.jetbrains.kotlinx", "kotlinx-coroutines-core").version(coroutinesVersion)
-            library("coroutines-test", "org.jetbrains.kotlinx", "kotlinx-coroutines-test").version(coroutinesVersion)
-        }
-
-        create("kfc") {
+        register("kfc") {
             val kfcVersion = extra["kfc.version"] as String
             plugin("application", "io.github.turansky.kfc.application").version(kfcVersion)
             plugin("library", "io.github.turansky.kfc.library").version(kfcVersion)
         }
 
-        create("kotlinWrappers") {
-            val wrappersVersion = extra["kotlin-wrappers.version"] as String
-            from("org.jetbrains.kotlin-wrappers:kotlin-wrappers-catalog:$wrappersVersion")
+        register("kotlinWrappers") {
+            val kotlinWrappersCatalog = named("libs")
+                .map { it as DefaultVersionCatalogBuilder }
+                .map { it.build() }
+                .map { it.getDependencyData("catalogs.kotlinWrappers") }
+                .map { "${it.group}:${it.name}:${it.version}" }
+                .get()
+
+            from(kotlinWrappersCatalog)
         }
     }
 }

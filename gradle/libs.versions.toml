@@ -1,0 +1,27 @@
+[versions]
+coroutines = "1.10.2"
+kotlin = "2.3.21"
+kotlin-wrappers = "2026.4.12"
+seskar = "--predefined--"
+
+nexus-publish = "2.0.0"
+gradle-plugin-publish = "2.1.1"
+
+[libraries]
+coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+
+# for convention plugins
+gradlePlugins-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+# version catalogs
+catalogs-kotlinWrappers = { module = "org.jetbrains.kotlin-wrappers:kotlin-wrappers-catalog", version.ref = "kotlin-wrappers" }
+
+[plugins]
+seskar = { id = "io.github.turansky.seskar", version.ref = "seskar" }
+
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlin-jsPlainObjects = { id = "org.jetbrains.kotlin.plugin.js-plain-objects", version.ref = "kotlin" }
+
+nexus-publish = { id = "io.github.gradle-nexus.publish-plugin", version.ref = "nexus-publish" }
+gradlePluginPublish = { id = "com.gradle.plugin-publish", version.ref = "gradle-plugin-publish" }
