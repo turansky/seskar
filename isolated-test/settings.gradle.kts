@@ -7,19 +7,11 @@ dependencyResolutionManagement {
 
     versionCatalogs {
         create("libs") {
-            val kotlinVersion = extra["kotlin.version"] as String
-            plugin("kotlin-multiplatform", "org.jetbrains.kotlin.multiplatform").version(kotlinVersion)
-            plugin("kotlin-jsPlainObjects", "org.jetbrains.kotlin.plugin.js-plain-objects").version(kotlinVersion)
-
-            val seskarVersion = extra["seskar.version"] as String
-            plugin("seskar", "io.github.turansky.seskar").version(seskarVersion)
-
-            library("kotlin-test", "org.jetbrains.kotlin", "kotlin-test").version(kotlinVersion)
+            from(files("../gradle/libs.versions.toml"))
         }
 
         create("kfc") {
-            val kfcVersion = extra["kfc.version"] as String
-            plugin("application", "io.github.turansky.kfc.application").version(kfcVersion)
+            from(files("../gradle/kfc.versions.toml"))
         }
     }
 }
