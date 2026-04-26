@@ -10,6 +10,10 @@ dependencyResolutionManagement {
     }
 
     versionCatalogs {
+        create("libs") {
+            version("seskar", "--predefined--")
+        }
+
         create("kfc") {
             from(files("gradle/kfc.versions.toml"))
         }
