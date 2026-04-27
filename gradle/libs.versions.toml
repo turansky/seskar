@@ -2,7 +2,7 @@
 coroutines = "1.10.2"
 kotlin = "2.3.21"
 kotlin-wrappers = "2026.4.12"
-seskar = "4.40.0"
+seskar = "4.42.0"
 
 nexus-publish = "2.0.0"
 gradle-plugin-publish = "2.1.1"
