@@ -1,5 +1,5 @@
 [versions]
-kfc = "18.7.0"
+kfc = "18.8.0"
 
 [plugins]
 application = { id = "io.github.turansky.kfc.application", version.ref = "kfc" }
