@@ -7,6 +7,7 @@ import org.gradle.api.tasks.Sync
 import org.gradle.kotlin.dsl.filter
 import org.gradle.kotlin.dsl.named
 import org.gradle.kotlin.dsl.register
+import org.jetbrains.kotlin.gradle.targets.js.ir.DefaultIncrementalSyncTask
 import org.jetbrains.kotlin.gradle.tasks.IncrementalSyncTask
 import seskar.gradle.plugin.Modules.LAZY_MODULE_SUFFIX
 import seskar.gradle.plugin.Modules.ORIGINAL_MODULE_SUFFIX
@@ -102,12 +103,22 @@ internal class ModulePlugin : Plugin<Project> {
                     into(temporaryDir)
                 }
 
-                tasks.named<IncrementalSyncTask>(configuration.syncTask) {
-                    from.from(generateTask.get().destinationDir)
+                val syncTask = tasks.named<IncrementalSyncTask>(configuration.syncTask)
 
-                    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+                val syncGeneratedModulesTask =
+                    tasks.register<DefaultIncrementalSyncTask>(configuration.syncGeneratedModulesTask) {
+                        group = Seskar.TASK_GROUP
 
+                        from.from(generateTask.get().destinationDir)
+
+                        destinationDirectory.set(syncTask.get().destinationDirectory)
+
+                        duplicatesStrategy = DuplicatesStrategy.INCLUDE
+                    }
+
+                syncTask.configure {
                     dependsOn(generateTask)
+                    finalizedBy(syncGeneratedModulesTask)
                 }
             }
         }
