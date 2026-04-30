@@ -4,6 +4,7 @@ class LazyConfiguration(
     val compileTask: String,
     val syncTask: String,
     val generateTask: String,
+    val syncGeneratedModulesTask: String,
 ) {
     companion object {
         val ALL: List<LazyConfiguration> =
@@ -14,6 +15,7 @@ class LazyConfiguration(
                             compileTask = "compile${groupId}${mode}ExecutableKotlin${suffix}",
                             syncTask = "${prefix}${groupId}${groupId}${mode}ExecutableCompileSync",
                             generateTask = "${prefix}${groupId}${mode}GenerateLazyModules",
+                            syncGeneratedModulesTask = "${prefix}${groupId}${mode}GeneratedLazyModulesSync",
                         )
                     }
                 }
