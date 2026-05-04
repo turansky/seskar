@@ -109,7 +109,7 @@ internal class ModulePlugin : Plugin<Project> {
                     tasks.register<DefaultIncrementalSyncTask>(configuration.syncGeneratedModulesTask) {
                         group = Seskar.TASK_GROUP
 
-                        from.from(generateTask.map { it.destinationDir })
+                        from.from(generateTask)
 
                         destinationDirectory.set(syncTask.flatMap { it.destinationDirectory })
 
