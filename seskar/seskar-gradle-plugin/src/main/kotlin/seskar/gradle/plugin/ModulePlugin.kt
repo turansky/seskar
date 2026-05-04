@@ -109,9 +109,9 @@ internal class ModulePlugin : Plugin<Project> {
                     tasks.register<DefaultIncrementalSyncTask>(configuration.syncGeneratedModulesTask) {
                         group = Seskar.TASK_GROUP
 
-                        from.from(generateTask.get().destinationDir)
+                        from.from(generateTask.map { it.destinationDir })
 
-                        destinationDirectory.set(syncTask.get().destinationDirectory)
+                        destinationDirectory.set(syncTask.flatMap { it.destinationDirectory })
 
                         duplicatesStrategy = DuplicatesStrategy.INCLUDE
                     }
