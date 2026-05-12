@@ -103,11 +103,9 @@ internal class ModulePlugin : Plugin<Project> {
                 }
 
                 tasks.named<IncrementalSyncTask>(configuration.syncTask) {
-                    from.from(generateTask.get().destinationDir)
+                    from.from(generateTask)
 
                     duplicatesStrategy = DuplicatesStrategy.INCLUDE
-
-                    dependsOn(generateTask)
                 }
             }
         }
