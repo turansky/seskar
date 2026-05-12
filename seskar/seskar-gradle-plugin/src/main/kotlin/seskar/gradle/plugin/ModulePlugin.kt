@@ -16,6 +16,8 @@ import seskar.gradle.plugin.Workers.GENERATED_WORKER_SUFFIX
 import seskar.gradle.plugin.Workers.WORKER_FACTORY_SUFFIX
 import seskar.gradle.plugin.Worklets.GENERATED_WORKLET_MODULE_SUFFIX
 import seskar.gradle.plugin.Worklets.WORKLET_MODULE_SUFFIX
+import java.io.FilterReader
+import kotlin.reflect.KClass
 
 internal class ModulePlugin : Plugin<Project> {
     override fun apply(project: Project): Unit = with(project) {
@@ -29,75 +31,62 @@ internal class ModulePlugin : Plugin<Project> {
                 val generateTask = tasks.register<Sync>(configuration.generateTask) {
                     group = Seskar.TASK_GROUP
 
+                    fun addSource(
+                        originalSuffix: String,
+                        generatedSuffix: String,
+                        generatedFilter: KClass<out FilterReader>? = null,
+                        originalFilter: KClass<out FilterReader>,
+                    ) {
+                        from(compileTask) {
+                            include("**/*$originalSuffix")
+                            rename { it.removeSuffix(originalSuffix) + generatedSuffix }
+
+                            if (generatedFilter != null) {
+                                filter(generatedFilter)
+                            }
+
+                            includeEmptyDirs = false
+                        }
+
+                        from(compileTask) {
+                            include("**/*$originalSuffix")
+
+                            filter(originalFilter)
+
+                            includeEmptyDirs = false
+                        }
+                    }
+
                     // lazy
-                    from(compileTask) {
-                        include("**/*$LAZY_MODULE_SUFFIX")
-                        rename { it.removeSuffix(LAZY_MODULE_SUFFIX) + ORIGINAL_MODULE_SUFFIX }
-
-                        includeEmptyDirs = false
-                    }
-
-                    from(compileTask) {
-                        include("**/*$LAZY_MODULE_SUFFIX")
-
-                        filter(LazyModuleReader::class)
-
-                        includeEmptyDirs = false
-                    }
+                    addSource(
+                        originalSuffix = LAZY_MODULE_SUFFIX,
+                        generatedSuffix = ORIGINAL_MODULE_SUFFIX,
+                        originalFilter = LazyModuleReader::class,
+                    )
 
                     // workers
-                    from(compileTask) {
-                        include("**/*$WORKER_FACTORY_SUFFIX")
-                        rename { it.removeSuffix(WORKER_FACTORY_SUFFIX) + GENERATED_WORKER_SUFFIX }
-
-                        filter(GeneratedWorkerReader::class)
-
-                        includeEmptyDirs = false
-                    }
-
-                    from(compileTask) {
-                        include("**/*$WORKER_FACTORY_SUFFIX")
-
-                        filter(WorkerFactoryReader::class)
-
-                        includeEmptyDirs = false
-                    }
+                    addSource(
+                        originalSuffix = WORKER_FACTORY_SUFFIX,
+                        generatedSuffix = GENERATED_WORKER_SUFFIX,
+                        generatedFilter = GeneratedWorkerReader::class,
+                        originalFilter = WorkerFactoryReader::class,
+                    )
 
                     // service worker
-                    from(compileTask) {
-                        include("**/*$SERVICE_WORKER_MODULE_SUFFIX")
-                        rename { it.removeSuffix(SERVICE_WORKER_MODULE_SUFFIX) + GENERATED_SERVICE_WORKER_MODULE_SUFFIX }
-
-                        filter(GeneratedWorkerReader::class)
-
-                        includeEmptyDirs = false
-                    }
-
-                    from(compileTask) {
-                        include("**/*$SERVICE_WORKER_MODULE_SUFFIX")
-
-                        filter(ServiceWorkerModuleReader::class)
-
-                        includeEmptyDirs = false
-                    }
+                    addSource(
+                        originalSuffix = SERVICE_WORKER_MODULE_SUFFIX,
+                        generatedSuffix = GENERATED_SERVICE_WORKER_MODULE_SUFFIX,
+                        generatedFilter = GeneratedWorkerReader::class,
+                        originalFilter = ServiceWorkerModuleReader::class
+                    )
 
                     // worklet modules
-                    from(compileTask) {
-                        include("**/*$WORKLET_MODULE_SUFFIX")
-                        rename { it.removeSuffix(WORKLET_MODULE_SUFFIX) + GENERATED_WORKLET_MODULE_SUFFIX }
-
-                        filter(GeneratedWorkerReader::class)
-
-                        includeEmptyDirs = false
-                    }
-
-                    from(compileTask) {
-                        include("**/*$WORKLET_MODULE_SUFFIX")
-
-                        filter(WorkletModuleReader::class)
-
-                        includeEmptyDirs = false
-                    }
+                    addSource(
+                        originalSuffix = WORKLET_MODULE_SUFFIX,
+                        generatedSuffix = GENERATED_WORKLET_MODULE_SUFFIX,
+                        generatedFilter = GeneratedWorkerReader::class,
+                        originalFilter = WorkletModuleReader::class,
+                    )
 
                     into(temporaryDir)
                 }
