@@ -5,8 +5,8 @@ enum class GenerationOptions(
     val generatedSuffix: String,
 ) {
     LAZY_MODULE(
-        originalSuffix = "__original__module.mjs",
-        generatedSuffix = "__lazy__module.mjs",
+        originalSuffix = "__lazy__module.mjs",
+        generatedSuffix = "__original__module.mjs",
     ),
 
     WORKER_FACTORY(

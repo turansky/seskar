@@ -31,7 +31,7 @@ fun LazyItemData(
 
     return LazyItemData(
         name = name,
-        originalFilePath = "./$fileName${LAZY_MODULE.originalSuffix}",
+        originalFilePath = "./$fileName${LAZY_MODULE.generatedSuffix}",
         type = type,
         export = export,
     )
