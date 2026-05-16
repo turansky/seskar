@@ -8,14 +8,7 @@ import org.gradle.kotlin.dsl.filter
 import org.gradle.kotlin.dsl.named
 import org.gradle.kotlin.dsl.register
 import org.jetbrains.kotlin.gradle.tasks.IncrementalSyncTask
-import seskar.gradle.plugin.Modules.LAZY_MODULE_SUFFIX
-import seskar.gradle.plugin.Modules.ORIGINAL_MODULE_SUFFIX
-import seskar.gradle.plugin.ServiceWorkers.GENERATED_SERVICE_WORKER_MODULE_SUFFIX
-import seskar.gradle.plugin.ServiceWorkers.SERVICE_WORKER_MODULE_SUFFIX
-import seskar.gradle.plugin.Workers.GENERATED_WORKER_SUFFIX
-import seskar.gradle.plugin.Workers.WORKER_FACTORY_SUFFIX
-import seskar.gradle.plugin.Worklets.GENERATED_WORKLET_MODULE_SUFFIX
-import seskar.gradle.plugin.Worklets.WORKLET_MODULE_SUFFIX
+import seskar.gradle.plugin.GenerationOptions.*
 import java.io.FilterReader
 import kotlin.reflect.KClass
 
@@ -32,11 +25,13 @@ internal class ModulePlugin : Plugin<Project> {
                     group = Seskar.TASK_GROUP
 
                     fun addSource(
-                        originalSuffix: String,
-                        generatedSuffix: String,
+                        options: GenerationOptions,
                         generatedFilter: KClass<out FilterReader>? = null,
                         originalFilter: KClass<out FilterReader>,
                     ) {
+                        val originalSuffix = options.originalSuffix
+                        val generatedSuffix = options.generatedSuffix
+
                         from(compileTask) {
                             include("**/*$originalSuffix")
                             rename { it.removeSuffix(originalSuffix) + generatedSuffix }
@@ -59,31 +54,27 @@ internal class ModulePlugin : Plugin<Project> {
 
                     // lazy
                     addSource(
-                        originalSuffix = LAZY_MODULE_SUFFIX,
-                        generatedSuffix = ORIGINAL_MODULE_SUFFIX,
+                        options = LAZY_MODULE,
                         originalFilter = LazyModuleReader::class,
                     )
 
                     // workers
                     addSource(
-                        originalSuffix = WORKER_FACTORY_SUFFIX,
-                        generatedSuffix = GENERATED_WORKER_SUFFIX,
+                        options = WORKER_FACTORY,
                         generatedFilter = GeneratedWorkerReader::class,
                         originalFilter = WorkerFactoryReader::class,
                     )
 
                     // service worker
                     addSource(
-                        originalSuffix = SERVICE_WORKER_MODULE_SUFFIX,
-                        generatedSuffix = GENERATED_SERVICE_WORKER_MODULE_SUFFIX,
+                        options = SERVICE_WORKER_MODULE,
                         generatedFilter = GeneratedWorkerReader::class,
                         originalFilter = ServiceWorkerModuleReader::class
                     )
 
                     // worklet modules
                     addSource(
-                        originalSuffix = WORKLET_MODULE_SUFFIX,
-                        generatedSuffix = GENERATED_WORKLET_MODULE_SUFFIX,
+                        options = WORKLET_MODULE,
                         generatedFilter = GeneratedWorkerReader::class,
                         originalFilter = WorkletModuleReader::class,
                     )
