@@ -9,14 +9,14 @@ enum class GenerationOptions(
         generatedSuffix = "__lazy__module.mjs",
     ),
 
-    SERVICE_WORKER_MODULE(
-        originalSuffix = "__serviceworker__module.mjs",
-        generatedSuffix = "__generated__serviceworker__module.mjs",
-    ),
-
     WORKER_FACTORY(
         originalSuffix = "__worker__factory.mjs",
         generatedSuffix = "__generated__worker.mjs",
+    ),
+
+    SERVICE_WORKER_MODULE(
+        originalSuffix = "__serviceworker__module.mjs",
+        generatedSuffix = "__generated__serviceworker__module.mjs",
     ),
 
     WORKLET_MODULE(
