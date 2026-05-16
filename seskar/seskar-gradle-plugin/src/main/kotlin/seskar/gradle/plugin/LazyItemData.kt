@@ -1,8 +1,8 @@
 package seskar.gradle.plugin
 
+import seskar.gradle.plugin.GenerationOptions.LAZY_MODULE
 import seskar.gradle.plugin.LazyItemType.LAZY_FUNCTION
 import seskar.gradle.plugin.LazyItemType.LAZY_REACT_COMPONENT
-import seskar.gradle.plugin.Modules.ORIGINAL_MODULE_SUFFIX
 
 data class LazyItemData(
     val name: String,
@@ -31,7 +31,7 @@ fun LazyItemData(
 
     return LazyItemData(
         name = name,
-        originalFilePath = "./$fileName$ORIGINAL_MODULE_SUFFIX",
+        originalFilePath = "./$fileName${LAZY_MODULE.originalSuffix}",
         type = type,
         export = export,
     )

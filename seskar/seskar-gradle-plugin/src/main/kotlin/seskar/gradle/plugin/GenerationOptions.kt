@@ -5,23 +5,23 @@ enum class GenerationOptions(
     val generatedSuffix: String,
 ) {
     LAZY_MODULE(
-        "__lazy__module.mjs",
-        "__original__module.mjs",
+        originalSuffix = "__original__module.mjs",
+        generatedSuffix = "__lazy__module.mjs",
     ),
 
     SERVICE_WORKER_MODULE(
-        "__serviceworker__module.mjs",
-        "__generated__serviceworker__module.mjs",
+        originalSuffix = "__serviceworker__module.mjs",
+        generatedSuffix = "__generated__serviceworker__module.mjs",
     ),
 
     WORKER_FACTORY(
-        "__worker__factory.mjs",
-        "__generated__worker.mjs",
+        originalSuffix = "__worker__factory.mjs",
+        generatedSuffix = "__generated__worker.mjs",
     ),
 
     WORKLET_MODULE(
-        "__worklet__module.mjs",
-        "__generated__worklet__module.mjs",
+        originalSuffix = "__worklet__module.mjs",
+        generatedSuffix = "__generated__worklet__module.mjs",
     ),
 
     ;

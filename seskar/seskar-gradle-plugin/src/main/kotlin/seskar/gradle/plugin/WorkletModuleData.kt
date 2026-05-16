@@ -1,6 +1,6 @@
 package seskar.gradle.plugin
 
-import seskar.gradle.plugin.Worklets.GENERATED_WORKLET_MODULE_SUFFIX
+import seskar.gradle.plugin.GenerationOptions.WORKLET_MODULE
 
 data class WorkletModuleData(
     val modulePath: String,
@@ -20,7 +20,7 @@ fun WorkletModuleData(
     val (_, fileName, _, _) = names
 
     return WorkletModuleData(
-        modulePath = "./$fileName$GENERATED_WORKLET_MODULE_SUFFIX",
+        modulePath = "./$fileName${WORKLET_MODULE.generatedSuffix}",
         export = export,
     )
 }

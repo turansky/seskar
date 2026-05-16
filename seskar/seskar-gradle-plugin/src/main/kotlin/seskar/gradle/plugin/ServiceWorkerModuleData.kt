@@ -1,6 +1,6 @@
 package seskar.gradle.plugin
 
-import seskar.gradle.plugin.ServiceWorkers.GENERATED_SERVICE_WORKER_MODULE_SUFFIX
+import seskar.gradle.plugin.GenerationOptions.SERVICE_WORKER_MODULE
 
 data class ServiceWorkerModuleData(
     val modulePath: String,
@@ -20,7 +20,7 @@ fun ServiceWorkerModuleData(
     val (_, fileName, _, _) = names
 
     return ServiceWorkerModuleData(
-        modulePath = "./$fileName$GENERATED_SERVICE_WORKER_MODULE_SUFFIX",
+        modulePath = "./$fileName${SERVICE_WORKER_MODULE.generatedSuffix}",
         export = export,
     )
 }

@@ -1,6 +1,6 @@
 package seskar.gradle.plugin
 
-import seskar.gradle.plugin.Workers.GENERATED_WORKER_SUFFIX
+import seskar.gradle.plugin.GenerationOptions.WORKER_FACTORY
 
 data class WorkerData(
     val workerPath: String,
@@ -20,7 +20,7 @@ fun WorkerData(
     val (_, fileName, _, _) = names
 
     return WorkerData(
-        workerPath = "./$fileName$GENERATED_WORKER_SUFFIX",
+        workerPath = "./$fileName${WORKER_FACTORY.generatedSuffix}",
         export = export,
     )
 }
