@@ -1,6 +1,5 @@
 package seskar.gradle.plugin
 
-import org.gradle.api.Task
 import org.gradle.api.file.Directory
 import org.gradle.api.provider.Provider
 import org.jetbrains.kotlin.gradle.tasks.IncrementalSyncTask
@@ -13,7 +12,7 @@ internal fun IncrementalSyncTask.excludeOriginalSources() {
     from.setFrom(from.from.map(::withDirectoryFilter))
 }
 
-private fun Task.withDirectoryFilter(
+private fun withDirectoryFilter(
     source: Any,
 ): Any {
     if (source !is Provider<*>)
@@ -23,7 +22,7 @@ private fun Task.withDirectoryFilter(
         if (value !is Directory)
             return@map value
 
-        project.fileTree(value) {
+        value.asFileTree.matching {
             exclude(ORIGINAL_FILE_FILTERS)
         }
     }
