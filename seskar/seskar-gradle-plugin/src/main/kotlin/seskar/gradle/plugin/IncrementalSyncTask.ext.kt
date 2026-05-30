@@ -12,22 +12,26 @@ private val ORIGINAL_FILE_FILTERS: List<String> =
         .map { "**/*${it.originalSuffix}" }
 
 internal fun IncrementalSyncTask.excludeOriginalSources() {
-    from.setFrom(from.from.map(::withDirectoryFilter))
-}
+    val initialSources = from.from
 
-private fun withDirectoryFilter(
-    source: Any,
-): Any {
-    if (!isKotlinCompileDirectoryProvider(source))
-        return source
+    val initialCompileDirectoryProvider = initialSources
+        .singleOrNull(::isKotlinCompileDirectoryProvider)
+        ?: error("Unable to find single compile directory provider!")
 
-    return (source as Provider<*>)
+    val newCompileDirectoryProvider = initialCompileDirectoryProvider
+        .let { it as Provider<*> }
         .map { it as Directory }
         .map { directory ->
             directory.asFileTree.matching {
                 exclude(ORIGINAL_FILE_FILTERS)
             }
         }
+
+    val newSources = initialSources
+        .minus(initialCompileDirectoryProvider)
+        .plus(newCompileDirectoryProvider)
+
+    from.setFrom(newSources)
 }
 
 private fun isKotlinCompileDirectoryProvider(
