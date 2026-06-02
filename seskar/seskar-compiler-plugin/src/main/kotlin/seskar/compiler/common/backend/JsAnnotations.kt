@@ -1,8 +1,8 @@
 package seskar.compiler.common.backend
 
 import org.jetbrains.kotlin.ir.UNDEFINED_OFFSET
-import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
-import org.jetbrains.kotlin.ir.expressions.impl.IrConstructorCallImpl
+import org.jetbrains.kotlin.ir.expressions.IrAnnotation
+import org.jetbrains.kotlin.ir.expressions.impl.IrAnnotationImpl
 import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
@@ -25,7 +25,7 @@ private val JS_NAME = ClassId(
 internal fun JsFileName(
     context: SeskarPluginContext,
     value: String,
-): IrConstructorCall =
+): IrAnnotation =
     annotation(
         context = context,
         classId = JS_FILE_NAME,
@@ -35,7 +35,7 @@ internal fun JsFileName(
 internal fun JsQualifier(
     context: SeskarPluginContext,
     value: String,
-): IrConstructorCall =
+): IrAnnotation =
     annotation(
         context = context,
         classId = JS_QUALIFIER,
@@ -45,7 +45,7 @@ internal fun JsQualifier(
 internal fun JsName(
     context: SeskarPluginContext,
     value: String,
-): IrConstructorCall =
+): IrAnnotation =
     annotation(
         context = context,
         classId = JS_NAME,
@@ -56,16 +56,15 @@ internal fun annotation(
     context: SeskarPluginContext,
     classId: ClassId,
     vararg parameters: String,
-): IrConstructorCall {
+): IrAnnotation {
     val symbol = context.findConstructor(classId)
-    val annotation = IrConstructorCallImpl(
+    val annotation = IrAnnotationImpl(
         startOffset = UNDEFINED_OFFSET,
         endOffset = UNDEFINED_OFFSET,
         type = symbol.owner.returnType,
         symbol = symbol,
         typeArgumentsCount = 0,
         constructorTypeArgumentsCount = 0,
-        origin = null,
     )
 
     for ((index, value) in parameters.withIndex()) {
