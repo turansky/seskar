@@ -72,7 +72,7 @@ internal class JsAnySupertypeGenerationExtension(session: FirSession) :
         getConeType: (T) -> ConeKotlinType?,
     ): Boolean {
         if (supertypes.isEmpty())
-            true
+            return true
 
         val parent = supertypes.singleOrNull()
             ?.let { getConeType(it) }
