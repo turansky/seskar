@@ -1,6 +1,6 @@
 [versions]
 coroutines = "1.10.2"
-kotlin = "2.3.21"
+kotlin = "2.4.0"
 kotlin-wrappers = "2026.6.0"
 seskar = "4.53.0"
 
