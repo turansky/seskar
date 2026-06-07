@@ -1,6 +1,3 @@
-// TEMP
-@file:OptIn(kotlin.js.ExperimentalWasmJsInterop::class)
-
 package com.test.jsany
 
 import com.test.jsany.UserData.Address

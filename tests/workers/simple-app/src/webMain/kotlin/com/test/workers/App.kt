@@ -1,5 +1,5 @@
 // TEMP
-@file:OptIn(kotlin.js.ExperimentalWasmJsInterop::class)
+@file:OptIn(ExperimentalWasmJsInterop::class)
 
 package com.test.workers
 
