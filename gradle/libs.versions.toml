@@ -1,7 +1,7 @@
 [versions]
 coroutines = "1.10.2"
 kotlin = "2.4.0"
-kotlin-wrappers = "2026.6.4"
+kotlin-wrappers = "2026.6.5"
 seskar = "4.60.0"
 
 nexus-publish = "2.0.0"
