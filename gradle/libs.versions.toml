@@ -1,5 +1,5 @@
 [versions]
-coroutines = "1.10.2"
+coroutines = "1.11.0"
 kotlin = "2.4.0"
 kotlin-wrappers = "2026.6.8"
 seskar = "4.60.0"
