@@ -1,6 +1,6 @@
 package com.test.example
 
-import seskar.js.JsMixin
+import js.mixin.JsMixin
 
 open external class HTMLElement
 open external class Window

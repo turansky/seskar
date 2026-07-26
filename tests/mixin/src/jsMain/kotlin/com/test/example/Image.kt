@@ -1,6 +1,6 @@
 package com.test.example
 
-import seskar.js.JsMixin
+import js.mixin.JsMixin
 
 abstract external class HTMLElement
 abstract external class Window
