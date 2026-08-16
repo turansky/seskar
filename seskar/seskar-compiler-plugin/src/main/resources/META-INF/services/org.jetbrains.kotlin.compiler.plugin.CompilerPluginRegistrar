@@ -8,6 +8,7 @@ seskar.compiler.react.memo.extensions.MemoRegistrar
 seskar.compiler.react.value.extensions.ValueRegistrar
 seskar.compiler.serviceworker.extensions.ServiceWorkerRegistrar
 seskar.compiler.suspend.extensions.ExternalSuspendRegistrar
+seskar.compiler.union.extensions.UnionPluginRegistrar
 seskar.compiler.value.extensions.ValueRegistrar
 seskar.compiler.workers.extensions.WorkerFactoryRegistrar
 seskar.compiler.worklets.extensions.WorkletRegistrar
