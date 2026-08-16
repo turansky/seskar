@@ -20,9 +20,18 @@ import org.jetbrains.kotlin.fir.symbols.impl.FirClassLikeSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirClassSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirRegularClassSymbol
 import org.jetbrains.kotlin.fir.toEffectiveVisibility
+import org.jetbrains.kotlin.fir.toFirResolvedTypeRef
+import org.jetbrains.kotlin.name.ClassId
+import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
 import org.jetbrains.kotlin.name.SpecialNames
 import seskar.compiler.common.backend.SeskarPluginKey
+import seskar.compiler.jsany.extensions.jsAnyClassLikeType
+
+private val JS_ANY = ClassId(
+    FqName("kotlin.js"),
+    Name.identifier("JsAny"),
+)
 
 internal class UnionCompanionGenerationExtension(session: FirSession) :
     FirDeclarationGenerationExtension(session) {
@@ -87,7 +96,8 @@ internal class UnionCompanionGenerationExtension(session: FirSession) :
             name = classId.shortClassName
             symbol = FirRegularClassSymbol(classId)
             source = owner.source?.fakeElement(KtFakeSourceElementKind.PluginGenerated)
-            superTypeRefs += session.builtinTypes.anyType
+            superTypeRefs += jsAnyClassLikeType()
+                .toFirResolvedTypeRef(owner.source?.fakeElement(KtFakeSourceElementKind.PluginGenerated))
         }.symbol
     }
 }

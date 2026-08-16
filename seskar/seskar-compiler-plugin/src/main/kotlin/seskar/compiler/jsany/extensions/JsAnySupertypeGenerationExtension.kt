@@ -8,16 +8,8 @@ import org.jetbrains.kotlin.fir.declarations.utils.isExpect
 import org.jetbrains.kotlin.fir.extensions.ExperimentalSupertypesGenerationApi
 import org.jetbrains.kotlin.fir.extensions.FirSupertypeGenerationExtension
 import org.jetbrains.kotlin.fir.types.*
-import org.jetbrains.kotlin.name.ClassId
-import org.jetbrains.kotlin.name.FqName
-import org.jetbrains.kotlin.name.Name
 import org.jetbrains.kotlin.platform.WasmPlatform
 import seskar.compiler.common.backend.isReallyExternal
-
-private val JS_ANY = ClassId(
-    FqName("kotlin.js"),
-    Name.identifier("JsAny"),
-)
 
 internal class JsAnySupertypeGenerationExtension(session: FirSession) :
     FirSupertypeGenerationExtension(session) {
@@ -43,7 +35,7 @@ internal class JsAnySupertypeGenerationExtension(session: FirSession) :
         typeResolver: TypeResolveService,
     ): List<ConeKotlinType> =
         if (isJsMarkerRequired(resolvedSupertypes)) {
-            listOf(JS_ANY.constructClassLikeType())
+            listOf(jsAnyClassLikeType())
         } else emptyList()
 
     @ExperimentalSupertypesGenerationApi
@@ -52,7 +44,7 @@ internal class JsAnySupertypeGenerationExtension(session: FirSession) :
         typeResolver: TypeResolveService,
     ): List<ConeKotlinType> =
         if (isJsMarkerRequired(klass.superTypeRefs)) {
-            listOf(JS_ANY.constructClassLikeType())
+            listOf(jsAnyClassLikeType())
         } else emptyList()
 
     @JvmName("isJsMarkerRequiredFirResolvedTypeRef")
