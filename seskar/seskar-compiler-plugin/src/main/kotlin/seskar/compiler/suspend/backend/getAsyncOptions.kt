@@ -11,16 +11,15 @@ import org.jetbrains.kotlin.name.Name
 private val JS_ASYNC = FqName("seskar.js.JsAsync")
 
 private val OPTIONAL = Name.identifier("optional")
+
 private fun IrAnnotation.value(
     name: Name,
     defaultValue: Boolean = false,
-): Boolean {
-    val argument = argumentMapping[name] as IrConst?
-        ?: return defaultValue
-
-    return argument.value as Boolean?
+): Boolean =
+    argumentMapping[name]
+        ?.let { it as IrConst }
+        ?.let { it.value as Boolean? }
         ?: defaultValue
-}
 
 internal fun IrFunction.getAsyncOptions(): AsyncOptions {
     val async = getAnnotation(JS_ASYNC)
