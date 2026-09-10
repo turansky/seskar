@@ -5,7 +5,7 @@ kotlin-wrappers = "2026.9.1"
 seskar = "4.64.0"
 
 nexus-publish = "2.0.0"
-gradle-plugin-publish = "2.1.1"
+gradle-plugin-publish = "2.2.1"
 
 [libraries]
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
