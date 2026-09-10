@@ -30,3 +30,8 @@ gradlePlugin {
         }
     }
 }
+
+// TODO: remove after https://github.com/gradle/gradle/issues/38634
+tasks.compileKotlin {
+    compilerOptions.freeCompilerArgs.add("-Xwarning-level=DEPRECATED_CLI_ARG:disabled")
+}

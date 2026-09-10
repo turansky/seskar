@@ -88,9 +88,9 @@ internal class UnionCompanionGenerationExtension(session: FirSession) :
             }
             name = classId.shortClassName
             symbol = FirRegularClassSymbol(classId)
-            source = owner.source?.fakeElement(KtFakeSourceElementKind.PluginGenerated)
+            source = owner.source?.fakeElement(KtFakeSourceElementKind.PluginGenerated.Default)
             superTypeRefs += jsAnyClassLikeType()
-                .toFirResolvedTypeRef(owner.source?.fakeElement(KtFakeSourceElementKind.PluginGenerated))
+                .toFirResolvedTypeRef(owner.source?.fakeElement(KtFakeSourceElementKind.PluginGenerated.Default))
         }.symbol
     }
 }

@@ -3,7 +3,6 @@ package seskar.compiler.event.backend
 import org.jetbrains.kotlin.ir.declarations.IrProperty
 import org.jetbrains.kotlin.ir.expressions.IrConst
 import org.jetbrains.kotlin.ir.util.getAnnotation
-import org.jetbrains.kotlin.ir.util.getValueArgument
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
 
@@ -14,6 +13,6 @@ internal fun IrProperty.eventType(): String? {
     val event = getAnnotation(JS_EVENT)
         ?: return null
 
-    val type = event.getValueArgument(TYPE) as IrConst
+    val type = event.argumentMapping[TYPE] as IrConst
     return type.value as String
 }
