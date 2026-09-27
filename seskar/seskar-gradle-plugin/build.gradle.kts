@@ -1,3 +1,5 @@
+import org.gradle.plugin.compatibility.compatibility
+
 plugins {
     `kotlin-dsl`
 
@@ -27,6 +29,14 @@ gradlePlugin {
                 "memo",
                 "unions",
             )
+
+            compatibility {
+                features {
+                    configurationCache = true
+                    // https://youtrack.jetbrains.com/projects/KT/issues/KT-57279
+                    isolatedProjects = false
+                }
+            }
         }
     }
 }
